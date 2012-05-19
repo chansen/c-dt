@@ -468,7 +468,7 @@ dt_prev_day_of_week(int dt, int dow, bool current) {
 }
 
 int
-dt_add_quarters(int dt, int delta, int adjust) {
+dt_add_quarters(int dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 
     dt_to_yqd(dt, &y, &q, &d);
@@ -481,14 +481,14 @@ dt_add_quarters(int dt, int delta, int adjust) {
 
         normalize_yq(&ry, &rq);
         diq = days_in_quarter(ry, rq);
-        if (d > diq || (adjust == 2 && d == days_in_quarter(y, q)))
+        if (d > diq || (adjust == DT_SNAP && d == days_in_quarter(y, q)))
             d = diq;
         return dt_from_yqd(ry, rq, d);
     }
 }
 
 int
-dt_add_months(int dt, int delta, int adjust) {
+dt_add_months(int dt, int delta, dt_adjust_t adjust) {
     int y, m, d;
 
     dt_to_ymd(dt, &y, &m, &d);
@@ -501,7 +501,7 @@ dt_add_months(int dt, int delta, int adjust) {
 
         normalize_ym(&ry, &rm);
         dim = days_in_month(ry, rm);
-        if (d > dim || (adjust == 2 && d == days_in_month(y, m)))
+        if (d > dim || (adjust == DT_SNAP && d == days_in_month(y, m)))
             d = dim;
         return dt_from_ymd(ry, rm, d);
     }

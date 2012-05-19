@@ -35,6 +35,12 @@ typedef enum {
     DT_WESTERN,
 } dt_easter_t;
 
+typedef enum {
+    DT_EXCESS,
+    DT_LIMIT,
+    DT_SNAP,
+} dt_adjust_t;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -84,8 +90,8 @@ int   dt_nth_day_of_week      (int dt, int nth, int dow);
 int   dt_next_day_of_week     (int dt, int dow, bool current);
 int   dt_prev_day_of_week     (int dt, int dow, bool current);
 
-int   dt_add_quarters         (int dt, int delta, int adjust);
-int   dt_add_months           (int dt, int delta, int adjust);
+int   dt_add_quarters         (int dt, int delta, dt_adjust_t adjust);
+int   dt_add_months           (int dt, int delta, dt_adjust_t adjust);
 
 int   dt_delta_years          (int dt1, int dt2);
 int   dt_delta_quarters       (int dt1, int dt2);
