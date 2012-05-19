@@ -1,0 +1,386 @@
+=head1 NAME
+
+dt - 
+
+=head1 SYNOPSIS
+
+TBW
+
+=head1 FEATURES
+
+TBW
+
+=head1 INSTALL
+
+TBW
+
+=head1 FUNCTIONS
+
+=head2 dt_from_cjdn
+
+    int dt_from_cjdn(int cjdn);
+
+Returns a date value corresponding to the given chronological Julian day number I<cjdn>.
+
+=head2 dt_from_easter
+
+    int dt_from_easter(int year, dt_easter_t computus);
+
+=head2 dt_from_struct_tm
+
+    int dt_from_struct_tm(const struct tm *tm);
+
+Returns a date value corresponding to the given structure I<tm>. Folowing 
+members of the I<tm> structure must be set: I<tm_year>, I<tm_mon> and I<tm_mday>.
+The I<tm_mon> and I<tm_mday> may be outside usual range and will be normalized 
+during the conversion.
+
+=head2 dt_from_yd
+
+    int dt_from_yd(int year, int day);
+
+Returns a date value corresponding to the given ordinal date: I<year> and I<day>
+of the year (1-366). The I<day> may be outside usual range and will be normalized 
+during the conversion. For example, I<day> 0 converts to last day of previous year.
+
+=head2 dt_from_ymd
+
+    int dt_from_ymd(int year, int month, int day);
+
+Returns a date value corresponding to the given calendar date: I<year>, I<month> 
+of the year (1-12), and I<day> of the month (1-31). The I<month> and I<day> may 
+be outside their usual ranges and will be normalized during the conversion. 
+For example, January 32 converts to February 1.
+
+=head2 dt_from_ywd
+
+    int dt_from_ywd(int year, int week, int day);
+
+Returns a date value corresponding to the given week date: I<year>, I<week> of 
+the year (1-53), and I<day> of the week (1-7). The I<week> and I<day> may be 
+outside their usual ranges and will be normalized during the conversion. 
+
+=head2 dt_from_yqd
+
+    int dt_from_yqd(int year, int quarter, int day);
+
+Returns a date value corresponding to the given quarter date: I<year>, I<quarter> 
+of the year (1-4), and I<day> of the quarter (1-92). The I<quarter> and I<day> may 
+be outside their usual ranges and will be normalized during the conversion.
+
+=head2 dt_valid_yd
+
+    bool dt_valid_yd(int year, int day);
+
+Returns a boolean indicating whether or not the given ordinal date: I<year> and I<day>
+of the year constitute a valid date.
+
+=head2 dt_valid_ymd
+
+    bool dt_valid_ymd(int year, int month, int day);
+
+Returns a boolean indicating whether or not the given calendar date: I<year>, 
+I<month> of the year and I<day> of the month constitute a valid date.
+
+=head2 dt_valid_yqd
+
+    bool dt_valid_yqd(int year, int quarter, int day);
+
+Returns a boolean indicating whether or not the given quarter date: I<year>, 
+I<quarter> of the year and I<day> of the quarter constitute a valid date.
+
+=head2 dt_valid_ywd
+
+    bool dt_valid_ywd(int year, int week, int day);
+
+Returns a boolean indicating whether or not the given week date: I<year>, 
+I<week> of the year and I<day> of the week constitute a valid date.
+
+=head2 dt_to_struct_tm
+
+    void dt_to_struct_tm(int dt, struct tm *tm);
+
+Converts the given date value I<dt> to a broken down time I<struct *tm>. 
+Following members of the I<tm> structure are set: I<tm_year>, I<tm_mon>, 
+I<tm_mday>, I<tm_wday> and I<tm_yday>.
+
+=head2 dt_to_yd
+
+    void dt_to_yd(int dt, int *year, int *day);
+
+Converts the given date value I<dt> to the corresponding ordinal date: I<year> 
+and I<day> of the year (1-366). The pointer parameters may be C<NULL> for any 
+of the results that are not required.
+
+=head2 dt_to_ymd
+
+    void dt_to_ymd(int dt, int *year, int *month, int *day);
+
+Converts the given date value I<dt> to the corresponding calendar date: I<year>, 
+I<month> of the year (1-12) and I<day> of the month (1-31). The pointer 
+parameters may be C<NULL> for any of the results that are not required.
+
+=head2 dt_to_yqd
+
+    void dt_to_yqd(int dt, int *year, int *quarter, int *day);
+
+Converts the given date value I<dt> to the corresponding quarter date: I<year>, 
+I<quarter> of the year (1-4) and I<day> of the quarter (1-92). The pointer 
+parameters may be C<NULL> for any of the results that are not required.
+
+=head2 dt_to_ywd
+
+    void dt_to_ywd(int dt, int *year, int *week, int *day);
+
+Converts the given date value I<dt> to the corresponding week date: I<year>, 
+I<week> of the year (1-53) and I<day> of the week (1=Monday to 7=Sunday). 
+The pointer parameters may be C<NULL> for any of the results that are not required.
+
+=head2 dt_cjdn
+
+    int dt_cjdn(int dt);
+
+Returns the chronological Julian day number for the given date value I<dt>.
+
+=head2 dt_year
+
+    int dt_year(int dt);
+
+Returns the year for the given date value C<dt>.
+
+=head2 dt_quarter
+
+    int dt_quarter(int dt);
+
+Returns the quarter of the year (1-4) for the given date value I<dt>.
+
+=head2 dt_month
+
+    int dt_month(int dt);
+
+Returns the month of the year (1-12) for the given date value I<dt>.
+
+=head2 dt_day_of_year
+
+    int dt_day_of_year(int dt);
+
+Returns the day of the year (1-366) for the given date value I<dt>.
+
+=head2 dt_day_of_quarter
+
+    int dt_day_of_quarter(int dt);
+
+Returns the day of the quarter (1-92) for the given date value I<dt>.
+
+=head2 dt_day_of_month
+
+    int dt_day_of_month(int dt);
+
+Returns the day of the month (1-31) for the given date value I<dt>.
+
+=head2 dt_day_of_week
+
+    int dt_day_of_week(int dt);
+
+Returns the day of the week (1=Monday to 7=Sunday) for the given date value I<dt>.
+
+=head2 dt_week_of_year
+
+    int dt_week_of_year(int dt);
+
+Returns the week of the year (1-53) for the given date value I<dt>.
+
+=head2 dt_year_of_week
+
+    int dt_year_of_week(int dt);
+
+Returns the year of the week for the given date value I<dt>.
+
+=head2 dt_first_day_of_year
+
+    int dt_first_day_of_year(int dt, int delta);
+
+Returns a date value corresponding to the first day of the year for the 
+given date value I<dt>. The I<delta> parameter specifies the number of 
+years to move forward (positive) or backward (negative).
+
+=head2 dt_first_day_of_quarter
+
+    int dt_first_day_of_quarter(int dt, int delta);
+
+Returns a date value corresponding to the first day of the quarter for the 
+given date value I<dt>. The I<delta> parameter specifies the number of
+quarters to move forward (positive) or backward (negative).
+
+=head2 dt_first_day_of_month
+
+    int dt_first_day_of_month(int dt, int delta);
+
+Returns a date value corresponding to the first day of the month for the 
+given date value I<dt>. The I<delta> parameter specifies the number of 
+months to move forward (positive) or backward (negative).
+
+=head2 dt_first_day_of_week
+
+    int dt_first_day_of_week(int dt, int first_dow);
+
+Returns a date value corresponding to the first day of the week for the 
+given date value I<dt>. The I<first_dow> parameter specifies the first 
+day of the week (1=Monday to 7=Sunday).
+
+=head2 dt_last_day_of_year
+
+    int dt_last_day_of_year(int dt, int delta);
+
+Returns a date value corresponding to the last day of the year for the 
+given date value I<dt>. The I<delta> parameter specifies the number of
+years to move forward (positive) or backward (negative).
+
+=head2 dt_last_day_of_quarter
+
+    int dt_last_day_of_quarter(int dt, int delta);
+
+Returns a date value corresponding to the last day of the quarter for the 
+given date value I<dt>. The I<delta> parameter specifies the number of
+quarters to move forward (positive) or backward (negative).
+
+=head2 dt_last_day_of_month
+
+    int dt_last_day_of_month(int dt, int delta);
+
+Returns a date value corresponding to the last day of the month for the 
+given date value I<dt>. The I<delta> parameter specifies the number of
+months to move forward (positive) or backward (negative).
+
+=head2 dt_last_day_of_week
+
+    int dt_last_day_of_week(int dt, int first_dow);
+
+Returns a date value corresponding to the last day of the week for the 
+given date value I<dt>. The I<first_dow> parameter specifies the first 
+day of the week (1=Monday to 7=Sunday).
+
+=head2 dt_nth_day_of_week
+
+    int dt_nth_day_of_week(int dt, int nth, int dow);
+
+Returns the date value corresponding to the I<nth> day of week for given
+date value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+
+B<Example:>
+
+    /* Birthday of Martin Luther King, Jr., the third Monday in January */
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 3, 1);
+    
+    /* Memorial Day, the last Monday in May */
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 5, 31), -1, 1);
+    
+    /* Thanksgiving Day, the fourth Thursday in November */
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 11, 1), 4, 4);
+
+    /* Penultimate Monday of second quarter */
+    dt = dt_nth_day_of_week(dt_from_yqd(2012, 2, 91), -2, 1);
+
+    /* 50th Wednesday of the year */
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 50, 3);
+
+=head2 dt_next_day_of_week
+
+    int dt_next_day_of_week(int dt, int dow, bool current);
+
+=head2 dt_prev_day_of_week
+
+    int dt_prev_day_of_week(int dt, int dow, bool current);
+
+=head2 dt_add_quarters
+
+    int dt_add_quarters(int dt, int delta, dt_adjust_t adjust);
+
+=head2 dt_add_months
+
+    int dt_add_months(int dt, int delta, dt_adjust_t adjust);
+
+Returns a date value corresponding to I<delta> months of the given date value I<dt>.
+The parameter I<adjust> defines the behaviour when the resulting month has fewer
+days than the day component of the month. 
+
+I<(adjust = DT_EXCESS)> If the resulting month has fewer days than the day of 
+month component of the date, then the result is counted forward or backward 
+into the next or previous month by the number of excessive days. Otherwise, 
+the result has the same day of month component as date.
+
+    2012-01-31 + 1 month = 2012-03-02
+    2012-02-29 + 1 month = 2012-03-29
+
+I<(adjust = DT_LIMIT)> If the resulting month has fewer days than the day of 
+month component of the date, then the result is the last day of the resulting
+month. Otherwise, the result has the same day of month component as date.
+
+    2012-01-31 + 1 month = 2012-02-29 *
+    2012-02-29 + 1 month = 2012-03-29
+
+I<(adjust = DT_SNAP)> If date is the last day of the month or if the resulting 
+month has fewer days than the day of month component of the date, then the 
+result is the last day of the resulting month. Otherwise, the result has the 
+same day of month component as date.
+
+    2012-01-31 + 1 month = 2012-02-29 *
+    2012-02-29 + 1 month = 2012-03-31 *
+
+=head2 dt_delta_years
+
+    int dt_delta_years(int dt1, int dt2);
+
+Returns the difference between the given date values I<dt1> and I<dt2> in years.
+The result is equal to I<dt2> - I<dt1> in years. For example the delta between 
+2011-12-31 and 2012-01-01 is 1.
+
+=head2 dt_delta_quarters
+
+    int dt_delta_quarters(int dt1, int dt2);
+
+Returns the difference between the given date values I<dt1> and I<dt2> in quarters.
+The result is equal to I<dt2> - I<dt1> in quarters.
+
+=head2 dt_delta_months
+
+    int dt_delta_months(int dt1, int dt2);
+
+Returns the difference between the given date values I<dt1> and I<dt2> in months.
+The result is equal to I<dt2> - I<dt1> in months. For example the delta between 
+2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 2012-01-31 is 0.
+
+=head2 dt_delta_weeks
+
+    int dt_delta_weeks(int dt1, int dt2);
+
+Returns the difference between the given date values I<dt1> and I<dt2> in weeks.
+The result is equal to I<dt2> - I<dt1> in weeks.
+
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<https://github.com/chansen/c-dt/issues>.
+
+=head2 Source Code
+
+This is open source software.  The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/chansen/c-dt>
+
+  git clone https://github.com/chansen/c-dt.git
+
+=head1 AUTHOR
+
+Christian Hansen <chansen@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2012 Christian Hansen
+
+This is free software; you can redistribute it and/or modify it under the terms 
+of The BSD 2-Clause License.
+
