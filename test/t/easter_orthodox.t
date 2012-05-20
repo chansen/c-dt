@@ -12,7 +12,7 @@ while (<DATA>) {
 
     {
         my $exp = sprintf '%.4d-%.2d-%.2d', $y, $m, $d;
-        my $got = sprintf '%.4d-%.2d-%.2d', dt_to_ymd(dt_from_easter($y, DT_EASTERN));
+        my $got = sprintf '%.4d-%.2d-%.2d', dt_to_ymd(dt_from_easter($y, DT_ORTHODOX));
         is($got, $exp, "dt_to_ymd(dt_from_easter($y))");
     }
 }

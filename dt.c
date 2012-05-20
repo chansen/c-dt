@@ -472,7 +472,7 @@ dt_add_quarters(int dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 
     dt_to_yqd(dt, &y, &q, &d);
-    if (!adjust || d < 91)
+    if (adjust == DT_EXCESS || d < 91)
         return dt_from_yqd(y, q + delta, d);
     else {
         int ry = y;
@@ -492,7 +492,7 @@ dt_add_months(int dt, int delta, dt_adjust_t adjust) {
     int y, m, d;
 
     dt_to_ymd(dt, &y, &m, &d);
-    if (!adjust || d < 28)
+    if (adjust == DT_EXCESS || d < 28)
         return dt_from_ymd(y, m + delta, d);
     else {
         int ry = y;

@@ -19,7 +19,7 @@ STMT_START {                                                \
     HV *stash  = gv_stashpv("dtp", TRUE);
     AV *export = get_av("dtp::EXPORT_OK", TRUE);
 
-    const_iv(DT_EASTERN);
+    const_iv(DT_ORTHODOX);
     const_iv(DT_WESTERN);
 }
 

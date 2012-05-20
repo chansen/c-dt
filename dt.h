@@ -31,7 +31,7 @@
 #include <stdbool.h>
 
 typedef enum {
-    DT_EASTERN,
+    DT_ORTHODOX,
     DT_WESTERN,
 } dt_easter_t;
 
