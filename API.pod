@@ -10,10 +10,6 @@ TBW
 
 TBW
 
-=head1 INSTALL
-
-TBW
-
 =head1 FUNCTIONS
 
 =head2 dt_from_cjdn
@@ -298,6 +294,9 @@ B<Example:>
     
     /* Sunday as the first day of the week */
     dt = dt_first_day_of_week(dt, DT_SUNDAY);
+    
+    /* Saturday as the first day of the week */
+    dt = dt_first_day_of_week(dt, DT_SATURDAY);
 
 =head2 dt_last_day_of_year
 
@@ -331,6 +330,17 @@ Returns a date value corresponding to the last day of the week for the
 given date value I<dt>. The I<first_dow> parameter specifies the first 
 day of the week (1=Monday to 7=Sunday).
 
+B<Example:>
+
+    /* Monday as the first day of the implies Sunday as the last */
+    dt = dt_last_day_of_week(dt, DT_MONDAY);
+    
+    /* Sunday as first day of the week implies Saturday as the last */
+    dt = dt_last_day_of_week(dt, DT_SUNDAY);
+    
+    /* Saturday as the first day of the week implies Friday as the last */
+    dt = dt_last_day_of_week(dt, DT_SATURDAY);
+
 =head2 dt_nth_day_of_week
 
     int dt_nth_day_of_week(int dt, int nth, int dow);
@@ -348,10 +358,10 @@ B<Example:>
     
     /* Thanksgiving Day, the fourth Thursday in November */
     dt = dt_nth_day_of_week(dt_from_ymd(2012, 11, 1), 4, DT_THURSDAY);
-
+    
     /* Penultimate Monday in the second quarter */
     dt = dt_nth_day_of_week(dt_from_yqd(2012, 2, 91), -2, DT_MONDAY);
-
+    
     /* 50th Wednesday of the year */
     dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 50, DT_WEDNESDAY);
 
@@ -368,12 +378,15 @@ B<Example:>
 
     /* 2012-W01-1 */
     dt1 = dt_from_ywd(2012, 1, DT_MONDAY);
-
+    
     /* 2012-W01-1 (dt2 == dt1) */
     dt2 = dt_next_day_of_week(dt1, DT_MONDAY, true);
-
+    
     /* 2012-W02-1 */
     dt3 = dt_next_day_of_week(dt1, DT_MONDAY, false);
+    
+    /* 2012-W01-2 */
+    dt4 = dt_next_day_of_week(dt1, DT_TUESDAY, true);
 
 =head2 dt_prev_day_of_week
 
@@ -394,28 +407,28 @@ the given date value I<dt>.
 
 Returns a date value corresponding to I<delta> months added the given date value I<dt>.
 The parameter I<adjust> defines the behaviour when the resulting month has fewer
-days than the day of the month component for the given date. 
+days than the day of the month for the given date. 
 
 I<(adjust = DT_EXCESS)> If the resulting month has fewer days than the day of 
-month component for the given date, then the result is counted forward or backward 
-into the next or previous month by the number of excessive days. Otherwise, the 
-result has the same day of month component as given date. For example:
+month for the given date, then the result is counted forward or backward into 
+the next or previous month by the number of excessive days. Otherwise, the 
+result has the same day of month as the given date. For example:
 
     2012-01-31 + 1 month = 2012-03-02 *
     2012-02-29 + 1 month = 2012-03-29
 
 I<(adjust = DT_LIMIT)> If the resulting month has fewer days than the day of 
-month component for the given date, then the result is the last day of the 
-resulting month. Otherwise, the result has the same day of month component as 
-given date. For example:
+month for the given date, then the result is the last day of the resulting 
+month. Otherwise, the result has the same day of month as the given date. 
+For example:
 
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-29
 
 I<(adjust = DT_SNAP)> If the given date is the last day of the month or if the 
-resulting month has fewer days than the day of month component for the given date, 
-then the result is the last day of the resulting month. Otherwise, the result has 
-the same day of month component as given date. For example:
+resulting month has fewer days than the day of month for the given date, then 
+the result is the last day of the resulting month. Otherwise, the result has 
+the same day of month as the given date. For example:
 
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-31 *
