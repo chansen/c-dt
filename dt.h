@@ -31,14 +31,24 @@
 #include <stdbool.h>
 
 typedef enum {
+    DT_MONDAY=1,
+    DT_TUESDAY,
+    DT_WEDNESDAY,
+    DT_THURSDAY,
+    DT_FRIDAY,
+    DT_SATURDAY,
+    DT_SUNDAY
+} dt_day_of_week_t;
+
+typedef enum {
     DT_ORTHODOX,
-    DT_WESTERN,
+    DT_WESTERN
 } dt_easter_t;
 
 typedef enum {
     DT_EXCESS,
     DT_LIMIT,
-    DT_SNAP,
+    DT_SNAP
 } dt_adjust_t;
 
 #ifdef __cplusplus
