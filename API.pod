@@ -24,9 +24,9 @@ Returns a date value corresponding to the given chronological Julian day number 
 
 =head2 dt_from_easter
 
-    int dt_from_easter(int year, dt_easter_t computus);
+    int dt_from_easter(int year, dt_computus_t computus);
 
-Returns a date value corresponding to Easter Sunday of the given I<year>. The 
+Returns a date value corresponding to Easter Sunday for the given I<year>. The 
 parameter I<computus> specifies the Easter calculation.
 
 I<(computus = DT_WESTERN)> Calculation based on the Gregorian calendar.
@@ -34,14 +34,25 @@ I<(computus = DT_WESTERN)> Calculation based on the Gregorian calendar.
 I<(computus = DT_ORTHODOX)> Calculation based on the Julian calendar with 
 the Julian date converted to the equivalent Gregorian date.
 
+B<Example:>
+
+    /* Easter Sunday */
+    dt = dt_from_easter(2012, DT_WESTERN);
+
+    /* Good Friday, 2 days before Easter */
+    dt = dt_from_easter(2012, DT_WESTERN) - 2;
+
+    /* Pentecost, 49 days after Easter (50th day of Easter) */
+    dt = dt_from_easter(2012, DT_WESTERN) + 49;
+
 =head2 dt_from_struct_tm
 
     int dt_from_struct_tm(const struct tm *tm);
 
 Returns a date value corresponding to the given structure I<tm>. Folowing 
 members of the I<tm> structure must be set: I<tm_year>, I<tm_mon> and I<tm_mday>.
-The I<tm_mon> and I<tm_mday> may be outside usual range and will be normalized 
-during the conversion.
+The members I<tm_mon> and I<tm_mday> may be outside usual range and will be 
+normalized during the conversion.
 
 =head2 dt_from_yd
 
@@ -49,7 +60,18 @@ during the conversion.
 
 Returns a date value corresponding to the given ordinal date: I<year> and I<day>
 of the year (1-366). The I<day> may be outside usual range and will be normalized 
-during the conversion. For example, I<day> 0 converts to last day of previous year.
+during the conversion.
+
+B<Example:>
+
+    /* First day of the year */
+    dt = dt_from_yd(2012, 1);
+
+    /* Last day of the the previous year */
+    dt = dt_from_yd(2012, 0);
+
+    /* Penultimate day of the previous year */
+    dt = dt_from_yd(2012, -1);
 
 =head2 dt_from_ymd
 
@@ -214,13 +236,13 @@ years to move forward (positive) or backward (negative).
 
 B<Example:>
 
-    /* First day of current year */
+    /* First day of the current year */
     dt = dt_first_day_of_year(dt, 0);
     
-    /* First day of next year */
+    /* First day of the next year */
     dt = dt_first_day_of_year(dt, 1);
     
-    /* First day of previous year */
+    /* First day of the previous year */
     dt = dt_first_day_of_year(dt, -1);
 
 =head2 dt_first_day_of_quarter
@@ -233,13 +255,13 @@ quarters to move forward (positive) or backward (negative).
 
 B<Example:>
 
-    /* First day of current quarter */
+    /* First day of the current quarter */
     dt = dt_first_day_of_quarter(dt, 0);
     
-    /* First day of current quarter next year */
+    /* First day of the current quarter next year */
     dt = dt_first_day_of_quarter(dt, 4);
     
-    /* First day of current quarter previous year */
+    /* First day of the current quarter previous year */
     dt = dt_first_day_of_quarter(dt, -4);
 
 =head2 dt_first_day_of_month
@@ -252,13 +274,13 @@ months to move forward (positive) or backward (negative).
 
 B<Example:>
 
-    /* First day of current month */
+    /* First day of the current month */
     dt = dt_first_day_of_month(dt, 0);
     
-    /* First day of next month */
+    /* First day of the next month */
     dt = dt_first_day_of_month(dt, 1);
     
-    /* First day of current month next year */
+    /* First day of the current month next year */
     dt = dt_first_day_of_month(dt, 12);
 
 =head2 dt_first_day_of_week
@@ -268,6 +290,14 @@ B<Example:>
 Returns a date value corresponding to the first day of the week for the 
 given date value I<dt>. The I<first_dow> parameter specifies the first 
 day of the week (1=Monday to 7=Sunday).
+
+B<Example:>
+
+    /* Monday as the first day of the week */
+    dt = dt_first_day_of_week(dt, DT_MONDAY);
+    
+    /* Sunday as the first day of the week */
+    dt = dt_first_day_of_week(dt, DT_SUNDAY);
 
 =head2 dt_last_day_of_year
 
@@ -311,34 +341,45 @@ value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunda
 B<Example:>
 
     /* Birthday of Martin Luther King, Jr., the third Monday in January */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 3, 1);
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 3, DT_MONDAY);
     
     /* Memorial Day, the last Monday in May */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 5, 31), -1, 1);
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 5, 31), -1, DT_MONDAY);
     
     /* Thanksgiving Day, the fourth Thursday in November */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 11, 1), 4, 4);
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 11, 1), 4, DT_THURSDAY);
 
     /* Penultimate Monday in the second quarter */
-    dt = dt_nth_day_of_week(dt_from_yqd(2012, 2, 91), -2, 1);
+    dt = dt_nth_day_of_week(dt_from_yqd(2012, 2, 91), -2, DT_MONDAY);
 
-    /* 50th Wednesday in the year */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 50, 3);
+    /* 50th Wednesday of the year */
+    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 50, DT_WEDNESDAY);
 
 =head2 dt_next_day_of_week
 
     int dt_next_day_of_week(int dt, int dow, bool current);
 
-Returns a date value corresponding to next or current day of week of the given 
+Returns a date value corresponding to next or current day of week for the given 
 date value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date value must succeed
 the given date value I<dt>.
+
+B<Example:>
+
+    /* 2012-W01-1 */
+    dt1 = dt_from_ywd(2012, 1, DT_MONDAY);
+
+    /* 2012-W01-1 (dt2 == dt1) */
+    dt2 = dt_next_day_of_week(dt1, DT_MONDAY, true);
+
+    /* 2012-W02-1 */
+    dt3 = dt_next_day_of_week(dt1, DT_MONDAY, false);
 
 =head2 dt_prev_day_of_week
 
     int dt_prev_day_of_week(int dt, int dow, bool current);
 
-Returns a date value corresponding to previous or current day of week of the given 
+Returns a date value corresponding to previous or current day of week for the given 
 date value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date value must precede
 the given date value I<dt>.
@@ -351,32 +392,30 @@ the given date value I<dt>.
 
     int dt_add_months(int dt, int delta, dt_adjust_t adjust);
 
-Returns a date value corresponding to I<delta> months of the given date value I<dt>.
+Returns a date value corresponding to I<delta> months added the given date value I<dt>.
 The parameter I<adjust> defines the behaviour when the resulting month has fewer
-days than the day of the month component of the given date value I<dt>. 
+days than the day of the month component for the given date. 
 
 I<(adjust = DT_EXCESS)> If the resulting month has fewer days than the day of 
-month component of the given date value I<dt>, then the result is counted 
-forward or backward into the next or previous month by the number of excessive 
-days. Otherwise, the result has the same day of month component as given date 
-value I<dt>. For example:
+month component for the given date, then the result is counted forward or backward 
+into the next or previous month by the number of excessive days. Otherwise, the 
+result has the same day of month component as given date. For example:
 
     2012-01-31 + 1 month = 2012-03-02 *
     2012-02-29 + 1 month = 2012-03-29
 
 I<(adjust = DT_LIMIT)> If the resulting month has fewer days than the day of 
-month component of the given date value I<dt>, then the result is the last day 
-of the resulting month. Otherwise, the result has the same day of month 
-component as given date value I<dt>. For example:
+month component for the given date, then the result is the last day of the 
+resulting month. Otherwise, the result has the same day of month component as 
+given date. For example:
 
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-29
 
-I<(adjust = DT_SNAP)> If the given date value I<dt> is the last day of the 
-month or if the resulting month has fewer days than the day of month component 
-of the given date value I<dt>, then the result is the last day of the resulting 
-month. Otherwise, the result has the same day of month component as given date 
-value I<dt>. For example:
+I<(adjust = DT_SNAP)> If the given date is the last day of the month or if the 
+resulting month has fewer days than the day of month component for the given date, 
+then the result is the last day of the resulting month. Otherwise, the result has 
+the same day of month component as given date. For example:
 
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-31 *
