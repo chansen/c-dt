@@ -157,7 +157,7 @@ dt_from_cjdn(int n) {
 }
 
 int
-dt_from_easter(int y, dt_easter_t computus) {
+dt_from_easter(int y, dt_computus_t computus) {
     if (y < 1)
         return -1;
     if (computus == DT_WESTERN)

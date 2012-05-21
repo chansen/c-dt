@@ -43,7 +43,7 @@ typedef enum {
 typedef enum {
     DT_ORTHODOX,
     DT_WESTERN
-} dt_easter_t;
+} dt_computus_t;
 
 typedef enum {
     DT_EXCESS,
@@ -56,7 +56,7 @@ extern "C" {
 #endif
 
 int   dt_from_cjdn            (int n);
-int   dt_from_easter          (int y, dt_easter_t computus);
+int   dt_from_easter          (int y, dt_computus_t computus);
 int   dt_from_struct_tm       (const struct tm *tm);
 int   dt_from_yd              (int y, int d);
 int   dt_from_ymd             (int y, int m, int d);
