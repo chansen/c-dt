@@ -19,8 +19,18 @@ STMT_START {                                                \
     HV *stash  = gv_stashpv("dtp", TRUE);
     AV *export = get_av("dtp::EXPORT_OK", TRUE);
 
+    /* dt_easter_t */
     const_iv(DT_ORTHODOX);
     const_iv(DT_WESTERN);
+
+    /* dt_day_of_week_t */
+    const_iv(DT_MONDAY);
+    const_iv(DT_TUESDAY);
+    const_iv(DT_WEDNESDAY);
+    const_iv(DT_THURSDAY);
+    const_iv(DT_FRIDAY);
+    const_iv(DT_SATURDAY);
+    const_iv(DT_SUNDAY);
 }
 
 int

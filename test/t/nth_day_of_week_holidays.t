@@ -16,36 +16,36 @@ sub compute_federal_holidays {
     push @dates, dt_from_ymd($y, 1, 1);
 
     # Birthday of Martin Luther King, Jr., the third Monday in January
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 1, 1), 3, 1);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 1, 1), 3, DT_MONDAY);
 
     # Washington’s Birthday, the third Monday in February
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 2, 1), 3, 1);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 2, 1), 3, DT_MONDAY);
 
     # Memorial Day, the last Monday in May
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 5, 31), -1, 1);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 5, 31), -1, DT_MONDAY);
 
     # Independence Day, July 4
     push @dates, dt_from_ymd($y, 7, 4);
 
     # Labor Day, the first Monday in September 
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 9, 1), 1, 1);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 9, 1), 1, DT_MONDAY);
 
     # Columbus Day, the second Monday in October
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 10, 1), 2, 1);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 10, 1), 2, DT_MONDAY);
 
     # Veterans Day, November 11
     push @dates, dt_from_ymd($y, 11, 11);
 
     # Thanksgiving Day, the fourth Thursday in November
-    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 11, 1), 4, 4);
+    push @dates, dt_nth_day_of_week(dt_from_ymd($y, 11, 1), 4, DT_THURSDAY);
 
     # Christmas Day, December 25
     push @dates, dt_from_ymd($y, 12, 25);
 
     # § 6103. HOLIDAYS (b)
     foreach my $date (@dates) {
-        $date += (dt_day_of_week($date) == 6) ? -1 : +1
-          if dt_day_of_week($date) > 5;
+        $date += (dt_day_of_week($date) == DT_SATURDAY) ? -1 : +1
+          if dt_day_of_week($date) > DT_FRIDAY;
     }
 
     return @dates;
