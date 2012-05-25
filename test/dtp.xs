@@ -33,33 +33,33 @@ STMT_START {                                                \
     const_iv(DT_SUNDAY);
 }
 
-int
+dt_t
 dt_from_cjdn(n)
     int n
 
-int
+dt_t
 dt_from_easter(y, c)
     int y
     int c
 
-int
+dt_t
 dt_from_yd(y, d)
     int y
     int d
 
-int 
+dt_t 
 dt_from_ymd(y, m, d)
     int y
     int m
     int d
 
-int
+dt_t
 dt_from_yqd(y, q, d)
     int y
     int q
     int d
 
-int
+dt_t
 dt_from_ywd(y, w, d)
     int y
     int w
@@ -90,7 +90,7 @@ dt_valid_ywd(y, w, d)
 
 void
 dt_to_yd(dt)
-    int dt
+    dt_t dt
   PREINIT:
     int y, d;
   PPCODE:
@@ -101,7 +101,7 @@ dt_to_yd(dt)
 
 void
 dt_to_ymd(dt)
-    int dt
+    dt_t dt
   PREINIT:
     int y, m, d;
   PPCODE:
@@ -113,7 +113,7 @@ dt_to_ymd(dt)
 
 void
 dt_to_yqd(dt)
-    int dt
+    dt_t dt
   PREINIT:
     int y, q, d;
   PPCODE:
@@ -125,7 +125,7 @@ dt_to_yqd(dt)
 
 void
 dt_to_ywd(dt)
-    int dt
+    dt_t dt
   PREINIT:
     int y, w, d;
   PPCODE:
@@ -137,132 +137,132 @@ dt_to_ywd(dt)
 
 int
 dt_cjdn(dt)
-    int dt
+    dt_t dt
 
 int
 dt_year(dt)
-    int dt
+    dt_t dt
 
 int
 dt_quarter(dt)
-    int dt
+    dt_t dt
 
 int
 dt_month(dt)
-    int dt
+    dt_t dt
 
 int
 dt_day_of_year(dt)
-    int dt
+    dt_t dt
 
 int
 dt_day_of_quarter(dt)
-    int dt
+    dt_t dt
 
 int
 dt_day_of_month(dt)
-    int dt
+    dt_t dt
 
 int
 dt_day_of_week(dt)
-    int dt
+    dt_t dt
 
 int
 dt_week_of_year(dt)
-    int dt
+    dt_t dt
 
 int
 dt_year_of_week(dt)
-    int dt
+    dt_t dt
 
-int
+dt_t
 dt_first_day_of_year(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_first_day_of_quarter(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_first_day_of_month(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_first_day_of_week(dt, first_dow)
-    int dt
+    dt_t dt
     int first_dow
 
-int
+dt_t
 dt_last_day_of_year(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_last_day_of_quarter(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_last_day_of_month(dt, offset)
-    int dt
+    dt_t dt
     int offset
 
-int
+dt_t
 dt_last_day_of_week(dt, first_dow)
-    int dt
+    dt_t dt
     int first_dow
 
-int
+dt_t
 dt_nth_day_of_week(dt, nth, dow)
-    int dt
+    dt_t dt
     int nth
     int dow
 
-int
+dt_t
 dt_next_day_of_week(dt, dow, current)
-    int dt
+    dt_t dt
     int dow
     bool current
 
-int
+dt_t
 dt_prev_day_of_week(dt, dow, current)
-    int dt
+    dt_t dt
     int dow
     bool current
 
-int
+dt_t
 dt_add_quarters(dt, delta, adjust)
-    int dt
+    dt_t dt
     int delta
     int adjust
 
-int
+dt_t
 dt_add_months(dt, delta, adjust)
-    int dt
+    dt_t dt
     int delta
     int adjust
 
 int
 dt_delta_years(dt1, dt2)
-    int dt1
-    int dt2
+    dt_t dt1
+    dt_t dt2
 
 int
 dt_delta_quarters(dt1, dt2)
-    int dt1
-    int dt2
+    dt_t dt1
+    dt_t dt2
 
 int
 dt_delta_months(dt1, dt2)
-    int dt1
-    int dt2
+    dt_t dt1
+    dt_t dt2
 
 int
 dt_delta_weeks(dt1, dt2)
-    int dt1
-    int dt2
+    dt_t dt1
+    dt_t dt2
 
 
