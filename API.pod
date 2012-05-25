@@ -14,21 +14,25 @@ TBW
 
 =head2 dt_from_cjdn
 
-    int dt_from_cjdn(int cjdn);
+    dt_t dt_from_cjdn(int cjdn);
 
-Returns a date value corresponding to the given chronological Julian day number I<cjdn>.
+Returns a date corresponding to the given chronological Julian day number I<cjdn>.
 
 =head2 dt_from_easter
 
-    int dt_from_easter(int year, dt_computus_t computus);
+    dt_t dt_from_easter(int year, dt_computus_t computus);
 
-Returns a date value corresponding to Easter Sunday for the given I<year>. The 
+Returns a date corresponding to Easter Sunday for the given I<year>. The 
 parameter I<computus> specifies the Easter calculation.
 
-I<(computus = DT_WESTERN)> Calculation based on the Gregorian calendar.
+I<(computus = DT_WESTERN)> 
 
-I<(computus = DT_ORTHODOX)> Calculation based on the Julian calendar with 
-the Julian date converted to the equivalent Gregorian date.
+Calculation based on the Gregorian calendar.
+
+I<(computus = DT_ORTHODOX)> 
+
+Calculation based on the Julian calendar with the Julian date converted to the 
+equivalent Gregorian date.
 
 B<Example:>
 
@@ -43,18 +47,18 @@ B<Example:>
 
 =head2 dt_from_struct_tm
 
-    int dt_from_struct_tm(const struct tm *tm);
+    dt_t dt_from_struct_tm(const struct tm *tm);
 
-Returns a date value corresponding to the given structure I<tm>. Folowing 
+Returns a date corresponding to the given structure I<tm>. Folowing 
 members of the I<tm> structure must be set: I<tm_year>, I<tm_mon> and I<tm_mday>.
 The members I<tm_mon> and I<tm_mday> may be outside usual range and will be 
 normalized during the conversion.
 
 =head2 dt_from_yd
 
-    int dt_from_yd(int year, int day);
+    dt_t dt_from_yd(int year, int day);
 
-Returns a date value corresponding to the given ordinal date: I<year> and I<day>
+Returns a date corresponding to the given ordinal date: I<year> and I<day>
 of the year (1-366). The I<day> may be outside usual range and will be normalized 
 during the conversion.
 
@@ -71,26 +75,26 @@ B<Example:>
 
 =head2 dt_from_ymd
 
-    int dt_from_ymd(int year, int month, int day);
+    dt_t dt_from_ymd(int year, int month, int day);
 
-Returns a date value corresponding to the given calendar date: I<year>, I<month> 
+Returns a date corresponding to the given calendar date: I<year>, I<month> 
 of the year (1-12), and I<day> of the month (1-31). The I<month> and I<day> may 
 be outside their usual ranges and will be normalized during the conversion. 
 For example, January 32 converts to February 1.
 
 =head2 dt_from_ywd
 
-    int dt_from_ywd(int year, int week, int day);
+    dt_t dt_from_ywd(int year, int week, int day);
 
-Returns a date value corresponding to the given week date: I<year>, I<week> of 
+Returns a date corresponding to the given week date: I<year>, I<week> of 
 the year (1-53), and I<day> of the week (1-7). The I<week> and I<day> may be 
 outside their usual ranges and will be normalized during the conversion. 
 
 =head2 dt_from_yqd
 
-    int dt_from_yqd(int year, int quarter, int day);
+    dt_t dt_from_yqd(int year, int quarter, int day);
 
-Returns a date value corresponding to the given quarter date: I<year>, I<quarter> 
+Returns a date corresponding to the given quarter date: I<year>, I<quarter> 
 of the year (1-4), and I<day> of the quarter (1-92). The I<quarter> and I<day> may 
 be outside their usual ranges and will be normalized during the conversion.
 
@@ -124,110 +128,110 @@ I<week> of the year and I<day> of the week constitute a valid date.
 
 =head2 dt_to_struct_tm
 
-    void dt_to_struct_tm(int dt, struct tm *tm);
+    void dt_to_struct_tm(dt_t dt, struct tm *tm);
 
-Converts the given date value I<dt> to a broken down time I<struct *tm>. 
+Converts the given date I<dt> to a broken down time I<struct *tm>. 
 Following members of the I<tm> structure are set: I<tm_year>, I<tm_mon>, 
 I<tm_mday>, I<tm_wday> and I<tm_yday>.
 
 =head2 dt_to_yd
 
-    void dt_to_yd(int dt, int *year, int *day);
+    void dt_to_yd(dt_t dt, int *year, int *day);
 
-Converts the given date value I<dt> to the corresponding ordinal date: I<year> 
+Converts the given date I<dt> to the corresponding ordinal date: I<year> 
 and I<day> of the year (1-366). The pointer parameters may be C<NULL> for any 
 of the results that are not required.
 
 =head2 dt_to_ymd
 
-    void dt_to_ymd(int dt, int *year, int *month, int *day);
+    void dt_to_ymd(dt_t dt, int *year, int *month, int *day);
 
-Converts the given date value I<dt> to the corresponding calendar date: I<year>, 
+Converts the given date I<dt> to the corresponding calendar date: I<year>, 
 I<month> of the year (1-12) and I<day> of the month (1-31). The pointer 
 parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_to_yqd
 
-    void dt_to_yqd(int dt, int *year, int *quarter, int *day);
+    void dt_to_yqd(dt_t dt, int *year, int *quarter, int *day);
 
-Converts the given date value I<dt> to the corresponding quarter date: I<year>, 
+Converts the given date I<dt> to the corresponding quarter date: I<year>, 
 I<quarter> of the year (1-4) and I<day> of the quarter (1-92). The pointer 
 parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_to_ywd
 
-    void dt_to_ywd(int dt, int *year, int *week, int *day);
+    void dt_to_ywd(dt_t dt, int *year, int *week, int *day);
 
-Converts the given date value I<dt> to the corresponding week date: I<year>, 
+Converts the given date I<dt> to the corresponding week date: I<year>, 
 I<week> of the year (1-53) and I<day> of the week (1=Monday to 7=Sunday). 
 The pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_cjdn
 
-    int dt_cjdn(int dt);
+    int dt_cjdn(dt_t dt);
 
-Returns the chronological Julian day number for the given date value I<dt>.
+Returns the chronological Julian day number for the given date I<dt>.
 
 =head2 dt_year
 
-    int dt_year(int dt);
+    int dt_year(dt_t dt);
 
-Returns the year for the given date value C<dt>.
+Returns the year for the given date C<dt>.
 
 =head2 dt_quarter
 
-    int dt_quarter(int dt);
+    int dt_quarter(dt_t dt);
 
-Returns the quarter of the year (1-4) for the given date value I<dt>.
+Returns the quarter of the year (1-4) for the given date I<dt>.
 
 =head2 dt_month
 
-    int dt_month(int dt);
+    int dt_month(dt_t dt);
 
-Returns the month of the year (1-12) for the given date value I<dt>.
+Returns the month of the year (1-12) for the given date I<dt>.
 
 =head2 dt_day_of_year
 
-    int dt_day_of_year(int dt);
+    int dt_day_of_year(dt_t dt);
 
-Returns the day of the year (1-366) for the given date value I<dt>.
+Returns the day of the year (1-366) for the given date I<dt>.
 
 =head2 dt_day_of_quarter
 
-    int dt_day_of_quarter(int dt);
+    int dt_day_of_quarter(dt_t dt);
 
-Returns the day of the quarter (1-92) for the given date value I<dt>.
+Returns the day of the quarter (1-92) for the given date I<dt>.
 
 =head2 dt_day_of_month
 
-    int dt_day_of_month(int dt);
+    int dt_day_of_month(dt_t dt);
 
-Returns the day of the month (1-31) for the given date value I<dt>.
+Returns the day of the month (1-31) for the given date I<dt>.
 
 =head2 dt_day_of_week
 
-    int dt_day_of_week(int dt);
+    int dt_day_of_week(dt_t dt);
 
-Returns the day of the week (1=Monday to 7=Sunday) for the given date value I<dt>.
+Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
 
 =head2 dt_week_of_year
 
-    int dt_week_of_year(int dt);
+    int dt_week_of_year(dt_t dt);
 
-Returns the week of the year (1-53) for the given date value I<dt>.
+Returns the week of the year (1-53) for the given date I<dt>.
 
 =head2 dt_year_of_week
 
-    int dt_year_of_week(int dt);
+    int dt_year_of_week(dt_t dt);
 
-Returns the year of the week for the given date value I<dt>.
+Returns the year of the week for the given date I<dt>.
 
 =head2 dt_first_day_of_year
 
-    int dt_first_day_of_year(int dt, int delta);
+    dt_t dt_first_day_of_year(dt_t dt, int delta);
 
-Returns a date value corresponding to the first day of the year for the 
-given date value I<dt>. The I<delta> parameter specifies the number of 
+Returns a date corresponding to the first day of the year for the 
+given date I<dt>. The I<delta> parameter specifies the number of 
 years to move forward (positive) or backward (negative).
 
 B<Example:>
@@ -243,10 +247,10 @@ B<Example:>
 
 =head2 dt_first_day_of_quarter
 
-    int dt_first_day_of_quarter(int dt, int delta);
+    dt_t dt_first_day_of_quarter(dt_t dt, int delta);
 
-Returns a date value corresponding to the first day of the quarter for the 
-given date value I<dt>. The I<delta> parameter specifies the number of
+Returns a date corresponding to the first day of the quarter for the 
+given date I<dt>. The I<delta> parameter specifies the number of
 quarters to move forward (positive) or backward (negative).
 
 B<Example:>
@@ -262,10 +266,10 @@ B<Example:>
 
 =head2 dt_first_day_of_month
 
-    int dt_first_day_of_month(int dt, int delta);
+    dt_t dt_first_day_of_month(dt_t dt, int delta);
 
-Returns a date value corresponding to the first day of the month for the 
-given date value I<dt>. The I<delta> parameter specifies the number of 
+Returns a date corresponding to the first day of the month for the 
+given date I<dt>. The I<delta> parameter specifies the number of 
 months to move forward (positive) or backward (negative).
 
 B<Example:>
@@ -281,10 +285,10 @@ B<Example:>
 
 =head2 dt_first_day_of_week
 
-    int dt_first_day_of_week(int dt, int first_dow);
+    dt_t dt_first_day_of_week(dt_t dt, int first_dow);
 
-Returns a date value corresponding to the first day of the week for the 
-given date value I<dt>. The I<first_dow> parameter specifies the first 
+Returns a date corresponding to the first day of the week for the 
+given date I<dt>. The I<first_dow> parameter specifies the first 
 day of the week (1=Monday to 7=Sunday).
 
 B<Example:>
@@ -300,34 +304,34 @@ B<Example:>
 
 =head2 dt_last_day_of_year
 
-    int dt_last_day_of_year(int dt, int delta);
+    dt_t dt_last_day_of_year(dt_t dt, int delta);
 
-Returns a date value corresponding to the last day of the year for the 
-given date value I<dt>. The I<delta> parameter specifies the number of
+Returns a date corresponding to the last day of the year for the 
+given date I<dt>. The I<delta> parameter specifies the number of
 years to move forward (positive) or backward (negative).
 
 =head2 dt_last_day_of_quarter
 
-    int dt_last_day_of_quarter(int dt, int delta);
+    dt_t dt_last_day_of_quarter(dt_t dt, int delta);
 
-Returns a date value corresponding to the last day of the quarter for the 
-given date value I<dt>. The I<delta> parameter specifies the number of
+Returns a date corresponding to the last day of the quarter for the 
+given date I<dt>. The I<delta> parameter specifies the number of
 quarters to move forward (positive) or backward (negative).
 
 =head2 dt_last_day_of_month
 
-    int dt_last_day_of_month(int dt, int delta);
+    dt_t dt_last_day_of_month(dt_t dt, int delta);
 
-Returns a date value corresponding to the last day of the month for the 
-given date value I<dt>. The I<delta> parameter specifies the number of
+Returns a date corresponding to the last day of the month for the 
+given date I<dt>. The I<delta> parameter specifies the number of
 months to move forward (positive) or backward (negative).
 
 =head2 dt_last_day_of_week
 
-    int dt_last_day_of_week(int dt, int first_dow);
+    dt_t dt_last_day_of_week(dt_t dt, int first_dow);
 
-Returns a date value corresponding to the last day of the week for the 
-given date value I<dt>. The I<first_dow> parameter specifies the first 
+Returns a date corresponding to the last day of the week for the 
+given date I<dt>. The I<first_dow> parameter specifies the first 
 day of the week (1=Monday to 7=Sunday).
 
 B<Example:>
@@ -343,9 +347,9 @@ B<Example:>
 
 =head2 dt_nth_day_of_week
 
-    int dt_nth_day_of_week(int dt, int nth, int dow);
+    dt_t dt_nth_day_of_week(dt_t dt, int nth, int dow);
 
-Returns a date value corresponding to the I<nth> day of week for given date 
+Returns a date corresponding to the I<nth> day of week for given date 
 value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 
 B<Example:>
@@ -367,45 +371,31 @@ B<Example:>
 
 =head2 dt_next_day_of_week
 
-    int dt_next_day_of_week(int dt, int dow, bool current);
+    dt_t dt_next_day_of_week(dt_t dt, int dow, bool current);
 
-Returns a date value corresponding to next or current day of week for the given 
-date value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
-The parameter I<current> specifies whether or not the returned date value must succeed
-the given date value I<dt>.
-
-B<Example:>
-
-    /* 2012-W01-1 */
-    dt1 = dt_from_ywd(2012, 1, DT_MONDAY);
-    
-    /* 2012-W01-1 (dt2 == dt1) */
-    dt2 = dt_next_day_of_week(dt1, DT_MONDAY, true);
-    
-    /* 2012-W02-1 */
-    dt3 = dt_next_day_of_week(dt1, DT_MONDAY, false);
-    
-    /* 2012-W01-2 */
-    dt4 = dt_next_day_of_week(dt1, DT_TUESDAY, true);
+Returns a date corresponding to next or current day of week for the given 
+date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+The parameter I<current> specifies whether or not the returned date must succeed
+the given date I<dt>.
 
 =head2 dt_prev_day_of_week
 
-    int dt_prev_day_of_week(int dt, int dow, bool current);
+    dt_t dt_prev_day_of_week(dt_t dt, int dow, bool current);
 
-Returns a date value corresponding to previous or current day of week for the given 
-date value I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
-The parameter I<current> specifies whether or not the returned date value must precede
-the given date value I<dt>.
+Returns a date corresponding to previous or current day of week for the given 
+date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+The parameter I<current> specifies whether or not the returned date must precede
+the given date I<dt>.
 
 =head2 dt_add_quarters
 
-    int dt_add_quarters(int dt, int delta, dt_adjust_t adjust);
+    dt_t dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust);
 
 =head2 dt_add_months
 
-    int dt_add_months(int dt, int delta, dt_adjust_t adjust);
+    dt_t dt_add_months(dt_t dt, int delta, dt_adjust_t adjust);
 
-Returns a date value corresponding to I<delta> months added the given date value I<dt>.
+Returns a date corresponding to I<delta> months added the given date I<dt>.
 The parameter I<adjust> defines the behaviour when the resulting month has fewer
 days than the day of the month for the given date. 
 
@@ -435,32 +425,32 @@ the same day of month as the given date. For example:
 
 =head2 dt_delta_years
 
-    int dt_delta_years(int dt1, int dt2);
+    int dt_delta_years(dt_t dt1, dt_t dt2);
 
-Returns the difference between the given date values I<dt1> and I<dt2> in years.
+Returns the difference between the given dates I<dt1> and I<dt2> in years.
 The result is equal to I<dt2> - I<dt1> in years. For example the delta between 
 2011-12-31 and 2012-01-01 is 1.
 
 =head2 dt_delta_quarters
 
-    int dt_delta_quarters(int dt1, int dt2);
+    int dt_delta_quarters(dt_t dt1, dt_t dt2);
 
-Returns the difference between the given date values I<dt1> and I<dt2> in quarters.
+Returns the difference between the given dates I<dt1> and I<dt2> in quarters.
 The result is equal to I<dt2> - I<dt1> in quarters.
 
 =head2 dt_delta_months
 
-    int dt_delta_months(int dt1, int dt2);
+    int dt_delta_months(dt_t dt1, dt_t dt2);
 
-Returns the difference between the given date values I<dt1> and I<dt2> in months.
+Returns the difference between the given dates I<dt1> and I<dt2> in months.
 The result is equal to I<dt2> - I<dt1> in months. For example the delta between 
 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 2012-01-31 is 0.
 
 =head2 dt_delta_weeks
 
-    int dt_delta_weeks(int dt1, int dt2);
+    int dt_delta_weeks(dt_t dt1, dt_t dt2);
 
-Returns the difference between the given date values I<dt1> and I<dt2> in weeks.
+Returns the difference between the given dates I<dt1> and I<dt2> in weeks.
 The result is equal to I<dt2> - I<dt1> in weeks.
 
 =head1 SUPPORT

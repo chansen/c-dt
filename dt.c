@@ -34,7 +34,7 @@
 
 #define EPOCH_CJDN 1721425
 
-static int
+static dt_t
 days_preceding_year(int y) {
     int n = 0;
 
@@ -151,12 +151,12 @@ easter_julian(int year) {
     return 28 + a - ((y * 5/4) + a) % 7;
 }
 
-int
+dt_t
 dt_from_cjdn(int n) {
     return n - EPOCH_CJDN;
 }
 
-int
+dt_t
 dt_from_easter(int y, dt_computus_t computus) {
     if (y < 1)
         return -1;
@@ -166,31 +166,31 @@ dt_from_easter(int y, dt_computus_t computus) {
         return dt_from_ymd(y, 3, easter_julian(y) + y/100 - y/400 - 2);
 }
 
-int
+dt_t
 dt_from_struct_tm(const struct tm *tm) {
     return dt_from_ymd(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday);
 }
 
-int
+dt_t
 dt_from_yd(int y, int d) {
     return days_preceding_year(y) + d;
 }
 
-int
+dt_t
 dt_from_ymd(int y, int m, int d) {
     normalize_ym(&y, &m);
     return dt_from_yd(y, days_preceding_month(y, m) + d);
 }
 
-int
+dt_t
 dt_from_yqd(int y, int q, int d) {
     normalize_yq(&y, &q);
     return dt_from_yd(y, days_preceding_quarter(y, q) + d);
 }
 
-int
+dt_t
 dt_from_ywd(int y, int w, int d) {
-    int dt;
+    dt_t dt;
 
     dt  = dt_from_yd(y, 4);
     dt -= dt_day_of_week(dt);
@@ -222,7 +222,7 @@ dt_valid_ywd(int y, int w, int d) {
 }
 
 void
-dt_to_struct_tm(int dt, struct tm *tm) {
+dt_to_struct_tm(dt_t dt, struct tm *tm) {
     int y, m, d;
 
     dt_to_ymd(dt, &y, &m, &d);
@@ -237,13 +237,13 @@ dt_to_struct_tm(int dt, struct tm *tm) {
 #define OFF2100 767009 /* 2100-12-31 */
 
 void
-dt_to_yd(int dt, int *yp, int *dp) {
+dt_to_yd(dt_t dt, int *yp, int *dp) {
     int y, d, n100, n1;
 
     y = 0;
     d = dt;
 #ifndef DT_NO_ASSUMPTIONS
-    /* Assume that most dates are within the years 1900-2100 (inclusive) */
+    /* Assume most dates are between the years 1900-2100 inclusive */
     if (d >= OFF1900 && d <= OFF2100) {
         d -= OFF1900 - 1;
         y += (4 * d) / 1461;
@@ -283,7 +283,7 @@ dt_to_yd(int dt, int *yp, int *dp) {
 }
 
 void
-dt_to_ymd(int dt, int *yp, int *mp, int *dp) {
+dt_to_ymd(dt_t dt, int *yp, int *mp, int *dp) {
     int y, doy, m, l;
 
     dt_to_yd(dt, &y, &doy);
@@ -296,7 +296,7 @@ dt_to_ymd(int dt, int *yp, int *mp, int *dp) {
 }
 
 void
-dt_to_yqd(int dt, int *yp, int *qp, int *dp) {
+dt_to_yqd(dt_t dt, int *yp, int *qp, int *dp) {
     int y, doy, q, l;
 
     dt_to_yd(dt, &y, &doy);
@@ -309,7 +309,7 @@ dt_to_yqd(int dt, int *yp, int *qp, int *dp) {
 }
 
 void
-dt_to_ywd(int dt, int *yp, int *wp, int *dp) {
+dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
     int y, doy, dow;
 
     dt_to_yd(dt, &y, &doy);
@@ -332,54 +332,54 @@ dt_to_ywd(int dt, int *yp, int *wp, int *dp) {
 }
 
 int
-dt_cjdn(int dt) {
+dt_cjdn(dt_t dt) {
     return dt + EPOCH_CJDN;
 }
 
 int
-dt_year(int dt) {
+dt_year(dt_t dt) {
     int y;
     dt_to_yd(dt, &y, NULL);
     return y;
 }
 
 int
-dt_quarter(int dt) {
+dt_quarter(dt_t dt) {
     int q;
     dt_to_yqd(dt, NULL, &q, NULL);
     return q;
 }
 
 int
-dt_month(int dt) {
+dt_month(dt_t dt) {
     int m;
     dt_to_ymd(dt, NULL, &m, NULL);
     return m;
 }
 
 int
-dt_day_of_year(int dt) {
+dt_day_of_year(dt_t dt) {
     int d;
     dt_to_yd(dt, NULL, &d);
     return d;
 }
 
 int
-dt_day_of_quarter(int dt) {
+dt_day_of_quarter(dt_t dt) {
     int d;
     dt_to_yqd(dt, NULL, NULL, &d);
     return d;
 }
 
 int
-dt_day_of_month(int dt) {
+dt_day_of_month(dt_t dt) {
     int d;
     dt_to_ymd(dt, NULL, NULL, &d);
     return d;
 }
 
 int
-dt_day_of_week(int dt) {
+dt_day_of_week(dt_t dt) {
     int dow = dt % 7;
     if (dow < 1)
         dow += 7;
@@ -387,88 +387,88 @@ dt_day_of_week(int dt) {
 }
 
 int
-dt_week_of_year(int dt) {
+dt_week_of_year(dt_t dt) {
     int w;
     dt_to_ywd(dt, NULL, &w, NULL);
     return w;
 }
 
 int
-dt_year_of_week(int dt) {
+dt_year_of_week(dt_t dt) {
     int y;
     dt_to_ywd(dt, &y, NULL, NULL);
     return y;
 }
 
-int
-dt_first_day_of_year(int dt, int delta) {
+dt_t
+dt_first_day_of_year(dt_t dt, int delta) {
     return dt_from_yd(dt_year(dt) + delta, 1);
 }
 
-int
-dt_first_day_of_quarter(int dt, int delta) {
+dt_t
+dt_first_day_of_quarter(dt_t dt, int delta) {
     int y, q;
     dt_to_yqd(dt, &y, &q, NULL);
     return dt_from_yqd(y, q + delta, 1);
 }
 
-int
-dt_first_day_of_month(int dt, int delta) {
+dt_t
+dt_first_day_of_month(dt_t dt, int delta) {
     int y, m;
     dt_to_ymd(dt, &y, &m, NULL);
     return dt_from_ymd(y, m + delta, 1);
 }
 
-int
-dt_first_day_of_week(int dt, int first_dow) {
+dt_t
+dt_first_day_of_week(dt_t dt, int first_dow) {
     return dt - (dt_day_of_week(dt) - first_dow + 7) % 7;
 }
 
-int
-dt_last_day_of_year(int dt, int delta) {
+dt_t
+dt_last_day_of_year(dt_t dt, int delta) {
     return dt_from_yd(dt_year(dt) + delta + 1, 0);
 }
 
-int
-dt_last_day_of_quarter(int dt, int delta) {
+dt_t
+dt_last_day_of_quarter(dt_t dt, int delta) {
     int y, q;
     dt_to_yqd(dt, &y, &q, NULL);
     return dt_from_yqd(y, q + delta + 1, 0);
 }
 
-int
-dt_last_day_of_month(int dt, int delta) {
+dt_t
+dt_last_day_of_month(dt_t dt, int delta) {
     int y, m;
     dt_to_ymd(dt, &y, &m, NULL);
     return dt_from_ymd(y, m + delta + 1, 0);
 }
 
-int
-dt_last_day_of_week(int dt, int first_dow) {
+dt_t
+dt_last_day_of_week(dt_t dt, int first_dow) {
     return dt + (first_dow - dt_day_of_week(dt) + 6) % 7;
 }
 
-int
-dt_nth_day_of_week(int dt, int nth, int dow) {
+dt_t
+dt_nth_day_of_week(dt_t dt, int nth, int dow) {
     if      (nth > 0) nth--, dt += (dow - dt_day_of_week(dt) + 7) % 7;
     else if (nth < 0) nth++, dt -= (dt_day_of_week(dt) - dow + 7) % 7;
     return dt + nth * 7;
 }
 
-int
-dt_next_day_of_week(int dt, int dow, bool current) {
+dt_t
+dt_next_day_of_week(dt_t dt, int dow, bool current) {
     if (current) return dt + (dow - dt_day_of_week(dt) + 7) % 7;
     else         return dt + (dow - dt_day_of_week(dt) + 6) % 7 + 1;
 }
 
-int
-dt_prev_day_of_week(int dt, int dow, bool current) {
+dt_t
+dt_prev_day_of_week(dt_t dt, int dow, bool current) {
     if (current) return dt - (dt_day_of_week(dt) - dow + 7) % 7;
     else         return dt - (dt_day_of_week(dt) - dow + 6) % 7 - 1;
 }
 
-int
-dt_add_quarters(int dt, int delta, dt_adjust_t adjust) {
+dt_t
+dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 
     dt_to_yqd(dt, &y, &q, &d);
@@ -487,8 +487,8 @@ dt_add_quarters(int dt, int delta, dt_adjust_t adjust) {
     }
 }
 
-int
-dt_add_months(int dt, int delta, dt_adjust_t adjust) {
+dt_t
+dt_add_months(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, m, d;
 
     dt_to_ymd(dt, &y, &m, &d);
@@ -508,12 +508,12 @@ dt_add_months(int dt, int delta, dt_adjust_t adjust) {
 }
 
 int
-dt_delta_years(int dt1, int dt2) {
+dt_delta_years(dt_t dt1, dt_t dt2) {
     return dt_year(dt2) - dt_year(dt1);
 }
 
 int
-dt_delta_quarters(int dt1, int dt2) {
+dt_delta_quarters(dt_t dt1, dt_t dt2) {
     int y1, y2, q1, q2;
     dt_to_yqd(dt1, &y1, &q1, NULL);
     dt_to_yqd(dt2, &y2, &q2, NULL);
@@ -521,7 +521,7 @@ dt_delta_quarters(int dt1, int dt2) {
 }
 
 int
-dt_delta_months(int dt1, int dt2) {
+dt_delta_months(dt_t dt1, dt_t dt2) {
     int y1, y2, m1, m2;
     dt_to_ymd(dt1, &y1, &m1, NULL);
     dt_to_ymd(dt2, &y2, &m2, NULL);
@@ -529,7 +529,7 @@ dt_delta_months(int dt1, int dt2) {
 }
 
 int
-dt_delta_weeks(int dt1, int dt2) {
+dt_delta_weeks(dt_t dt1, dt_t dt2) {
     return (dt2 - dt1) / 7;
 }
 
