@@ -152,6 +152,14 @@ dt_month(dt)
     dt_t dt
 
 int
+dt_week(dt)
+    dt_t dt
+
+int
+dt_day(dt)
+    dt_t dt
+
+int
 dt_day_of_year(dt)
     dt_t dt
 
@@ -160,19 +168,7 @@ dt_day_of_quarter(dt)
     dt_t dt
 
 int
-dt_day_of_month(dt)
-    dt_t dt
-
-int
 dt_day_of_week(dt)
-    dt_t dt
-
-int
-dt_week_of_year(dt)
-    dt_t dt
-
-int
-dt_year_of_week(dt)
     dt_t dt
 
 dt_t

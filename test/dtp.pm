@@ -25,12 +25,12 @@ BEGIN {
                          dt_year
                          dt_quarter
                          dt_month
+                         dt_week
+                         dt_day
+
                          dt_day_of_year
                          dt_day_of_quarter
-                         dt_day_of_month
                          dt_day_of_week
-                         dt_week_of_year
-                         dt_year_of_week
 
                          dt_first_day_of_year
                          dt_first_day_of_quarter

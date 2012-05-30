@@ -31,13 +31,8 @@ while (<DATA>) {
     }
 
     {
-        my $got = dt_week_of_year($dt);
-        is($got, $wn, "dt_week_of_year($dt)");
-    }
-
-    {
-        my $got = dt_year_of_week($dt);
-        is($got, $wy, "dt_year_of_week($dt)");
+        my $got = dt_week($dt);
+        is($got, $wn, "dt_week($dt)");
     }
 
     {

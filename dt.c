@@ -30,7 +30,7 @@
 #include "dt.h"
 
 #define LEAP_YEAR(y) \
-    (y % 4 == 0 && (y % 100 != 0 || y % 400 == 0))
+    ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
 #define EPOCH_CJDN 1721425
 
@@ -194,7 +194,7 @@ dt_from_ywd(int y, int w, int d) {
 
     dt  = dt_from_yd(y, 4);
     dt -= dt_day_of_week(dt);
-    dt += w*7 + d - 7;
+    dt += w * 7 + d - 7;
     return dt;
 }
 
@@ -237,11 +237,10 @@ dt_to_struct_tm(dt_t dt, struct tm *tm) {
 #define OFF2100 767009 /* 2100-12-31 */
 
 void
-dt_to_yd(dt_t dt, int *yp, int *dp) {
-    int y, d, n100, n1;
+dt_to_yd(dt_t d, int *yp, int *dp) {
+    int y, n100, n1;
 
     y = 0;
-    d = dt;
 #ifndef DT_NO_ASSUMPTIONS
     /* Assume most dates are between the years 1900-2100 inclusive */
     if (d >= OFF1900 && d <= OFF2100) {
@@ -279,7 +278,7 @@ dt_to_yd(dt_t dt, int *yp, int *dp) {
             y++, d++;
     }
     if (yp) *yp = y;
-    if (dp) *dp = d;
+    if (dp) *dp = (int)d;
 }
 
 void
@@ -288,7 +287,7 @@ dt_to_ymd(dt_t dt, int *yp, int *mp, int *dp) {
 
     dt_to_yd(dt, &y, &doy);
     l = LEAP_YEAR(y);
-    m = doy < 32 ? 1 : 1 + (303 + 5 * (doy - 59 - l)) / 153;
+    m = doy < 32 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 153;
 
     if (yp) *yp = y;
     if (mp) *mp = m;
@@ -301,7 +300,7 @@ dt_to_yqd(dt_t dt, int *yp, int *qp, int *dp) {
 
     dt_to_yd(dt, &y, &doy);
     l = LEAP_YEAR(y);
-    q = doy < 91 ? 1 : 1 + (303 + 5 * (doy - 59 - l)) / 459;
+    q = doy < 91 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 459;
 
     if (yp) *yp = y;
     if (qp) *qp = q;
@@ -358,6 +357,20 @@ dt_month(dt_t dt) {
 }
 
 int
+dt_week(dt_t dt) {
+    int w;
+    dt_to_ywd(dt, NULL, &w, NULL);
+    return w;
+}
+
+int
+dt_day(dt_t dt) {
+    int d;
+    dt_to_ymd(dt, NULL, NULL, &d);
+    return d;
+}
+
+int
 dt_day_of_year(dt_t dt) {
     int d;
     dt_to_yd(dt, NULL, &d);
@@ -372,32 +385,11 @@ dt_day_of_quarter(dt_t dt) {
 }
 
 int
-dt_day_of_month(dt_t dt) {
-    int d;
-    dt_to_ymd(dt, NULL, NULL, &d);
-    return d;
-}
-
-int
 dt_day_of_week(dt_t dt) {
     int dow = dt % 7;
     if (dow < 1)
         dow += 7;
     return dow;
-}
-
-int
-dt_week_of_year(dt_t dt) {
-    int w;
-    dt_to_ywd(dt, NULL, &w, NULL);
-    return w;
-}
-
-int
-dt_year_of_week(dt_t dt) {
-    int y;
-    dt_to_ywd(dt, &y, NULL, NULL);
-    return y;
 }
 
 dt_t

@@ -80,12 +80,11 @@ int   dt_cjdn                 (dt_t dt);
 int   dt_year                 (dt_t dt);
 int   dt_quarter              (dt_t dt);
 int   dt_month                (dt_t dt);
+int   dt_week                 (dt_t dt);
+int   dt_day                  (dt_t dt);
 int   dt_day_of_year          (dt_t dt);
 int   dt_day_of_quarter       (dt_t dt);
-int   dt_day_of_month         (dt_t dt);
 int   dt_day_of_week          (dt_t dt);
-int   dt_week_of_year         (dt_t dt);
-int   dt_year_of_week         (dt_t dt);
 
 dt_t  dt_first_day_of_year    (dt_t dt, int delta);
 dt_t  dt_first_day_of_quarter (dt_t dt, int delta);

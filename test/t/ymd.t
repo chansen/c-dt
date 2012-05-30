@@ -43,8 +43,8 @@ while (<DATA>) {
     }
 
     {
-        my $got = dt_day_of_month($dt);
-        is($got, $d, "dt_day_of_month($dt)");
+        my $got = dt_day($dt);
+        is($got, $d, "dt_day($dt)");
     }
 
     {
