@@ -381,6 +381,22 @@ date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday
 The parameter I<current> specifies whether or not the returned date must precede
 the given date I<dt>.
 
+=head2 dt_next_weekday
+
+    dt_t dt_next_weekday(dt_t dt, bool current);
+
+Returns a date corresponding to next or current weekday (Monday to Friday) for 
+the given date I<dt>. The parameter I<current> specifies whether or not the 
+returned date must succeed the given date I<dt>.
+
+=head2 dt_prev_weekday
+
+    dt_t dt_prev_weekday(dt_t dt, bool current);
+
+Returns a date corresponding to previous or current weekday (Monday to Friday) 
+for the given date I<dt>. The parameter I<current> specifies whether or not the 
+returned date must precede the given date I<dt>.
+
 =head2 dt_add_quarters
 
     dt_t dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust);

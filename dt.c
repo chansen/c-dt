@@ -460,6 +460,26 @@ dt_prev_day_of_week(dt_t dt, int dow, bool current) {
 }
 
 dt_t
+dt_next_weekday(dt_t dt, bool current) {
+    static const int next_weekday[2][8] = {
+        /*   M  T  W  T  F  S  S */
+        { 0, 0, 0, 0, 0, 0, 2, 1 },
+        { 0, 1, 1, 1, 1, 3, 2, 1 }
+    };
+    return dt + next_weekday[!current][dt_day_of_week(dt)];
+}
+
+dt_t
+dt_prev_weekday(dt_t dt, bool current) {
+    static const int prev_weekday[2][8] = {
+        /*   M  T  W  T  F  S  S */
+        { 0, 0, 0, 0, 0, 0, 1, 2 },
+        { 0, 3, 1, 1, 1, 1, 1, 2 }
+    };
+    return dt - prev_weekday[!current][dt_day_of_week(dt)];
+}
+
+dt_t
 dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 

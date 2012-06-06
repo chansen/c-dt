@@ -47,6 +47,9 @@ BEGIN {
                          dt_next_day_of_week
                          dt_prev_day_of_week
 
+                         dt_next_weekday
+                         dt_prev_weekday
+
                          dt_add_quarters
                          dt_add_months
 

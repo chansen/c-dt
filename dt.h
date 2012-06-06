@@ -101,6 +101,9 @@ dt_t  dt_nth_day_of_week      (dt_t dt, int nth, int dow);
 dt_t  dt_next_day_of_week     (dt_t dt, int dow, bool current);
 dt_t  dt_prev_day_of_week     (dt_t dt, int dow, bool current);
 
+dt_t  dt_next_weekday         (dt_t dt, bool current);
+dt_t  dt_prev_weekday         (dt_t dt, bool current);
+
 dt_t  dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t  dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
 

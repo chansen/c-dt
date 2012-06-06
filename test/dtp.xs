@@ -230,6 +230,16 @@ dt_prev_day_of_week(dt, dow, current)
     bool current
 
 dt_t
+dt_next_weekday(dt, current)
+    dt_t dt
+    bool current
+
+dt_t
+dt_prev_weekday(dt, current)
+    dt_t dt
+    bool current
+
+dt_t
 dt_add_quarters(dt, delta, adjust)
     dt_t dt
     int delta
