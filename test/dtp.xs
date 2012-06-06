@@ -261,4 +261,21 @@ dt_delta_weeks(dt1, dt2)
     dt_t dt1
     dt_t dt2
 
+bool
+dt_leap_year(y)
+    int y
+
+int
+dt_days_in_year(y)
+    int y
+
+int
+dt_days_in_quarter(y, q)
+    int y
+    int q
+
+int
+dt_days_in_month(y, m)
+    int y
+    int m
 

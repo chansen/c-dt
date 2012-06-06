@@ -447,6 +447,30 @@ The result is equal to I<dt2> - I<dt1> in months. For example the delta between
 Returns the difference between the given dates I<dt1> and I<dt2> in weeks.
 The result is equal to I<dt2> - I<dt1> in weeks.
 
+=head2 dt_leap_year
+
+    bool dt_leap_year(int year);
+
+Returns a boolean indicating whether or not the given I<year> is a leap year.
+
+=head2 dt_days_in_year
+
+    int dt_days_in_year(int year);
+
+Returns the number of days in the given I<year> (365-366).
+
+=head2 dt_days_in_quarter
+
+    int dt_days_in_quarter(int year, int quarter);
+
+Returns the number of days in the given I<quarter> (90-92) of the given year I<year>.
+
+=head2 dt_days_in_month
+
+    int dt_days_in_month(int year, int month);
+
+Returns the number of days in the given I<month> (28-31) of the given year I<year>.
+
 =head1 TEST HARNESS
 
 The test harness is written in Perl and XS. To run the harness:

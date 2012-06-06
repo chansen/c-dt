@@ -53,7 +53,12 @@ BEGIN {
                          dt_delta_years
                          dt_delta_quarters
                          dt_delta_months
-                         dt_delta_weeks ];
+                         dt_delta_weeks 
+                         
+                         dt_leap_year
+                         dt_days_in_year
+                         dt_days_in_quarter
+                         dt_days_in_month ];
 
     our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 

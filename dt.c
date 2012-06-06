@@ -522,6 +522,31 @@ dt_delta_months(dt_t dt1, dt_t dt2) {
 
 int
 dt_delta_weeks(dt_t dt1, dt_t dt2) {
-    return (dt2 - dt1) / 7;
+    return dt2/7 - dt1/7;
 }
+
+bool
+dt_leap_year(int y) {
+    return LEAP_YEAR(y);
+}
+
+int
+dt_days_in_year(int y) {
+    return days_in_year(y);
+}
+
+int
+dt_days_in_quarter(int y, int q) {
+    if (q < 1 || q > 4)
+        return 0;
+    return days_in_quarter(y, q);
+}
+
+int
+dt_days_in_month(int y, int m) {
+    if (m < 1 || m > 12)
+        return 0;
+    return days_in_month(y, m);
+}
+
 

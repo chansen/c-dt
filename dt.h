@@ -109,6 +109,11 @@ int   dt_delta_quarters       (dt_t dt1, dt_t dt2);
 int   dt_delta_months         (dt_t dt1, dt_t dt2);
 int   dt_delta_weeks          (dt_t dt1, dt_t dt2);
 
+bool  dt_leap_year            (int y);
+int   dt_days_in_year         (int y);
+int   dt_days_in_quarter      (int y, int q);
+int   dt_days_in_month        (int y, int m);
+
 #ifdef __cplusplus
 }
 #endif
