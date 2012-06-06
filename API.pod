@@ -463,13 +463,13 @@ Returns the number of days in the given I<year> (365-366).
 
     int dt_days_in_quarter(int year, int quarter);
 
-Returns the number of days in the given I<quarter> (90-92) of the given year I<year>.
+Returns the number of days in the given I<quarter> (90-92) of the given I<year>.
 
 =head2 dt_days_in_month
 
     int dt_days_in_month(int year, int month);
 
-Returns the number of days in the given I<month> (28-31) of the given year I<year>.
+Returns the number of days in the given I<month> (28-31) of the given I<year>.
 
 =head1 TEST HARNESS
 
