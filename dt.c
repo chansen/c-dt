@@ -159,7 +159,7 @@ dt_from_cjdn(int n) {
 dt_t
 dt_from_easter(int y, dt_computus_t computus) {
     if (y < 1)
-        return -1;
+        return 0;
     if (computus == DT_WESTERN)
         return dt_from_ymd(y, 3, easter_gregorian(y));
     else
