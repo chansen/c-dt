@@ -491,19 +491,19 @@ Returns C<0> if the given month is out of range (1-12).
 
 The test harness is written in C using the Test Anything Protocol [1]. Perl and 
 the I<prove> [2] command is required to run the harness. The version of I<prove> 
-must be equal or greater than 3.23.
+must be equal to or greater than 3.23.
 
 =over
 
-=item [1] L<http://search.cpan.org/dist/Test-Harness/>
+=item [1] L<http://en.wikipedia.org/wiki/Test_Anything_Protocol>
 
-=item [2] L<http://en.wikipedia.org/wiki/Test_Anything_Protocol>
+=item [2] L<http://search.cpan.org/dist/Test-Harness/>
 
 =back
 
 To compile and run the harness:
 
-    % make test
+    make test
 
 =head1 SUPPORT
 
