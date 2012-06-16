@@ -1,7 +1,7 @@
-language: "perl"
+language: perl
 install: "perl -V"
 before_script:
-    - cpanm -n Test::Harness
+    - "cpanm -n Test::Harness"
 script: "make test"
 notifications:
   recipients:
