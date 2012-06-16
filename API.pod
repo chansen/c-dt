@@ -497,7 +497,7 @@ than v3.23.
     $ prove -V
     TAP::Harness v3.23 and Perl v5.14.1
 
-=head2 Installing C<Test::Harness>
+=head2 Installing Test::Harness
 
 Install using the C<cpan> client:
 
@@ -515,6 +515,9 @@ Install using the source package (L<http://search.cpan.org/dist/Test-Harness/>):
 =head2 Compiling and running the test harness:
 
     $ make test
+
+output:
+
     t/yd.t .................... ok
     t/ymd.t ................... ok
     t/ymd_epochs.t ............ ok
