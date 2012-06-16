@@ -1,6 +1,4 @@
 language: "perl"
-perl:
-    - "5.14"
 install: "perl -V"
 before_script:
     - cpanm -n Test::Harness
