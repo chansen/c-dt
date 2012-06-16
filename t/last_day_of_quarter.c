@@ -18,6 +18,14 @@ main() {
         }
 
         {
+            dt_t src = dt_from_yqd(t.y, t.q, t.d);
+            dt_t dt1 = dt_last_day_of_quarter(src, t.delta);
+            dt_t dt2 = dt_first_day_of_quarter(src, t.delta + 1) - 1;
+            cmp_ok(dt1, "==", dt2, "dt_last_day_of_quarter(%d, %d) == dt_first_day_of_quarter(%d, %d + 1) - 1",
+              src, t.y, src, t.y);
+        }
+
+        {
             dt_t dt1 = dt_from_yqd(t.y, t.q, t.d);
             dt_t dt2 = dt_last_day_of_quarter(dt1, t.delta);
             int got = dt_delta_quarters(dt1, dt2);

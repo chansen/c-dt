@@ -51,6 +51,14 @@ main() {
         }
 
         {
+            dt_t src = dt_from_ymd(t.y, t.m, t.d);
+            dt_t dt1 = dt_last_day_of_year(src, t.delta);
+            dt_t dt2 = dt_first_day_of_year(src, t.delta + 1) - 1;
+            cmp_ok(dt1, "==", dt2, "dt_last_day_of_year(%d, %d) == dt_first_day_of_year(%d, %d + 1) - 1",
+              src, t.y, src, t.y);
+        }
+
+        {
             dt_t dt1 = dt_from_ymd(t.y, t.m, t.d);
             dt_t dt2 = dt_last_day_of_year(dt1, t.delta);
             int got = dt_delta_years(dt1, dt2);
