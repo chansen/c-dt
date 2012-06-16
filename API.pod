@@ -563,6 +563,13 @@ L<https://github.com/chansen/c-dt>
 
   git clone https://github.com/chansen/c-dt.git
 
+=head1 ACKNOWLEDGEMENTS
+
+The TAP producer which is bundled with this library was written by Jake Gelbman
+<https://github.com/zorgnax>.
+
+Easter algorithms by Al Petrofsky, San Mateo County, California, U.S.A. L<http://petrofsky.org/>.
+
 =head1 AUTHOR
 
 Christian Hansen <chansen@cpan.org>
