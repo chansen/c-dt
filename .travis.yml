@@ -1,13 +1,10 @@
 language: "perl"
 perl:
     - "5.14"
-install: "echo"
+install: "perl -V"
 before_script:
     - cpanm -n Test::Harness
 script: "make test"
-branches:
-   only:
-     - master
 notifications:
   recipients:
     - chansen@cpan.org
