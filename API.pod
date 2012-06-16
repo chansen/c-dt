@@ -176,7 +176,7 @@ Returns the chronological Julian day number for the given date I<dt>.
 
     int dt_year(dt_t dt);
 
-Returns the year for the given date C<dt>.
+Returns the year for the given date I<dt>.
 
 =head2 dt_quarter
 
@@ -489,21 +489,60 @@ Returns C<0> if the given month is out of range (1-12).
 
 =head1 TEST HARNESS
 
-The test harness is written in C using the Test Anything Protocol [1]. Perl and 
-the I<prove> [2] command is required to run the harness. The version of I<prove> 
-must be equal to or greater than 3.23.
+The unit tests is written in C using the Test Anything Protocol (TAP). Perl and 
+the C<prove> command (provided by Perl module C<Test::Harness>) is required to 
+run the harness. The version of C<Test::Harness> must be equal to or greater 
+than v3.23.
 
-=over
+    $ prove -V
+    TAP::Harness v3.23 and Perl v5.14.1
 
-=item [1] L<http://en.wikipedia.org/wiki/Test_Anything_Protocol>
+=head2 Installing C<Test::Harness>
 
-=item [2] L<http://search.cpan.org/dist/Test-Harness/>
+Install using the C<cpan> client:
 
-=back
+    $ cpan install Test::Harness
 
-To compile and run the harness:
+Install using the source package (L<http://search.cpan.org/dist/Test-Harness/>):
 
-    make test
+    $ tar -zxf Test-Harness-3.25.tar.gz
+    $ cd Test-Harness-3.25
+    $ perl Makfile.PL
+    $ make
+    $ make test
+    $ sudo make install
+
+=head2 Compiling and running the test harness:
+
+    $ make test
+    t/yd.t .................... ok
+    t/ymd.t ................... ok
+    t/ymd_epochs.t ............ ok
+    t/yqd.t ................... ok
+    t/ywd.t ................... ok
+    t/tm.t .................... ok
+    t/easter_western.t ........ ok
+    t/easter_orthodox.t ....... ok
+    t/days_in_year.t .......... ok
+    t/days_in_month.t ......... ok
+    t/days_in_quarter.t ....... ok
+    t/first_day_of_year.t ..... ok
+    t/first_day_of_quarter.t .. ok
+    t/first_day_of_month.t .... ok
+    t/first_day_of_week.t ..... ok
+    t/last_day_of_year.t ...... ok
+    t/last_day_of_quarter.t ... ok
+    t/last_day_of_month.t ..... ok
+    t/last_day_of_week.t ...... ok
+    t/next_day_of_week.t ...... ok
+    t/prev_day_of_week.t ...... ok
+    t/next_weekday.t .......... ok
+    t/prev_weekday.t .......... ok
+    t/nth_day_of_week.t ....... ok
+    t/add_months.t ............ ok
+    All tests successful.
+    Files=25, Tests=12017,  1 wallclock secs ( 1.01 usr  0.06 sys +  0.03 cusr  0.03 csys =  1.13 CPU)
+    Result: PASS
 
 =head1 SUPPORT
 
