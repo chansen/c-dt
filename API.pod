@@ -1,14 +1,37 @@
 =head1 NAME
 
-dt - 
-
-=head1 SYNOPSIS
-
-TBW
+dt - Lightweight C library for date arithmetic and date conversion using the proleptic Gregorian calendar
 
 =head1 FEATURES
 
-TBW
+=over 4
+
+=item * Portable, C89
+
+=item * No sytem calls
+
+=item * No broken-down date structures
+
+=item * Fast arithmetic and compact representation of dates
+
+=item * Follows the ISO 8601 conventions
+
+=item * Conversion between all ISO 8601 date values
+
+=item * Good test coverage
+
+=back
+
+=head1 INTRODUCTION
+
+Dates values C<dt_t> are represented as an integer denoting the number of days 
+since the zero epoch, December 31 of the year zero in the proleptic Gregorian 
+calendar. The supported date range is from -5879610-06-22 (C<INT32_MIN>) 
+to +5879611-07-11 (C<INT32_MAX>).
+
+Functions provided by this library doesn't guard against integer overflows, 
+it's the callers responsibility to ensure that dates and date arithmetic is 
+within the supported range.
 
 =head1 FUNCTIONS
 
@@ -23,7 +46,8 @@ Returns a date corresponding to the given chronological Julian day number I<cjdn
     dt_t dt_from_easter(int year, dt_computus_t computus);
 
 Returns a date corresponding to Easter Sunday for the given I<year>. The 
-parameter I<computus> specifies the Easter calculation.
+parameter I<computus> specifies the Easter calculation. Returns C<0> if the 
+given year is non-positive.
 
 I<(computus = DT_WESTERN)> 
 
@@ -368,7 +392,7 @@ B<Example:>
 Returns a date falling on the next or current day of week for the given 
 date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must succeed
-the given date I<dt>.
+the given date.
 
 =head2 dt_prev_day_of_week
 
@@ -377,23 +401,23 @@ the given date I<dt>.
 Returns a date falling on the previous or current day of week for the given 
 date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must precede
-the given date I<dt>.
+the given date.
 
 =head2 dt_next_weekday
 
     dt_t dt_next_weekday(dt_t dt, bool current);
 
-Returns a date falling on the next or current weekday (Monday to Friday) for
+Returns a date falling on the next or current weekday (Monday through Friday) for
 the given date I<dt>. The parameter I<current> specifies whether or not the 
-returned date must succeed the given date I<dt>.
+returned date must succeed the given date.
 
 =head2 dt_prev_weekday
 
     dt_t dt_prev_weekday(dt_t dt, bool current);
 
-Returns a date falling on the previous or current weekday (Monday to Friday) 
+Returns a date falling on the previous or current weekday (Monday through Friday) 
 for the given date I<dt>. The parameter I<current> specifies whether or not the 
-returned date must precede the given date I<dt>.
+returned date must precede the given date.
 
 =head2 dt_add_quarters
 
@@ -565,10 +589,10 @@ L<https://github.com/chansen/c-dt>
 
 =head1 ACKNOWLEDGEMENTS
 
-The TAP producer which is bundled with this library was written by Jake Gelbman
-L<https://github.com/zorgnax>.
-
 Easter algorithms by Al Petrofsky, San Mateo County, California, U.S.A. L<http://petrofsky.org/>.
+
+The TAP producer which is bundled with this library is written by Jake Gelbman
+L<https://github.com/zorgnax/libtap>.
 
 =head1 AUTHOR
 
