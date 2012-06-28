@@ -1,4 +1,5 @@
 #include <string.h>
+#define DT_INTERNAL
 #include "dt.h"
 #include "tap.h"
 
@@ -10,9 +11,9 @@ const struct test {
     int yday;
     dt_t dt;
 } tests[] = {
-    { 70,  0,  1, 4,   0, 719163},
-    {110, 11, 31, 5, 364, 734137},
-    {120, 11, 31, 4, 365, 737790},
+    { 70,  0,  1, 4,   0, 719163 - EPOCH_OFFSET},
+    {110, 11, 31, 5, 364, 734137 - EPOCH_OFFSET},
+    {120, 11, 31, 4, 365, 737790 - EPOCH_OFFSET},
 };
 
 int 

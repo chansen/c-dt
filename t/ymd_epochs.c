@@ -1,3 +1,4 @@
+#define DT_INTERNAL
 #include "dt.h"
 #include "tap.h"
 
@@ -9,29 +10,25 @@ const struct test {
 } tests[] = {
     /* Test cases from Calendrical Calculations, Third Edition, Table 1.2 */
 #ifndef DT_T_UNSIGNED
-    { -4713, 11, 24,  -1721425 }, /* Chronological Modified Julian Date */
-    { -3760,  9,  7,  -1373427 }, /* Hebrew */
-    { -3113,  8, 11,  -1137142 }, /* Mayan */
-    { -3101,  1, 23,  -1132959 }, /* Hinu (Kali Yuga) */
-    { -2636,  2, 15,   -963099 }, /* Chinese */
-    {  -746,  2, 18,   -272787 }, /* Egyptian */
-    {  -127, 12,  7,    -46410 }, /* Tibetan */
-    {     0, 12, 30,        -1 }, /* Julian */
+    { -4713, 11, 24,  -1721425 - EPOCH_OFFSET }, /* Chronological Modified Julian Date */
+    { -3760,  9,  7,  -1373427 - EPOCH_OFFSET }, /* Hebrew */
+    { -3113,  8, 11,  -1137142 - EPOCH_OFFSET }, /* Mayan */
+    { -3101,  1, 23,  -1132959 - EPOCH_OFFSET }, /* Hinu (Kali Yuga) */
+    { -2636,  2, 15,   -963099 - EPOCH_OFFSET }, /* Chinese */
+    {  -746,  2, 18,   -272787 - EPOCH_OFFSET }, /* Egyptian */
+    {  -127, 12,  7,    -46410 - EPOCH_OFFSET }, /* Tibetan */
+    {     0, 12, 30,        -1 - EPOCH_OFFSET }, /* Julian */
 #endif
-    {     1,  1,  1,         1 }, /* Gregorian */
-    {     8,  8, 27,      2796 }, /* Ethiopic */
-    {   284,  8, 29,    103605 }, /* Coptic */
-    {   552,  7, 13,    201443 }, /* Armenian */
-    {   622,  3, 22,    226896 }, /* Persian */
-    {   622,  7, 19,    227015 }, /* Islamic */
-    {   632,  6, 19,    230638 }, /* Zoroastrian */
-    {  1792,  9, 22,    654415 }, /* French Revolutionary */
-    {  1844,  3, 21,    673222 }, /* Bahá'í */
-    {  1858, 11, 17,    678576 }, /* Modified Julian Day Number */
-#ifndef DT_T_UNSIGNED
-    { -5879610, 6, 22, -2147483648 }, /* INT32_MIN */
-#endif
-    {  5879611, 7, 11,  2147483647 }, /* INT32_MAX */
+    {     1,  1,  1,         1 - EPOCH_OFFSET }, /* Gregorian */
+    {     8,  8, 27,      2796 - EPOCH_OFFSET }, /* Ethiopic */
+    {   284,  8, 29,    103605 - EPOCH_OFFSET }, /* Coptic */
+    {   552,  7, 13,    201443 - EPOCH_OFFSET }, /* Armenian */
+    {   622,  3, 22,    226896 - EPOCH_OFFSET }, /* Persian */
+    {   622,  7, 19,    227015 - EPOCH_OFFSET }, /* Islamic */
+    {   632,  6, 19,    230638 - EPOCH_OFFSET }, /* Zoroastrian */
+    {  1792,  9, 22,    654415 - EPOCH_OFFSET }, /* French Revolutionary */
+    {  1844,  3, 21,    673222 - EPOCH_OFFSET }, /* Bahá'í */
+    {  1858, 11, 17,    678576 - EPOCH_OFFSET }, /* Modified Julian Day Number */
 };
 
 int 
@@ -69,11 +66,6 @@ main() {
         {
             int got = dt_day(t.dt);
             cmp_ok(got, "==", t.d, "dt_day(%d)", t.dt);
-        }
-
-        {
-            int got = dt_delta_years(0, t.dt);
-            cmp_ok(got, "==", t.y, "dt_delta_years(0, %d)", t.dt);
         }
 
         {

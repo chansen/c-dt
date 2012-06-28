@@ -1,3 +1,4 @@
+#define DT_INTERNAL
 #include "dt.h"
 #include "tap.h"
 #include "ywd.h"
