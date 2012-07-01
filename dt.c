@@ -233,8 +233,8 @@ dt_to_struct_tm(dt_t dt, struct tm *tm) {
     tm->tm_yday = days_preceding_month(y, m) + d - 1;
 }
 
-#define OFF1900 693596 /* 1900-01-01 */
-#define OFF2100 767009 /* 2100-12-31 */
+#define OFF1901 693961 /* 1901-01-01 */
+#define OFF2099 766644 /* 2099-12-31 */
 
 void
 dt_to_yd(dt_t d, int *yp, int *dp) {
@@ -243,12 +243,12 @@ dt_to_yd(dt_t d, int *yp, int *dp) {
     y = 0;
     d += EPOCH_OFFSET;
 #ifndef DT_NO_SHORTCUTS
-    /* Shortcut dates between the years 1900-2100 inclusive */
-    if (d >= OFF1900 && d <= OFF2100) {
-        d -= OFF1900 - 1;
-        y += (4 * d) / 1461;
-        d -= (1461 * y - 1) / 4;
-        y += 1900;
+    /* Shortcut dates between the years 1901-2099 inclusive */
+    if (d >= OFF1901 && d <= OFF2099) {
+        d -= OFF1901 - 1;
+        y += (4 * d - 1) / 1461;
+        d -= (1461 * y) / 4;
+        y += 1901;
     }
     else
 #endif
