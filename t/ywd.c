@@ -1,4 +1,3 @@
-#define DT_INTERNAL
 #include "dt.h"
 #include "tap.h"
 #include "ywd.h"
@@ -12,27 +11,27 @@ main() {
         const struct test t = tests[i];
 
         {
-            dt_t got = dt_from_ywd(t.y, t.w, t.d);
-            cmp_ok(got, "==", t.dt, "dt_from_ywd(%d, %d, %d)", t.y, t.w, t.d);
+            dt_t got = dt_rdn(dt_from_ywd(t.y, t.w, t.d));
+            cmp_ok(got, "==", t.rdn, "dt_rdn(dt_from_ywd(%d, %d, %d))", t.y, t.w, t.d);
         }
 
         {
             int y, w, d;
-            dt_to_ywd(t.dt, &y, &w, &d);
-            if (!ok((y == t.y && w == t.w && d == t.d), "dt_to_ywd(%d)", t.dt)) {
+            dt_to_ywd(dt_from_rdn(t.rdn), &y, &w, &d);
+            if (!ok((y == t.y && w == t.w && d == t.d), "dt_to_ywd(dt_from_rdn(%d))", t.rdn)) {
                 diag("     got: %.4d-W%.2d-%d", y, w, d);
                 diag("     exp: %.4d-W%.2d-%d", t.y, t.w, t.d);
             }
         }
 
         {
-            int got = dt_week(t.dt);
-            cmp_ok(got, "==", t.w, "dt_week(%d)", t.dt);
+            int got = dt_week(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.w, "dt_week(dt_from_rdn(%d))", t.rdn);
         }
 
         {
-            int got = dt_day_of_week(t.dt);
-            cmp_ok(got, "==", t.d, "dt_day_of_week(%d)", t.dt);
+            int got = dt_day_of_week(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.d, "dt_day_of_week(dt_from_rdn(%d))", t.rdn);
         }
 
         {
