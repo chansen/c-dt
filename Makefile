@@ -70,7 +70,7 @@ HARNESS_DEPS = \
 	$(CC) $(LDFLAGS) $< dt.o t/tap.o -o $@
 
 dt.o: \
-	dt.h dt.c
+	dtconfig.h dt.h dt.c
 t/tap.o: \
 	t/tap.h t/tap.c
 
