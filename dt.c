@@ -26,7 +26,6 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <assert.h>
-#define DT_INTERNAL
 #include "dt.h"
 
 #define LEAP_YEAR(y) \
@@ -44,7 +43,7 @@ days_preceding_year(int y) {
         y += n400 * 400;
         n -= n400 * 146097;
     }
-    return n + 365 * y + y/4 - y/100 + y/400 - EPOCH_OFFSET;
+    return n + 365 * y + y/4 - y/100 + y/400;
 }
 
 static const int days_preceding_month_[2][13] = {
@@ -153,12 +152,12 @@ easter_julian(int year) {
 
 dt_t
 dt_from_cjdn(int n) {
-    return n - EPOCH_CJDN - EPOCH_OFFSET;
+    return n - EPOCH_CJDN;
 }
 
 dt_t
 dt_from_rdn(int n) {
-    return n - EPOCH_OFFSET;
+    return n;
 }
 
 dt_t
@@ -246,7 +245,6 @@ dt_to_yd(dt_t d, int *yp, int *dp) {
     int y, n100, n1;
 
     y = 0;
-    d += EPOCH_OFFSET;
 #ifndef DT_NO_SHORTCUTS
     /* Shortcut dates between the years 1901-2099 inclusive */
     if (d >= OFF1901 && d <= OFF2099) {
@@ -338,12 +336,12 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
 
 int
 dt_cjdn(dt_t dt) {
-    return dt + EPOCH_CJDN + EPOCH_OFFSET;
+    return dt + EPOCH_CJDN;
 }
 
 int
 dt_rdn(dt_t dt) {
-    return dt + EPOCH_OFFSET;
+    return dt;
 }
 
 int
@@ -397,7 +395,7 @@ dt_day_of_quarter(dt_t dt) {
 
 int
 dt_day_of_week(dt_t dt) {
-    int dow = (dt + EPOCH_OFFSET) % 7;
+    int dow = dt % 7;
     if (dow < 1)
         dow += 7;
     return dow;

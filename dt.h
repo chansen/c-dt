@@ -29,21 +29,6 @@
 #include <time.h>
 #include <stdbool.h>
 
-#ifdef DT_INTERNAL
-
-/* Chronological Julian Date, January 1, 4713 BC, Monday
-#define EPOCH_OFFSET -1721425
-*/
-
-/* Unix, January 1, 1970, Thursday
-#define EPOCH_OFFSET 719163
-*/
-
-/* Rata Die, January 1, 1, Monday (as Day 1) */
-#define EPOCH_OFFSET 0
-
-#endif
-
 typedef int dt_t;
 
 typedef enum {
