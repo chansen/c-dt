@@ -31,7 +31,8 @@
 #define LEAP_YEAR(y) \
     ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
-#define EPOCH_CJDN 1721425
+#define OFFSET_RDN   0
+#define OFFSET_CJDN  (OFFSET_RDN - 1721425)
 
 static dt_t
 days_preceding_year(int y) {
@@ -152,12 +153,12 @@ easter_julian(int year) {
 
 dt_t
 dt_from_cjdn(int n) {
-    return n - EPOCH_CJDN;
+    return n + OFFSET_CJDN;
 }
 
 dt_t
 dt_from_rdn(int n) {
-    return n;
+    return n + OFFSET_RDN;
 }
 
 dt_t
@@ -237,8 +238,10 @@ dt_to_struct_tm(dt_t dt, struct tm *tm) {
     tm->tm_yday = days_preceding_month(y, m) + d - 1;
 }
 
-#define OFF1901 693961 /* 1901-01-01 */
-#define OFF2099 766644 /* 2099-12-31 */
+#ifndef DT_NO_SHORTCUTS
+static const dt_t OFF1901 = OFFSET_RDN + 693961; /* 1901-01-01 */
+static const dt_t OFF2099 = OFFSET_RDN + 766644; /* 2099-12-31 */
+#endif
 
 void
 dt_to_yd(dt_t d, int *yp, int *dp) {
@@ -336,12 +339,12 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
 
 int
 dt_cjdn(dt_t dt) {
-    return dt + EPOCH_CJDN;
+    return dt - OFFSET_CJDN;
 }
 
 int
 dt_rdn(dt_t dt) {
-    return dt;
+    return dt - OFFSET_RDN;
 }
 
 int
