@@ -23,16 +23,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stddef.h>
-#include <stdbool.h>
-#include <assert.h>
+#define DT_INTERNAL
 #include "dt.h"
 
 #define LEAP_YEAR(y) \
     ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
-
-#define OFFSET_RDN   0
-#define OFFSET_CJDN  (OFFSET_RDN - 1721425)
 
 static dt_t
 days_preceding_year(int y) {
@@ -580,5 +575,4 @@ dt_days_in_month(int y, int m) {
         return 0;
     return days_in_month(y, m);
 }
-
 

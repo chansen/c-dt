@@ -26,10 +26,7 @@
 #ifndef __DT_H__
 #define __DT_H__
 
-#include <time.h>
-#include <stdbool.h>
-
-typedef int dt_t;
+#include "dtconfig.h"
 
 typedef enum {
     DT_MONDAY=1,
