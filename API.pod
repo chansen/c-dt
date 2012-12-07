@@ -41,6 +41,12 @@ within the supported range.
 
 Returns a date corresponding to the given chronological Julian day number I<cjdn>.
 
+=head2 dt_from_rdn
+
+    dt_t dt_from_rdn(int rdn);
+
+Returns a date corresponding to the given Rata Die number I<rdn>.
+
 =head2 dt_from_easter
 
     dt_t dt_from_easter(int year, dt_computus_t computus);
@@ -195,6 +201,12 @@ The pointer parameters may be C<NULL> for any of the results that are not requir
     int dt_cjdn(dt_t dt);
 
 Returns the chronological Julian day number for the given date I<dt>.
+
+=head2 dt_rdn
+
+    int dt_rdn(dt_t dt);
+
+Returns the Rata Die number for the given date I<dt>.
 
 =head2 dt_year
 

@@ -157,6 +157,11 @@ dt_from_cjdn(int n) {
 }
 
 dt_t
+dt_from_rdn(int n) {
+    return n - EPOCH_OFFSET;
+}
+
+dt_t
 dt_from_easter(int y, dt_computus_t computus) {
     if (y < 1)
         return 0;
@@ -334,6 +339,11 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
 int
 dt_cjdn(dt_t dt) {
     return dt + EPOCH_CJDN + EPOCH_OFFSET;
+}
+
+int
+dt_rdn(dt_t dt) {
+    return dt + EPOCH_OFFSET;
 }
 
 int
