@@ -497,6 +497,11 @@ The result is equal to I<dt2> - I<dt1> in months. For example the delta between
 Returns the difference between the given dates I<dt1> and I<dt2> in weeks.
 The result is equal to I<dt2> - I<dt1> in weeks.
 
+
+=head2 dt_parse_string
+
+    size_t  dt_parse_string(const char *str, size_t len, dt_t *dtp);
+
 =head2 dt_leap_year
 
     bool dt_leap_year(int year);

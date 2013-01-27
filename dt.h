@@ -53,67 +53,69 @@ typedef enum {
 extern "C" {
 #endif
 
-dt_t  dt_from_cjdn            (int n);
-dt_t  dt_from_rdn             (int n);
-dt_t  dt_from_easter          (int y, dt_computus_t computus);
-dt_t  dt_from_struct_tm       (const struct tm *tm);
-dt_t  dt_from_yd              (int y, int d);
-dt_t  dt_from_ymd             (int y, int m, int d);
-dt_t  dt_from_yqd             (int y, int q, int d);
-dt_t  dt_from_ywd             (int y, int w, int d);
+dt_t    dt_from_cjdn            (int n);
+dt_t    dt_from_rdn             (int n);
+dt_t    dt_from_easter          (int y, dt_computus_t computus);
+dt_t    dt_from_struct_tm       (const struct tm *tm);
+dt_t    dt_from_yd              (int y, int d);
+dt_t    dt_from_ymd             (int y, int m, int d);
+dt_t    dt_from_yqd             (int y, int q, int d);
+dt_t    dt_from_ywd             (int y, int w, int d);
 
-bool  dt_valid_yd             (int y, int d);
-bool  dt_valid_ymd            (int y, int m, int d);
-bool  dt_valid_yqd            (int y, int q, int d);
-bool  dt_valid_ywd            (int y, int w, int d);
+bool    dt_valid_yd             (int y, int d);
+bool    dt_valid_ymd            (int y, int m, int d);
+bool    dt_valid_yqd            (int y, int q, int d);
+bool    dt_valid_ywd            (int y, int w, int d);
 
-void  dt_to_struct_tm         (dt_t dt, struct tm *tm);
-void  dt_to_yd                (dt_t dt, int *y, int *d);
-void  dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
-void  dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
-void  dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
+void    dt_to_struct_tm         (dt_t dt, struct tm *tm);
+void    dt_to_yd                (dt_t dt, int *y, int *d);
+void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
+void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
+void    dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
 
-int   dt_cjdn                 (dt_t dt);
-int   dt_rdn                  (dt_t dt);
-int   dt_year                 (dt_t dt);
-int   dt_quarter              (dt_t dt);
-int   dt_month                (dt_t dt);
-int   dt_week                 (dt_t dt);
-int   dt_day                  (dt_t dt);
-int   dt_day_of_year          (dt_t dt);
-int   dt_day_of_quarter       (dt_t dt);
-int   dt_day_of_week          (dt_t dt);
+int     dt_cjdn                 (dt_t dt);
+int     dt_rdn                  (dt_t dt);
+int     dt_year                 (dt_t dt);
+int     dt_quarter              (dt_t dt);
+int     dt_month                (dt_t dt);
+int     dt_week                 (dt_t dt);
+int     dt_day                  (dt_t dt);
+int     dt_day_of_year          (dt_t dt);
+int     dt_day_of_quarter       (dt_t dt);
+int     dt_day_of_week          (dt_t dt);
 
-dt_t  dt_first_day_of_year    (dt_t dt, int delta);
-dt_t  dt_first_day_of_quarter (dt_t dt, int delta);
-dt_t  dt_first_day_of_month   (dt_t dt, int delta);
-dt_t  dt_first_day_of_week    (dt_t dt, int first_dow);
+dt_t    dt_first_day_of_year    (dt_t dt, int delta);
+dt_t    dt_first_day_of_quarter (dt_t dt, int delta);
+dt_t    dt_first_day_of_month   (dt_t dt, int delta);
+dt_t    dt_first_day_of_week    (dt_t dt, int first_dow);
 
-dt_t  dt_last_day_of_year     (dt_t dt, int delta);
-dt_t  dt_last_day_of_quarter  (dt_t dt, int delta);
-dt_t  dt_last_day_of_month    (dt_t dt, int delta);
-dt_t  dt_last_day_of_week     (dt_t dt, int first_dow);
+dt_t    dt_last_day_of_year     (dt_t dt, int delta);
+dt_t    dt_last_day_of_quarter  (dt_t dt, int delta);
+dt_t    dt_last_day_of_month    (dt_t dt, int delta);
+dt_t    dt_last_day_of_week     (dt_t dt, int first_dow);
 
-dt_t  dt_nth_day_of_week      (dt_t dt, int nth, int dow);
+dt_t    dt_nth_day_of_week      (dt_t dt, int nth, int dow);
 
-dt_t  dt_next_day_of_week     (dt_t dt, int dow, bool current);
-dt_t  dt_prev_day_of_week     (dt_t dt, int dow, bool current);
+dt_t    dt_next_day_of_week     (dt_t dt, int dow, bool current);
+dt_t    dt_prev_day_of_week     (dt_t dt, int dow, bool current);
 
-dt_t  dt_next_weekday         (dt_t dt, bool current);
-dt_t  dt_prev_weekday         (dt_t dt, bool current);
+dt_t    dt_next_weekday         (dt_t dt, bool current);
+dt_t    dt_prev_weekday         (dt_t dt, bool current);
 
-dt_t  dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t  dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
+dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
+dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
 
-int   dt_delta_years          (dt_t dt1, dt_t dt2);
-int   dt_delta_quarters       (dt_t dt1, dt_t dt2);
-int   dt_delta_months         (dt_t dt1, dt_t dt2);
-int   dt_delta_weeks          (dt_t dt1, dt_t dt2);
+int     dt_delta_years          (dt_t dt1, dt_t dt2);
+int     dt_delta_quarters       (dt_t dt1, dt_t dt2);
+int     dt_delta_months         (dt_t dt1, dt_t dt2);
+int     dt_delta_weeks          (dt_t dt1, dt_t dt2);
 
-bool  dt_leap_year            (int y);
-int   dt_days_in_year         (int y);
-int   dt_days_in_quarter      (int y, int q);
-int   dt_days_in_month        (int y, int m);
+bool    dt_leap_year            (int y);
+int     dt_days_in_year         (int y);
+int     dt_days_in_quarter      (int y, int q);
+int     dt_days_in_month        (int y, int m);
+
+size_t  dt_parse_string         (const char *str, size_t len, dt_t *dtp);
 
 #ifdef __cplusplus
 }
