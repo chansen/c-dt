@@ -27,9 +27,17 @@
 #define __DTCONFIG_H__
 
 #include <stddef.h>
-#include <stdbool.h>
 #include <assert.h>
 #include <time.h>
+
+#ifndef _MSC_VER
+#  include <stdbool.h>
+#else
+#  ifndef __cplusplus
+#    define  bool _Bool
+#    typedef char _Bool;
+#  endif
+#endif
 
 #ifdef DT_INTERNAL
 #define OFFSET_RDN  0
