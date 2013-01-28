@@ -114,6 +114,7 @@ bool    dt_leap_year            (int y);
 int     dt_days_in_year         (int y);
 int     dt_days_in_quarter      (int y, int q);
 int     dt_days_in_month        (int y, int m);
+int     dt_weeks_in_year        (int y);
 
 size_t  dt_parse_string         (const char *str, size_t len, dt_t *dtp);
 

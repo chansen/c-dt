@@ -576,6 +576,11 @@ dt_days_in_month(int y, int m) {
     return days_in_month(y, m);
 }
 
+int
+dt_weeks_in_year(int y) {
+    return weeks_in_year(y);
+}
+
 static size_t
 count_digits(const unsigned char * const p, size_t i, const size_t len) {
     size_t n = 0;

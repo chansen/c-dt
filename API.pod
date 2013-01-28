@@ -528,6 +528,12 @@ Returns C<0> if the given quarter is out of range (1-4).
 Returns the number of days in the given I<month> (28-31) within the given I<year>.
 Returns C<0> if the given month is out of range (1-12).
 
+=head2 dt_weeks_in_year
+
+    int dt_weeks_in_year(int year);
+
+Returns the number of weeks in the given I<year> (52-53).
+
 =head1 TEST HARNESS
 
 The unit tests is written in C using the Test Anything Protocol (TAP). Perl and 
