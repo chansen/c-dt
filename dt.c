@@ -487,6 +487,24 @@ dt_prev_weekday(dt_t dt, bool current) {
 }
 
 dt_t
+dt_add_years(dt_t dt, int delta, dt_adjust_t adjust) {
+    int y, d;
+
+    dt_to_yd(dt, &y, &d);
+    if (adjust == DT_EXCESS || d < 365)
+        return dt_from_yd(y + delta, d);
+    else {
+        int ry = y + delta;
+        int diy;
+
+        diy = days_in_year(ry);
+        if (d > diy || (adjust == DT_SNAP && d == days_in_year(y)))
+            d = diy;
+        return dt_from_yd(ry, d);
+    }
+}
+
+dt_t
 dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 

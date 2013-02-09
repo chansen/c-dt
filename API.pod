@@ -431,6 +431,10 @@ Returns a date falling on the previous or current weekday (Monday through Friday
 for the given date I<dt>. The parameter I<current> specifies whether or not the 
 returned date must precede the given date.
 
+=head2 dt_add_years
+
+    dt_t dt_add_years(dt_t dt, int delta, dt_adjust_t adjust);
+
 =head2 dt_add_quarters
 
     dt_t dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust);
