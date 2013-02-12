@@ -106,13 +106,13 @@ dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
 
-void    dt_delta_ymd            (dt_t dt1, dt_t dt2, int *y, int *m, int *d);
-void    dt_delta_md             (dt_t dt1, dt_t dt2, int *m, int *d);
+void    dt_delta_ymd            (dt_t start, dt_t end, int *y, int *m, int *d);
+void    dt_delta_md             (dt_t start, dt_t end, int *m, int *d);
 
-int     dt_delta_years          (dt_t dt1, dt_t dt2);
-int     dt_delta_quarters       (dt_t dt1, dt_t dt2);
-int     dt_delta_months         (dt_t dt1, dt_t dt2);
-int     dt_delta_weeks          (dt_t dt1, dt_t dt2);
+int     dt_delta_years          (dt_t start, dt_t end);
+int     dt_delta_quarters       (dt_t start, dt_t end);
+int     dt_delta_months         (dt_t start, dt_t end);
+int     dt_delta_weeks          (dt_t start, dt_t end);
 
 bool    dt_leap_year            (int y);
 int     dt_days_in_year         (int y);

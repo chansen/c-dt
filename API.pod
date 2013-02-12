@@ -473,49 +473,50 @@ the same day of month as the given date. For example:
 
 =head2 dt_delta_ymd
 
-    void dt_delta_ymd(dt_t dt1, dt_t dt2, int *years, int *months, int *days);
+    void dt_delta_ymd(dt_t start, dt_t end, int *years, int *months, int *days);
 
-Computes the difference between the given dates I<dt1> and I<dt2> in terms of
-years, months and days. The result will be negative if I<dt1> is before I<dt2>.
+Computes the difference between the given dates I<start> and I<end> in terms of
+years, months and days. The result will be negative if I<start> is before I<end>.
 The pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_md
 
-    void dt_delta_md(dt_t dt1, dt_t dt2, int *months, int *days);
+    void dt_delta_md(dt_t start, dt_t end, int *months, int *days);
 
-Computes the difference between the given dates I<dt1> and I<dt2> in terms of 
-months and days. The result will be negative if I<dt1> is before I<dt2>. The 
+Computes the difference between the given dates I<start> and I<end> in terms of 
+months and days. The result will be negative if I<start> is before I<end>. The 
 pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_years
 
-    int dt_delta_years(dt_t dt1, dt_t dt2);
+    int dt_delta_years(dt_t start, dt_t end);
 
-Returns the difference between the given dates I<dt1> and I<dt2> in years.
-The result is equal to I<dt2> - I<dt1> in years. For example the delta between 
-2011-12-31 and 2012-01-01 is 1.
+Returns the difference between the given dates I<start> and I<end> in years.
+The result will be negative if I<start> is before I<end>. For example the 
+delta between 2011-12-31 and 2012-01-01 is 1.
 
 =head2 dt_delta_quarters
 
-    int dt_delta_quarters(dt_t dt1, dt_t dt2);
+    int dt_delta_quarters(dt_t start, dt_t end);
 
-Returns the difference between the given dates I<dt1> and I<dt2> in quarters.
-The result is equal to I<dt2> - I<dt1> in quarters.
+Returns the difference between the given dates I<start> and I<end> in quarters.
+The result will be negative if I<start> is before I<end>.
 
 =head2 dt_delta_months
 
-    int dt_delta_months(dt_t dt1, dt_t dt2);
+    int dt_delta_months(dt_t start, dt_t end);
 
 Returns the difference between the given dates I<dt1> and I<dt2> in months.
-The result is equal to I<dt2> - I<dt1> in months. For example the delta between 
-2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 2012-01-31 is 0.
+The result will be negative if I<start> is before I<end>. For example the delta 
+between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 
+2012-01-31 is 0.
 
 =head2 dt_delta_weeks
 
-    int dt_delta_weeks(dt_t dt1, dt_t dt2);
+    int dt_delta_weeks(dt_t start, dt_t end);
 
-Returns the difference between the given dates I<dt1> and I<dt2> in weeks.
-The result is equal to I<dt2> - I<dt1> in weeks.
+Returns the difference between the given dates I<start> and I<end> in weeks.
+The result will be negative if I<start> is before I<end>.
 
 =head2 dt_parse_string
 
