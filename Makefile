@@ -5,6 +5,7 @@ LDFLAGS += -lc $(DLDFLAGS)
 
 HARNESS_OBJS = \
 	t/add_years.o \
+	t/add_quarters.o \
 	t/add_months.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
@@ -59,6 +60,7 @@ HARNESS_EXES = \
 	t/prev_weekday.t \
 	t/nth_day_of_week.t \
 	t/add_years.t \
+	t/add_quarters.t \
 	t/add_months.t \
 	t/delta_ymd.t \
 	t/parse_string.t
@@ -82,6 +84,8 @@ t/tap.o: \
 
 t/add_years.o: \
 	$(HARNESS_DEPS) t/add_years.c
+t/add_quarters.o: \
+	$(HARNESS_DEPS) t/add_quarters.c
 t/add_months.o: \
 	$(HARNESS_DEPS) t/add_months.c t/add_months.h
 t/days_in_month.o: \

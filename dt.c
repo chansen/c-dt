@@ -509,7 +509,7 @@ dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, q, d;
 
     dt_to_yqd(dt, &y, &q, &d);
-    if (adjust == DT_EXCESS || d < 91)
+    if (adjust == DT_EXCESS || d < 90)
         return dt_from_yqd(y, q + delta, d);
     else {
         int ry = y;
