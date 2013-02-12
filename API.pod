@@ -471,6 +471,14 @@ the same day of month as the given date. For example:
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-31 *
 
+=head2 dt_delta_yd
+
+    void dt_delta_yd(dt_t start, dt_t end, int *years, int *days);
+
+Computes the difference between the given dates I<start> and I<end> in terms of
+years and days. The result will be negative if I<start> is before I<end>.
+The pointer parameters may be C<NULL> for any of the results that are not required.
+
 =head2 dt_delta_ymd
 
     void dt_delta_ymd(dt_t start, dt_t end, int *years, int *months, int *days);
@@ -506,7 +514,7 @@ The result will be negative if I<start> is before I<end>.
 
     int dt_delta_months(dt_t start, dt_t end);
 
-Returns the difference between the given dates I<dt1> and I<dt2> in months.
+Returns the difference between the given dates I<start> and I<end> in months.
 The result will be negative if I<start> is before I<end>. For example the delta 
 between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 
 2012-01-31 is 0.

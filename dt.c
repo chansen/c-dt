@@ -545,6 +545,28 @@ dt_add_months(dt_t dt, int delta, dt_adjust_t adjust) {
 }
 
 void
+dt_delta_yd(dt_t dt1, dt_t dt2, int *yp, int *dp) {
+    int y1, y2, d1, d2, years, days;
+
+    dt_to_yd(dt1, &y1, &d1);
+    dt_to_yd(dt2, &y2, &d2);
+
+    years = y2 - y1;
+    days = d2 - d1;
+
+    if (years > 0 && days < 0) {
+        years--;
+        days = dt2 - dt_add_years(dt1, years, DT_LIMIT);
+    }
+    else if (years < 0 && days > 0) {
+        years++;
+        days -= days_in_year(y2);
+    }
+    if (yp) *yp = years;
+    if (dp) *dp = days;
+}
+
+void
 dt_delta_ymd(dt_t dt1, dt_t dt2, int *yp, int *mp, int *dp) {
     int months;
 
