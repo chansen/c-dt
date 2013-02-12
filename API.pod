@@ -258,10 +258,10 @@ Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
 
 =head2 dt_first_day_of_year
 
-    dt_t dt_first_day_of_year(dt_t dt, int delta);
+    dt_t dt_first_day_of_year(dt_t dt, int offset);
 
 Returns a date falling on the first day of the year for the given date I<dt>. 
-The I<delta> parameter specifies the number of years to move forward (positive) 
+The I<offset> parameter specifies the number of years to move forward (positive) 
 or backward (negative).
 
 B<Example:>
@@ -277,10 +277,10 @@ B<Example:>
 
 =head2 dt_first_day_of_quarter
 
-    dt_t dt_first_day_of_quarter(dt_t dt, int delta);
+    dt_t dt_first_day_of_quarter(dt_t dt, int offset);
 
 Returns a date falling on the first day of the quarter for the given date I<dt>. 
-The I<delta> parameter specifies the number of quarters to move forward (positive) 
+The I<offset> parameter specifies the number of quarters to move forward (positive) 
 or backward (negative).
 
 B<Example:>
@@ -296,10 +296,10 @@ B<Example:>
 
 =head2 dt_first_day_of_month
 
-    dt_t dt_first_day_of_month(dt_t dt, int delta);
+    dt_t dt_first_day_of_month(dt_t dt, int offset);
 
 Returns a date falling on the first day of the month for the given date I<dt>. 
-The I<delta> parameter specifies the number of months to move forward (positive) 
+The I<offset> parameter specifies the number of months to move forward (positive) 
 or backward (negative).
 
 B<Example:>
@@ -333,26 +333,26 @@ B<Example:>
 
 =head2 dt_last_day_of_year
 
-    dt_t dt_last_day_of_year(dt_t dt, int delta);
+    dt_t dt_last_day_of_year(dt_t dt, int offset);
 
 Returns a date falling on the last day of the year for the given date I<dt>. 
-The I<delta> parameter specifies the number of years to move forward (positive) 
+The I<offset> parameter specifies the number of years to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_quarter
 
-    dt_t dt_last_day_of_quarter(dt_t dt, int delta);
+    dt_t dt_last_day_of_quarter(dt_t dt, int offset);
 
 Returns a date falling on the last day of the quarter for the given date I<dt>. 
-The I<delta> parameter specifies the number of quarters to move forward (positive) 
+The I<offset> parameter specifies the number of quarters to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_month
 
-    dt_t dt_last_day_of_month(dt_t dt, int delta);
+    dt_t dt_last_day_of_month(dt_t dt, int offset);
 
 Returns a date falling on the last day of the month for the given date I<dt>. 
-The I<delta> parameter specifies the number of months to move forward (positive) 
+The I<offset> parameter specifies the number of months to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_week
@@ -501,10 +501,9 @@ The result is equal to I<dt2> - I<dt1> in months. For example the delta between
 Returns the difference between the given dates I<dt1> and I<dt2> in weeks.
 The result is equal to I<dt2> - I<dt1> in weeks.
 
-
 =head2 dt_parse_string
 
-    size_t  dt_parse_string(const char *str, size_t len, dt_t *dtp);
+    size_t dt_parse_string(const char *str, size_t len, dt_t *dtp);
 
 =head2 dt_leap_year
 

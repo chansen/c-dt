@@ -400,22 +400,22 @@ dt_day_of_week(dt_t dt) {
 }
 
 dt_t
-dt_first_day_of_year(dt_t dt, int delta) {
-    return dt_from_yd(dt_year(dt) + delta, 1);
+dt_first_day_of_year(dt_t dt, int offset) {
+    return dt_from_yd(dt_year(dt) + offset, 1);
 }
 
 dt_t
-dt_first_day_of_quarter(dt_t dt, int delta) {
+dt_first_day_of_quarter(dt_t dt, int offset) {
     int y, q;
     dt_to_yqd(dt, &y, &q, NULL);
-    return dt_from_yqd(y, q + delta, 1);
+    return dt_from_yqd(y, q + offset, 1);
 }
 
 dt_t
-dt_first_day_of_month(dt_t dt, int delta) {
+dt_first_day_of_month(dt_t dt, int offset) {
     int y, m;
     dt_to_ymd(dt, &y, &m, NULL);
-    return dt_from_ymd(y, m + delta, 1);
+    return dt_from_ymd(y, m + offset, 1);
 }
 
 dt_t
@@ -424,22 +424,22 @@ dt_first_day_of_week(dt_t dt, int first_dow) {
 }
 
 dt_t
-dt_last_day_of_year(dt_t dt, int delta) {
-    return dt_from_yd(dt_year(dt) + delta + 1, 0);
+dt_last_day_of_year(dt_t dt, int offset) {
+    return dt_from_yd(dt_year(dt) + offset + 1, 0);
 }
 
 dt_t
-dt_last_day_of_quarter(dt_t dt, int delta) {
+dt_last_day_of_quarter(dt_t dt, int offset) {
     int y, q;
     dt_to_yqd(dt, &y, &q, NULL);
-    return dt_from_yqd(y, q + delta + 1, 0);
+    return dt_from_yqd(y, q + offset + 1, 0);
 }
 
 dt_t
-dt_last_day_of_month(dt_t dt, int delta) {
+dt_last_day_of_month(dt_t dt, int offset) {
     int y, m;
     dt_to_ymd(dt, &y, &m, NULL);
-    return dt_from_ymd(y, m + delta + 1, 0);
+    return dt_from_ymd(y, m + offset + 1, 0);
 }
 
 dt_t
