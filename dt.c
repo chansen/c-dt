@@ -544,6 +544,37 @@ dt_add_months(dt_t dt, int delta, dt_adjust_t adjust) {
     }
 }
 
+void
+dt_delta_ymd(dt_t dt1, dt_t dt2, int *yp, int *mp, int *dp) {
+    int months;
+
+    dt_delta_md(dt1, dt2, &months, dp);
+    if (yp) *yp = months / 12;
+    if (mp) *mp = months % 12;
+}
+
+void
+dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
+    int y1, y2, m1, m2, d1, d2, months, days;
+
+    dt_to_ymd(dt1, &y1, &m1, &d1);
+    dt_to_ymd(dt2, &y2, &m2, &d2);
+
+    months = 12 * (y2 - y1) + (m2 - m1);
+    days = d2 - d1;
+
+    if (months > 0 && days < 0) {
+        months--;
+        days = dt2 - dt_add_months(dt1, months, DT_LIMIT);
+    }
+    else if (months < 0 && days > 0) {
+        months++;
+        days -= days_in_month(y2, m2);
+    }
+    if (mp) *mp = months;
+    if (dp) *dp = days;
+}
+
 int
 dt_delta_years(dt_t dt1, dt_t dt2) {
     return dt_year(dt2) - dt_year(dt1);
