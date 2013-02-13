@@ -12,6 +12,7 @@ HARNESS_OBJS = \
 	t/days_in_year.o \
 	t/delta_yd.o \
 	t/delta_ymd.o \
+	t/delta_yqd.o \
 	t/easter_orthodox.o \
 	t/easter_western.o \
 	t/first_day_of_month.o \
@@ -65,6 +66,7 @@ HARNESS_EXES = \
 	t/add_months.t \
 	t/delta_yd.t \
 	t/delta_ymd.t \
+	t/delta_yqd.t \
 	t/parse_string.t
 
 HARNESS_DEPS = \
@@ -100,6 +102,8 @@ t/delta_yd.o: \
 	$(HARNESS_DEPS) t/delta_yd.c
 t/delta_ymd.o: \
 	$(HARNESS_DEPS) t/delta_ymd.c
+t/delta_yqd.o: \
+	$(HARNESS_DEPS) t/delta_yqd.c
 t/easter_orthodox.o: \
 	$(HARNESS_DEPS) t/easter_orthodox.c t/easter_orthodox.h
 t/easter_western.o: \

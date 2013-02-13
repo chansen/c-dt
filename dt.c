@@ -576,6 +576,15 @@ dt_delta_ymd(dt_t dt1, dt_t dt2, int *yp, int *mp, int *dp) {
 }
 
 void
+dt_delta_yqd(dt_t dt1, dt_t dt2, int *yp, int *qp, int *dp) {
+    int quarters;
+
+    dt_delta_qd(dt1, dt2, &quarters, dp);
+    if (yp) *yp = quarters / 4;
+    if (qp) *qp = quarters % 4;
+}
+
+void
 dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
     int y1, y2, m1, m2, d1, d2, months, days;
 
@@ -594,6 +603,28 @@ dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
         days -= days_in_month(y2, m2);
     }
     if (mp) *mp = months;
+    if (dp) *dp = days;
+}
+
+void
+dt_delta_qd(dt_t dt1, dt_t dt2, int *qp, int *dp) {
+    int y1, y2, q1, q2, d1, d2, quarters, days;
+
+    dt_to_yqd(dt1, &y1, &q1, &d1);
+    dt_to_yqd(dt2, &y2, &q2, &d2);
+
+    quarters = 4 * (y2 - y1) + (q2 - q1);
+    days = d2 - d1;
+
+    if (quarters > 0 && days < 0) {
+        quarters--;
+        days = dt2 - dt_add_quarters(dt1, quarters, DT_LIMIT);
+    }
+    else if (quarters < 0 && days > 0) {
+        quarters++;
+        days -= days_in_quarter(y2, q2);
+    }
+    if (qp) *qp = quarters;
     if (dp) *dp = days;
 }
 

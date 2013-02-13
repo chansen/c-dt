@@ -95,7 +95,7 @@ main() {
 
             dt_delta_yd(dt1, dt2, &ny, &nd);
             if (!ok((ny == t.ny && nd == t.nd),
-                "dt_delta_ymd(%.4d-%.3d, %.4d-%.3d)", t.y1, t.d1, t.y2, t.d2)) {
+                "dt_delta_yd(%.4d-%.3d, %.4d-%.3d)", t.y1, t.d1, t.y2, t.d2)) {
                 diag("      got: Y:%d, D:%d", ny, nd);
                 diag("      exp: Y:%d, D:%d", t.ny, t.nd);
             }

@@ -108,7 +108,10 @@ dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
 
 void    dt_delta_yd             (dt_t start, dt_t end, int *y, int *d);
 void    dt_delta_ymd            (dt_t start, dt_t end, int *y, int *m, int *d);
+void    dt_delta_yqd            (dt_t start, dt_t end, int *y, int *q, int *d);
+
 void    dt_delta_md             (dt_t start, dt_t end, int *m, int *d);
+void    dt_delta_qd             (dt_t start, dt_t end, int *q, int *d);
 
 int     dt_delta_years          (dt_t start, dt_t end);
 int     dt_delta_quarters       (dt_t start, dt_t end);

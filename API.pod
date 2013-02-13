@@ -487,12 +487,28 @@ Computes the difference between the given dates I<start> and I<end> in terms of
 years, months and days. The result will be negative if I<start> is before I<end>.
 The pointer parameters may be C<NULL> for any of the results that are not required.
 
+=head2 dt_delta_yqd
+
+    void dt_delta_yqd(dt_t start, dt_t end, int *years, int *quarters, int *days);
+
+Computes the difference between the given dates I<start> and I<end> in terms of
+years, quarters and days. The result will be negative if I<start> is before I<end>.
+The pointer parameters may be C<NULL> for any of the results that are not required.
+
 =head2 dt_delta_md
 
     void dt_delta_md(dt_t start, dt_t end, int *months, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of 
 months and days. The result will be negative if I<start> is before I<end>. The 
+pointer parameters may be C<NULL> for any of the results that are not required.
+
+=head2 dt_delta_qd
+
+    void dt_delta_qd(dt_t start, dt_t end, int *quarters, int *days);
+
+Computes the difference between the given dates I<start> and I<end> in terms of 
+quarters and days. The result will be negative if I<start> is before I<end>. The 
 pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_years
