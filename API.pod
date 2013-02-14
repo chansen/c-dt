@@ -16,7 +16,7 @@ dt - Lightweight C library for date arithmetic and date conversion using the pro
 
 =item * Follows the ISO 8601 conventions
 
-=item * Conversion between all ISO 8601 date values
+=item * Conversion between all ISO 8601 date representations
 
 =item * Good test coverage
 
@@ -260,7 +260,7 @@ Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
 
     dt_t dt_first_day_of_year(dt_t dt, int offset);
 
-Returns a date falling on the first day of the year for the given date I<dt>. 
+Returns a date set to the first day of the year for the given date I<dt>. 
 The I<offset> parameter specifies the number of years to move forward (positive) 
 or backward (negative).
 
@@ -272,14 +272,14 @@ B<Example:>
     /* First day of the next year */
     dt = dt_first_day_of_year(dt, 1);
     
-    /* First day of the previous year */
+    /* First day of the last year */
     dt = dt_first_day_of_year(dt, -1);
 
 =head2 dt_first_day_of_quarter
 
     dt_t dt_first_day_of_quarter(dt_t dt, int offset);
 
-Returns a date falling on the first day of the quarter for the given date I<dt>. 
+Returns a date set to the first day of the quarter for the given date I<dt>. 
 The I<offset> parameter specifies the number of quarters to move forward (positive) 
 or backward (negative).
 
@@ -291,14 +291,14 @@ B<Example:>
     /* First day of the current quarter next year */
     dt = dt_first_day_of_quarter(dt, 4);
     
-    /* First day of the current quarter previous year */
+    /* First day of the current quarter last year */
     dt = dt_first_day_of_quarter(dt, -4);
 
 =head2 dt_first_day_of_month
 
     dt_t dt_first_day_of_month(dt_t dt, int offset);
 
-Returns a date falling on the first day of the month for the given date I<dt>. 
+Returns a date set to the first day of the month for the given date I<dt>. 
 The I<offset> parameter specifies the number of months to move forward (positive) 
 or backward (negative).
 
@@ -317,8 +317,8 @@ B<Example:>
 
     dt_t dt_first_day_of_week(dt_t dt, int first_dow);
 
-Returns a date falling on the first day of the week for the given date I<dt>. 
-The I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
+Returns a date set to the first day of the week for the given date I<dt>. The 
+I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
 
 B<Example:>
 
@@ -335,32 +335,32 @@ B<Example:>
 
     dt_t dt_last_day_of_year(dt_t dt, int offset);
 
-Returns a date falling on the last day of the year for the given date I<dt>. 
-The I<offset> parameter specifies the number of years to move forward (positive) 
+Returns a date set to the last day of the year for the given date I<dt>. The 
+I<offset> parameter specifies the number of years to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_quarter
 
     dt_t dt_last_day_of_quarter(dt_t dt, int offset);
 
-Returns a date falling on the last day of the quarter for the given date I<dt>. 
-The I<offset> parameter specifies the number of quarters to move forward (positive) 
+Returns a date set to the last day of the quarter for the given date I<dt>. The 
+I<offset> parameter specifies the number of quarters to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_month
 
     dt_t dt_last_day_of_month(dt_t dt, int offset);
 
-Returns a date falling on the last day of the month for the given date I<dt>. 
-The I<offset> parameter specifies the number of months to move forward (positive) 
+Returns a date set to the last day of the month for the given date I<dt>. The 
+I<offset> parameter specifies the number of months to move forward (positive) 
 or backward (negative).
 
 =head2 dt_last_day_of_week
 
     dt_t dt_last_day_of_week(dt_t dt, int first_dow);
 
-Returns a date falling on the last day of the week for the given date I<dt>. 
-The I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
+Returns a date set to the last day of the week for the given date I<dt>. The 
+I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
 
 B<Example:>
 
@@ -377,32 +377,37 @@ B<Example:>
 
     dt_t dt_nth_day_of_week(dt_t dt, int nth, int dow);
 
-Returns a date falling on the I<nth> day of week for given date I<dt>.
+Returns a date set to the I<nth> day of week for given date I<dt>.
 The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 
 B<Example:>
 
     /* Birthday of Martin Luther King, Jr., the third Monday in January */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 3, DT_MONDAY);
+    dt = dt_from_ymd(2012, 1, 1);
+    dt = dt_nth_day_of_week(dt, 3, DT_MONDAY);
     
     /* Memorial Day, the last Monday in May */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 5, 31), -1, DT_MONDAY);
+    dt = dt_from_ymd(2012, 5, 31);
+    dt = dt_nth_day_of_week(dt, -1, DT_MONDAY);
     
     /* Thanksgiving Day, the fourth Thursday in November */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 11, 1), 4, DT_THURSDAY);
+    dt_from_ymd(2012, 11, 1);
+    dt = dt_nth_day_of_week(dt, 4, DT_THURSDAY);
     
     /* Penultimate Monday in the second quarter */
-    dt = dt_nth_day_of_week(dt_from_yqd(2012, 2, 91), -2, DT_MONDAY);
+    dt = dt_from_yqd(2012, 2, 91);
+    dt = dt_nth_day_of_week(dt, -2, DT_MONDAY);
     
     /* 50th Wednesday of the year */
-    dt = dt_nth_day_of_week(dt_from_ymd(2012, 1, 1), 50, DT_WEDNESDAY);
+    dt = dt_from_ymd(2012, 1, 1);
+    dt = dt_nth_day_of_week(dt, 50, DT_WEDNESDAY);
 
 =head2 dt_next_day_of_week
 
     dt_t dt_next_day_of_week(dt_t dt, int dow, bool current);
 
-Returns a date falling on the next or current day of week for the given 
-date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+Returns a date set to the next or current day of week for the given date I<dt>. 
+The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must succeed
 the given date.
 
@@ -410,7 +415,7 @@ the given date.
 
     dt_t dt_prev_day_of_week(dt_t dt, int dow, bool current);
 
-Returns a date falling on the previous or current day of week for the given 
+Returns a date set to the previous or current day of week for the given 
 date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must precede
 the given date.
@@ -419,7 +424,7 @@ the given date.
 
     dt_t dt_next_weekday(dt_t dt, bool current);
 
-Returns a date falling on the next or current weekday (Monday through Friday) for
+Returns a date set to the next or current weekday (Monday through Friday) for
 the given date I<dt>. The parameter I<current> specifies whether or not the 
 returned date must succeed the given date.
 
@@ -427,25 +432,81 @@ returned date must succeed the given date.
 
     dt_t dt_prev_weekday(dt_t dt, bool current);
 
-Returns a date falling on the previous or current weekday (Monday through Friday) 
+Returns a date set to the previous or current weekday (Monday through Friday) 
 for the given date I<dt>. The parameter I<current> specifies whether or not the 
 returned date must precede the given date.
 
 =head2 dt_add_years
 
-    dt_t dt_add_years(dt_t dt, int delta, dt_adjust_t adjust);
+    dt_t dt_add_years(dt_t dt, int years, dt_adjust_t adjust);
+
+Returns a date with the given I<years> added. The parameter I<adjust> 
+defines the behaviour when the resulting year has one less day than the 
+year of the given date.
+
+I<(adjust = DT_EXCESS)> If the resulting year has one less day than the year 
+of the given date, then the result is counted forward or backward into the 
+next or previous year by the excessive day. Otherwise, the result has the 
+same day of year as the given date. For example:
+
+    2012-366 + 1 year = 2014-001 *
+    2011-365 + 1 year = 2012-365
+
+I<(adjust = DT_LIMIT)> If the resulting year has one less day than the 
+year of the given date, then the result is the last day of the resulting 
+year. Otherwise, the result has the same day of year as the given date. 
+For example:
+
+    2012-366 + 1 year = 2013-365 *
+    2011-365 + 1 year = 2012-365
+
+I<(adjust = DT_SNAP)> If the given date is the last day of the year or if the 
+resulting year has one less day than the year of the given date, then the result 
+is the last day of the resulting year. Otherwise, the result has the same day 
+of year as the given date. For example:
+
+    2012-366 + 1 year = 2013-365 *
+    2011-365 + 1 year = 2012-366 *
 
 =head2 dt_add_quarters
 
-    dt_t dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust);
+    dt_t dt_add_quarters(dt_t dt, int quarters, dt_adjust_t adjust);
+
+Returns a date with the given I<quarters> added. The parameter I<adjust> 
+defines the behaviour when the resulting quarter has fewer days than the day 
+of the quarter for the given date.
+
+I<(adjust = DT_EXCESS)> If the resulting quarter has fewer days than the day of 
+quarter for the given date, then the result is counted forward or backward into 
+the next or previous quarter by the number of excessive days. Otherwise, the 
+result has the same day of quarter as the given date. For example:
+
+    2011-Q4-92 + 1 quarter = 2012-Q2-01 *
+    2012-Q2-91 + 1 quarter = 2012-Q3-91
+
+I<(adjust = DT_LIMIT)> If the resulting quarter has fewer days than the day of 
+quarter for the given date, then the result is the last day of the resulting 
+quarter. Otherwise, the result has the same day of quarter as the given date. 
+For example:
+
+    2011-Q4-92 + 1 quarter = 2012-Q1-91 *
+    2012-Q2-91 + 1 quarter = 2012-Q3-91
+
+I<(adjust = DT_SNAP)> If the given date is the last day of the quarter or if the 
+resulting quarter has fewer days than the day of quarter for the given date, then 
+the result is the last day of the resulting quarter. Otherwise, the result has 
+the same day of quarter as the given date. For example:
+
+    2011-Q4-92 + 1 quarter = 2012-Q1-91 *
+    2012-Q2-91 + 1 quarter = 2012-Q3-92 *
 
 =head2 dt_add_months
 
-    dt_t dt_add_months(dt_t dt, int delta, dt_adjust_t adjust);
+    dt_t dt_add_months(dt_t dt, int months, dt_adjust_t adjust);
 
-Returns a date with the given I<delta> months added to the given date I<dt>.
-The parameter I<adjust> defines the behaviour when the resulting month has fewer
-days than the day of the month for the given date. 
+Returns a date with the given I<months> added. The parameter I<adjust> 
+defines the behaviour when the resulting month has fewer days than the day 
+of the month for the given date. 
 
 I<(adjust = DT_EXCESS)> If the resulting month has fewer days than the day of 
 month for the given date, then the result is counted forward or backward into 
@@ -476,39 +537,44 @@ the same day of month as the given date. For example:
     void dt_delta_yd(dt_t start, dt_t end, int *years, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of
-years and days. The result will be negative if I<start> is before I<end>.
-The pointer parameters may be C<NULL> for any of the results that are not required.
+years and days. If I<start> is earlier than I<end>, then the result is positive. 
+If I<start> is later than I<end>, then the result is negative. The pointer 
+parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_ymd
 
     void dt_delta_ymd(dt_t start, dt_t end, int *years, int *months, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of
-years, months and days. The result will be negative if I<start> is before I<end>.
-The pointer parameters may be C<NULL> for any of the results that are not required.
+years, months and days. If I<start> is earlier than I<end>, then the result is 
+positive. If I<start> is later than I<end>, then the result is negative. The 
+pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_yqd
 
     void dt_delta_yqd(dt_t start, dt_t end, int *years, int *quarters, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of
-years, quarters and days. The result will be negative if I<start> is before I<end>.
-The pointer parameters may be C<NULL> for any of the results that are not required.
+years, quarters and days. If I<start> is earlier than I<end>, then the result is 
+positive. If I<start> is later than I<end>, then the result is negative. The 
+pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_md
 
     void dt_delta_md(dt_t start, dt_t end, int *months, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of 
-months and days. The result will be negative if I<start> is before I<end>. The 
-pointer parameters may be C<NULL> for any of the results that are not required.
+months and days. If I<start> is earlier than I<end>, then the result is positive. 
+If I<start> is later than I<end>, then the result is negative. The pointer 
+parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_qd
 
     void dt_delta_qd(dt_t start, dt_t end, int *quarters, int *days);
 
 Computes the difference between the given dates I<start> and I<end> in terms of 
-quarters and days. The result will be negative if I<start> is before I<end>. The 
+quarters and days. If I<start> is earlier than I<end>, then the result is 
+positive. If I<start> is later than I<end>, then the result is negative. The 
 pointer parameters may be C<NULL> for any of the results that are not required.
 
 =head2 dt_delta_years
@@ -516,22 +582,25 @@ pointer parameters may be C<NULL> for any of the results that are not required.
     int dt_delta_years(dt_t start, dt_t end);
 
 Returns the difference between the given dates I<start> and I<end> in years.
-The result will be negative if I<start> is before I<end>. For example the 
-delta between 2011-12-31 and 2012-01-01 is 1.
+If I<start> is earlier than I<end>, then the result is positive. If I<start> 
+is later than I<end>, then the result is negative. For example the delta 
+between 2011-12-31 and 2012-01-01 is 1.
 
 =head2 dt_delta_quarters
 
     int dt_delta_quarters(dt_t start, dt_t end);
 
 Returns the difference between the given dates I<start> and I<end> in quarters.
-The result will be negative if I<start> is before I<end>.
+If I<start> is earlier than I<end>, then the result is positive. If I<start> is 
+later than I<end>, then the result is negative.
 
 =head2 dt_delta_months
 
     int dt_delta_months(dt_t start, dt_t end);
 
 Returns the difference between the given dates I<start> and I<end> in months.
-The result will be negative if I<start> is before I<end>. For example the delta 
+If I<start> is earlier than I<end>, then the result is positive. If I<start> 
+is later than I<end>, then the result is negative. For example the delta 
 between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 
 2012-01-31 is 0.
 
@@ -540,7 +609,8 @@ between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and
     int dt_delta_weeks(dt_t start, dt_t end);
 
 Returns the difference between the given dates I<start> and I<end> in weeks.
-The result will be negative if I<start> is before I<end>.
+If I<start> is earlier than I<end>, then the result is positive. If I<start> 
+is later than I<end>, then the result is negative.
 
 =head2 dt_parse_string
 
