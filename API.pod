@@ -51,7 +51,7 @@ Returns a date corresponding to the given Rata Die number I<rdn>.
 
     dt_t dt_from_easter(int year, dt_computus_t computus);
 
-Returns a date corresponding to Easter Sunday for the given I<year>. The 
+Returns a date corresponding to the Easter Sunday for the given I<year>. The 
 parameter I<computus> specifies the Easter calculation. Returns C<0> if the 
 given year is non-positive.
 
@@ -79,8 +79,8 @@ B<Example:>
 
     dt_t dt_from_struct_tm(const struct tm *tm);
 
-Returns a date corresponding to the given structure I<tm>. Folowing 
-members of the I<tm> structure must be set: I<tm_year>, I<tm_mon> and I<tm_mday>.
+Returns a date corresponding to the given structure I<tm>. Folowing members 
+of the I<tm> structure must be set: I<tm_year>, I<tm_mon> and I<tm_mday>.
 The members I<tm_mon> and I<tm_mday> may be outside usual range and will be 
 normalized during the conversion.
 
@@ -261,8 +261,8 @@ Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
     dt_t dt_first_day_of_year(dt_t dt, int offset);
 
 Returns a date set to the first day of the year for the given date I<dt>. 
-The I<offset> parameter specifies the number of years to move forward (positive) 
-or backward (negative).
+The I<offset> parameter specifies the number of years before (negative) or 
+after (positive).
 
 B<Example:>
 
@@ -280,8 +280,8 @@ B<Example:>
     dt_t dt_first_day_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the first day of the quarter for the given date I<dt>. 
-The I<offset> parameter specifies the number of quarters to move forward (positive) 
-or backward (negative).
+The I<offset> parameter specifies the number of quarters before (negative) or 
+after (positive).
 
 B<Example:>
 
@@ -299,8 +299,8 @@ B<Example:>
     dt_t dt_first_day_of_month(dt_t dt, int offset);
 
 Returns a date set to the first day of the month for the given date I<dt>. 
-The I<offset> parameter specifies the number of months to move forward (positive) 
-or backward (negative).
+The I<offset> parameter specifies the number of months before (negative) or 
+after (positive).
 
 B<Example:>
 
@@ -336,24 +336,24 @@ B<Example:>
     dt_t dt_last_day_of_year(dt_t dt, int offset);
 
 Returns a date set to the last day of the year for the given date I<dt>. The 
-I<offset> parameter specifies the number of years to move forward (positive) 
-or backward (negative).
+I<offset> parameter specifies the number of years before (negative) or after 
+(positive).
 
 =head2 dt_last_day_of_quarter
 
     dt_t dt_last_day_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the last day of the quarter for the given date I<dt>. The 
-I<offset> parameter specifies the number of quarters to move forward (positive) 
-or backward (negative).
+I<offset> parameter specifies the number of quarters before (negative) or after 
+(positive).
 
 =head2 dt_last_day_of_month
 
     dt_t dt_last_day_of_month(dt_t dt, int offset);
 
 Returns a date set to the last day of the month for the given date I<dt>. The 
-I<offset> parameter specifies the number of months to move forward (positive) 
-or backward (negative).
+I<offset> parameter specifies the number of months before (negative) or after 
+(positive).
 
 =head2 dt_last_day_of_week
 
@@ -364,7 +364,7 @@ I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday
 
 B<Example:>
 
-    /* Monday as the first day of the implies Sunday as the last */
+    /* Monday as the first day of the week implies Sunday as the last */
     dt = dt_last_day_of_week(dt, DT_MONDAY);
     
     /* Sunday as first day of the week implies Saturday as the last */
@@ -407,16 +407,16 @@ B<Example:>
     dt_t dt_next_day_of_week(dt_t dt, int dow, bool current);
 
 Returns a date set to the next or current day of week for the given date I<dt>. 
-The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
-The parameter I<current> specifies whether or not the returned date must succeed
+The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday). The 
+parameter I<current> specifies whether or not the returned date must succeed
 the given date.
 
 =head2 dt_prev_day_of_week
 
     dt_t dt_prev_day_of_week(dt_t dt, int dow, bool current);
 
-Returns a date set to the previous or current day of week for the given 
-date I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+Returns a date set to the previous or current day of week for the given date 
+I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must precede
 the given date.
 
@@ -440,9 +440,9 @@ returned date must precede the given date.
 
     dt_t dt_add_years(dt_t dt, int years, dt_adjust_t adjust);
 
-Returns a date with the given I<years> added. The parameter I<adjust> 
-defines the behaviour when the resulting year has one less day than the 
-year of the given date.
+Returns a date with the given number of I<years> added. The parameter 
+I<adjust> defines the behaviour when the resulting year has one less day 
+than the year of the given date.
 
 I<(adjust = DT_EXCESS)> If the resulting year has one less day than the year 
 of the given date, then the result is counted forward or backward into the 
@@ -472,9 +472,9 @@ of year as the given date. For example:
 
     dt_t dt_add_quarters(dt_t dt, int quarters, dt_adjust_t adjust);
 
-Returns a date with the given I<quarters> added. The parameter I<adjust> 
-defines the behaviour when the resulting quarter has fewer days than the day 
-of the quarter for the given date.
+Returns a date with the given number of I<quarters> added. The parameter 
+I<adjust> defines the behaviour when the resulting quarter has fewer days than 
+the day of the quarter for the given date.
 
 I<(adjust = DT_EXCESS)> If the resulting quarter has fewer days than the day of 
 quarter for the given date, then the result is counted forward or backward into 
@@ -504,9 +504,9 @@ the same day of quarter as the given date. For example:
 
     dt_t dt_add_months(dt_t dt, int months, dt_adjust_t adjust);
 
-Returns a date with the given I<months> added. The parameter I<adjust> 
-defines the behaviour when the resulting month has fewer days than the day 
-of the month for the given date. 
+Returns a date with the given numbers of I<months> added. The parameter 
+I<adjust> defines the behaviour when the resulting month has fewer days than 
+the day of the month for the given date. 
 
 I<(adjust = DT_EXCESS)> If the resulting month has fewer days than the day of 
 month for the given date, then the result is counted forward or backward into 
@@ -538,8 +538,11 @@ the same day of month as the given date. For example:
 
 Computes the difference between the given dates I<start> and I<end> in terms of
 years and days. If I<start> is earlier than I<end>, then the result is positive. 
-If I<start> is later than I<end>, then the result is negative. The pointer 
-parameters may be C<NULL> for any of the results that are not required.
+If I<start> is later than I<end>, then the result is negative. The sign will be 
+the same in each of I<years> and I<days>. The pointer parameters may be C<NULL> 
+for any of the results that are not required. For example the difference between 
+2012-140 and 2013-150 is 1 year and 10 days; the difference between 2012-160 and 
+2013-150 is 0 years and 356 days.
 
 =head2 dt_delta_ymd
 
@@ -548,7 +551,10 @@ parameters may be C<NULL> for any of the results that are not required.
 Computes the difference between the given dates I<start> and I<end> in terms of
 years, months and days. If I<start> is earlier than I<end>, then the result is 
 positive. If I<start> is later than I<end>, then the result is negative. The 
-pointer parameters may be C<NULL> for any of the results that are not required.
+sign will be the same in each of I<years>, I<months> and I<days>. The pointer 
+parameters may be C<NULL> for any of the results that are not required. For 
+example the difference between 2012-02-10 and 2013-10-20 is 1 year, 8 months 
+and 10 days.
 
 =head2 dt_delta_yqd
 
@@ -556,8 +562,11 @@ pointer parameters may be C<NULL> for any of the results that are not required.
 
 Computes the difference between the given dates I<start> and I<end> in terms of
 years, quarters and days. If I<start> is earlier than I<end>, then the result is 
-positive. If I<start> is later than I<end>, then the result is negative. The 
-pointer parameters may be C<NULL> for any of the results that are not required.
+positive. If I<start> is later than I<end>, then the result is negative. The sign 
+will be the same in each of I<years>, I<quarters> and I<days>. The pointer 
+parameters may be C<NULL> for any of the results that are not required. For 
+example the difference between 2012-Q1-10 and 2013-Q4-20 is 1 year, 3 quarters 
+and 10 days.
 
 =head2 dt_delta_md
 
@@ -565,8 +574,10 @@ pointer parameters may be C<NULL> for any of the results that are not required.
 
 Computes the difference between the given dates I<start> and I<end> in terms of 
 months and days. If I<start> is earlier than I<end>, then the result is positive. 
-If I<start> is later than I<end>, then the result is negative. The pointer 
-parameters may be C<NULL> for any of the results that are not required.
+If I<start> is later than I<end>, then the result is negative. The sign will be 
+the same in each of I<months> and I<days>. The pointer parameters may be C<NULL> 
+for any of the results that are not required. For example the difference between 
+2012-02-10 and 2013-10-20 is 20 months and 10 days.
 
 =head2 dt_delta_qd
 
@@ -575,7 +586,10 @@ parameters may be C<NULL> for any of the results that are not required.
 Computes the difference between the given dates I<start> and I<end> in terms of 
 quarters and days. If I<start> is earlier than I<end>, then the result is 
 positive. If I<start> is later than I<end>, then the result is negative. The 
-pointer parameters may be C<NULL> for any of the results that are not required.
+sign will be the same in each of I<quarters> and I<days>. The pointer 
+parameters may be C<NULL> for any of the results that are not required. For 
+example the difference between 2012-Q1-10 and 2013-Q4-20 is 7 quarters and 
+10 days.
 
 =head2 dt_delta_years
 
@@ -583,7 +597,7 @@ pointer parameters may be C<NULL> for any of the results that are not required.
 
 Returns the difference between the given dates I<start> and I<end> in years.
 If I<start> is earlier than I<end>, then the result is positive. If I<start> 
-is later than I<end>, then the result is negative. For example the delta 
+is later than I<end>, then the result is negative. For example the difference 
 between 2011-12-31 and 2012-01-01 is 1.
 
 =head2 dt_delta_quarters
@@ -600,7 +614,7 @@ later than I<end>, then the result is negative.
 
 Returns the difference between the given dates I<start> and I<end> in months.
 If I<start> is earlier than I<end>, then the result is positive. If I<start> 
-is later than I<end>, then the result is negative. For example the delta 
+is later than I<end>, then the result is negative. For example the difference 
 between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 
 2012-01-31 is 0.
 
