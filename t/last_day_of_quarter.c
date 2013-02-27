@@ -28,8 +28,8 @@ main() {
         {
             dt_t dt1 = dt_from_yqd(t.y, t.q, t.d);
             dt_t dt2 = dt_last_day_of_quarter(dt1, t.delta);
-            int got = dt_delta_quarters(dt1, dt2);
-            cmp_ok(got, "==", t.delta, "dt_delta_quarters(%d, %d)", dt1, dt2);
+            int got = dt_delta_quarters(dt1, dt2, 0);
+            cmp_ok(got, "==", t.delta, "dt_delta_quarters(%d, %d, false)", dt1, dt2);
         }
     }
     done_testing();

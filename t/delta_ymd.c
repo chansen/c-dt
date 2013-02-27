@@ -119,6 +119,17 @@ main() {
                 diag("      exp: M:%d, D:%d", em, t.nd);
             }
         }
+
+        {
+            int nm, em;
+            dt_t dt1 = dt_from_ymd(t.y1, t.m1, t.d1);
+            dt_t dt2 = dt_from_ymd(t.y2, t.m2, t.d2);
+
+            nm = dt_delta_months(dt1, dt2, 1);
+            em = t.nm + (t.ny * 12);
+            cmp_ok(nm, "==", em, "dt_delta_months(%.4d-%.2d-%.2d, %.4d-%.2d-%.2d, true)", 
+              t.y1, t.m1, t.d1, t.y2, t.m2, t.d2);
+        }
     }
     done_testing();
 }

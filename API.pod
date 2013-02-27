@@ -94,14 +94,9 @@ during the conversion.
 
 B<Example:>
 
-    /* First day of the year */
-    dt = dt_from_yd(2012, 1);
-
-    /* Last day of the the previous year */
-    dt = dt_from_yd(2012, 0);
-
-    /* Penultimate day of the previous year */
-    dt = dt_from_yd(2012, -1);
+    dt = dt_from_yd(2012, 1);   /* 2012-001 */
+    dt = dt_from_yd(2012, 0);   /* 2011-365 */
+    dt = dt_from_yd(2012, -1);  /* 2011-364 */
 
 =head2 dt_from_ymd
 
@@ -375,10 +370,11 @@ B<Example:>
 
 =head2 dt_nth_day_of_week
 
-    dt_t dt_nth_day_of_week(dt_t dt, int nth, int dow);
+    dt_t dt_nth_day_of_week(dt_t dt, int nth, int day);
 
-Returns a date set to the I<nth> day of week for given date I<dt>.
-The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
+Returns a date set to the I<nth> occurrence of the given I<day> of week for 
+given date I<dt>. The parameter I<day> specifies the day of week 
+(1=Monday to 7=Sunday).
 
 B<Example:>
 
@@ -391,7 +387,7 @@ B<Example:>
     dt = dt_nth_day_of_week(dt, -1, DT_MONDAY);
     
     /* Thanksgiving Day, the fourth Thursday in November */
-    dt_from_ymd(2012, 11, 1);
+    dy = dt_from_ymd(2012, 11, 1);
     dt = dt_nth_day_of_week(dt, 4, DT_THURSDAY);
     
     /* Penultimate Monday in the second quarter */
@@ -477,10 +473,10 @@ B<Example:>
     dt_t dt_add_years(dt_t dt, int years, dt_adjust_t adjust);
 
 Returns a date with the given number of I<years> added. The parameter 
-I<adjust> defines the behaviour when the resulting year has one less day 
+I<adjust> defines the behaviour when the resulting year has one day less
 than the year of the given date.
 
-I<(adjust = DT_EXCESS)> If the resulting year has one less day than the year 
+I<(adjust = DT_EXCESS)> If the resulting year has one day less than the year 
 of the given date, then the result is counted forward or backward into the 
 next or previous year by the excessive day. Otherwise, the result has the 
 same day of year as the given date. For example:
@@ -488,7 +484,7 @@ same day of year as the given date. For example:
     2012-366 + 1 year = 2014-001 *
     2011-365 + 1 year = 2012-365
 
-I<(adjust = DT_LIMIT)> If the resulting year has one less day than the 
+I<(adjust = DT_LIMIT)> If the resulting year has one day less than the 
 year of the given date, then the result is the last day of the resulting 
 year. Otherwise, the result has the same day of year as the given date. 
 For example:
@@ -497,7 +493,7 @@ For example:
     2011-365 + 1 year = 2012-365
 
 I<(adjust = DT_SNAP)> If the given date is the last day of the year or if the 
-resulting year has one less day than the year of the given date, then the result 
+resulting year has one day less than the year of the given date, then the result 
 is the last day of the resulting year. Otherwise, the result has the same day 
 of year as the given date. For example:
 
@@ -629,30 +625,35 @@ example the difference between 2012-Q1-10 and 2013-Q4-20 is 7 quarters and
 
 =head2 dt_delta_years
 
-    int dt_delta_years(dt_t start, dt_t end);
+    int dt_delta_years(dt_t start, dt_t end, bool complete);
 
-Returns the difference between the given dates I<start> and I<end> in years.
-If I<start> is earlier than I<end>, then the result is positive. If I<start> 
-is later than I<end>, then the result is negative. For example the difference 
-between 2011-12-31 and 2012-01-01 is 1.
+Returns the difference between the given dates I<start> and I<end> in years. 
+The parameter I<complete> specifies whether or not only complete years should
+be calculated. If I<start> is earlier than I<end>, then the result is positive. 
+If I<start> is later than I<end>, then the result is negative. For example the 
+difference between 2011-12-31 and 2012-01-01 is 1 when C<complete> is false and
+0 when C<complete> is true.
 
 =head2 dt_delta_quarters
 
-    int dt_delta_quarters(dt_t start, dt_t end);
+    int dt_delta_quarters(dt_t start, dt_t end, bool complete);
 
 Returns the difference between the given dates I<start> and I<end> in quarters.
-If I<start> is earlier than I<end>, then the result is positive. If I<start> is 
-later than I<end>, then the result is negative.
+The parameter I<complete> specifies whether or not only complete years should
+be calculated. If I<start> is earlier than I<end>, then the result is positive. 
+If I<start> is later than I<end>, then the result is negative.
 
 =head2 dt_delta_months
 
-    int dt_delta_months(dt_t start, dt_t end);
+    int dt_delta_months(dt_t start, dt_t end, bool complete);
 
 Returns the difference between the given dates I<start> and I<end> in months.
-If I<start> is earlier than I<end>, then the result is positive. If I<start> 
-is later than I<end>, then the result is negative. For example the difference 
-between 2012-01-25 and 2012-02-01 is 1; the delta between 2012-01-01 and 
-2012-01-31 is 0.
+The parameter I<complete> specifies whether or not only complete years should
+be calculated. If I<start> is earlier than I<end>, then the result is positive. 
+If I<start> is later than I<end>, then the result is negative. For example the 
+difference between 2012-01-25 and 2012-02-01 is 1 when C<complete> is false and
+0 when C<complete> is true; the delta between 2012-01-01 and 2012-01-31 is 0 
+regardless of C<complete>.
 
 =head2 dt_delta_weeks
 

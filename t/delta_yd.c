@@ -100,6 +100,16 @@ main() {
                 diag("      exp: Y:%d, D:%d", t.ny, t.nd);
             }
         }
+
+        {
+            int got;
+            dt_t dt1 = dt_from_yd(t.y1, t.d1);
+            dt_t dt2 = dt_from_yd(t.y2, t.d2);
+
+            got = dt_delta_years(dt1, dt2, 1);
+            cmp_ok(got, "==", t.ny, "dt_delta_years(%.4d-%.3d, %.4d-%.3d, true)", 
+              t.y1, t.d1, t.y2, t.d2);
+        }
     }
     done_testing();
 }

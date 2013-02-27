@@ -54,6 +54,18 @@ main() {
                 diag("      exp: Q:%d, D:%d", eq, t.nd);
             }
         }
+
+        {
+            int nq, eq;
+            dt_t dt1 = dt_from_yqd(t.y1, t.q1, t.d1);
+            dt_t dt2 = dt_from_yqd(t.y2, t.q2, t.d2);
+
+            nq = dt_delta_quarters(dt1, dt2, 1);
+            eq = t.nq + (t.ny * 4);
+            cmp_ok(nq, "==", eq, "dt_delta_quarters(%.4d-Q%d-%.2d, %.4d-Q%d-%.2d, true)", 
+              t.y1, t.q1, t.d1, t.y2, t.q2, t.d2);
+        }
     }
     done_testing();
 }
+
