@@ -387,7 +387,7 @@ B<Example:>
     dt = dt_nth_day_of_week(dt, -1, DT_MONDAY);
     
     /* Thanksgiving Day, the fourth Thursday in November */
-    dy = dt_from_ymd(2012, 11, 1);
+    dt = dt_from_ymd(2012, 11, 1);
     dt = dt_nth_day_of_week(dt, 4, DT_THURSDAY);
     
     /* Penultimate Monday in the second quarter */
@@ -629,8 +629,10 @@ example the difference between 2012-Q1-10 and 2013-Q4-20 is 7 quarters and
 
 Returns the difference between the given dates I<start> and I<end> in years. 
 The parameter I<complete> specifies whether or not only complete years should
-be calculated. If I<start> is earlier than I<end>, then the result is positive. 
-If I<start> is later than I<end>, then the result is negative. For example the 
+be calculated. A year is considered to be complete if the day of the year of 
+the I<end> date is greater than or equal to the day of the year of the I<start>
+date. If I<start> is earlier than I<end>, then the result is positive. If 
+I<start> is later than I<end>, then the result is negative. For example the 
 difference between 2011-12-31 and 2012-01-01 is 1 when C<complete> is false and
 0 when C<complete> is true.
 
@@ -640,7 +642,9 @@ difference between 2011-12-31 and 2012-01-01 is 1 when C<complete> is false and
 
 Returns the difference between the given dates I<start> and I<end> in quarters.
 The parameter I<complete> specifies whether or not only complete years should
-be calculated. If I<start> is earlier than I<end>, then the result is positive. 
+be calculated. A quarter is considered to be complete if the day of the quarter 
+of the I<end> date is greater than or equal to the day of the quarter of the 
+I<start> date. If I<start> is earlier than I<end>, then the result is positive. 
 If I<start> is later than I<end>, then the result is negative.
 
 =head2 dt_delta_months
@@ -649,8 +653,10 @@ If I<start> is later than I<end>, then the result is negative.
 
 Returns the difference between the given dates I<start> and I<end> in months.
 The parameter I<complete> specifies whether or not only complete years should
-be calculated. If I<start> is earlier than I<end>, then the result is positive. 
-If I<start> is later than I<end>, then the result is negative. For example the 
+be calculated. A month is considered to be complete if the day of the month of 
+the I<end> date is greater than or equal to the day of the month of the I<start> 
+date. If I<start> is earlier than I<end>, then the result is positive. If 
+I<start> is later than I<end>, then the result is negative. For example the 
 difference between 2012-01-25 and 2012-02-01 is 1 when C<complete> is false and
 0 when C<complete> is true; the delta between 2012-01-01 and 2012-01-31 is 0 
 regardless of C<complete>.
