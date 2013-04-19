@@ -564,6 +564,13 @@ the same day of month as the given date. For example:
     2012-01-31 + 1 month = 2012-02-29 *
     2012-02-29 + 1 month = 2012-03-31 *
 
+=head2 dt_add_weekdays
+
+    dt_t dt_add_weekdays(dt_t dt, int weekdays);
+
+Returns a date with the given number of I<weekdays> (Monday through Friday) 
+added.
+
 =head2 dt_delta_yd
 
     void dt_delta_yd(dt_t start, dt_t end, int *years, int *days);
@@ -668,6 +675,16 @@ regardless of C<complete>.
 Returns the difference between the given dates I<start> and I<end> in weeks.
 If I<start> is earlier than I<end>, then the result is positive. If I<start> 
 is later than I<end>, then the result is negative.
+
+=head2 dt_delta_weekdays
+
+    int dt_delta_weekdays(dt_t start, dt_t end, bool inclusive);
+
+Returns the number of weekdays (Monday through Friday) between the given 
+dates I<start> and I<end>. The parameter I<inclusive> specifies whether or 
+not the the I<end> date should be inclusive. If I<start> is earlier than 
+I<end>, then the result is positive. If I<start> is later than I<end>, 
+then the result is negative.
 
 =head2 dt_parse_string
 

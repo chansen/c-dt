@@ -7,9 +7,11 @@ HARNESS_OBJS = \
 	t/add_years.o \
 	t/add_quarters.o \
 	t/add_months.o \
+	t/add_weekdays.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
 	t/days_in_year.o \
+	t/delta_weekdays.o \
 	t/delta_yd.o \
 	t/delta_ymd.o \
 	t/delta_yqd.o \
@@ -64,9 +66,11 @@ HARNESS_EXES = \
 	t/add_years.t \
 	t/add_quarters.t \
 	t/add_months.t \
+	t/add_weekdays.t \
 	t/delta_yd.t \
 	t/delta_ymd.t \
 	t/delta_yqd.t \
+	t/delta_weekdays.t \
 	t/parse_string.t
 
 HARNESS_DEPS = \
@@ -92,12 +96,16 @@ t/add_quarters.o: \
 	$(HARNESS_DEPS) t/add_quarters.c
 t/add_months.o: \
 	$(HARNESS_DEPS) t/add_months.c t/add_months.h
+t/add_weekdays.o: \
+	$(HARNESS_DEPS) t/add_weekdays.c
 t/days_in_month.o: \
 	$(HARNESS_DEPS) t/days_in_month.c
 t/days_in_quarter.o: \
 	$(HARNESS_DEPS) t/days_in_quarter.c
 t/days_in_year.o: \
 	$(HARNESS_DEPS) t/days_in_year.c
+t/delta_weekdays.o: \
+	$(HARNESS_DEPS) t/delta_weekdays.c
 t/delta_yd.o: \
 	$(HARNESS_DEPS) t/delta_yd.c
 t/delta_ymd.o: \

@@ -102,6 +102,8 @@ dt_t    dt_prev_day_of_week     (dt_t dt, int dow, bool current);
 dt_t    dt_next_weekday         (dt_t dt, bool current);
 dt_t    dt_prev_weekday         (dt_t dt, bool current);
 
+dt_t    dt_add_weekdays         (dt_t dt, int delta);
+
 dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
@@ -117,6 +119,8 @@ int     dt_delta_years          (dt_t start, dt_t end, bool complete);
 int     dt_delta_quarters       (dt_t start, dt_t end, bool complete);
 int     dt_delta_months         (dt_t start, dt_t end, bool complete);
 int     dt_delta_weeks          (dt_t start, dt_t end);
+
+int     dt_delta_weekdays       (dt_t start, dt_t end, bool inclusive);
 
 bool    dt_leap_year            (int y);
 int     dt_days_in_year         (int y);
