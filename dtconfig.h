@@ -40,8 +40,7 @@
 #endif
 
 #ifdef DT_INTERNAL
-#define OFFSET_RDN  0
-#define OFFSET_CJDN (OFFSET_RDN - 1721425)
+#define OFFSET_RDN 0
 #endif
 
 typedef int dt_t;

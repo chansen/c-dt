@@ -148,7 +148,7 @@ easter_julian(int year) {
 
 dt_t
 dt_from_cjdn(int n) {
-    return n + OFFSET_CJDN;
+    return dt_from_rdn(n - 1721425);
 }
 
 dt_t
@@ -334,7 +334,7 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
 
 int
 dt_cjdn(dt_t dt) {
-    return dt - OFFSET_CJDN;
+    return dt_rdn(dt) + 1721425;
 }
 
 int
