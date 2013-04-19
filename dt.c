@@ -29,19 +29,6 @@
 #define LEAP_YEAR(y) \
     ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
-static dt_t
-days_preceding_year(int y) {
-    int n = 0;
-
-    y--;
-    if (y < 0) {
-        const int n400 = 1 - y/400;
-        y += n400 * 400;
-        n -= n400 * 146097;
-    }
-    return n + 365 * y + y/4 - y/100 + y/400;
-}
-
 static const int days_preceding_month_[2][13] = {
     { 0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
     { 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 }
@@ -173,7 +160,13 @@ dt_from_struct_tm(const struct tm *tm) {
 
 dt_t
 dt_from_yd(int y, int d) {
-    return days_preceding_year(y) + d;
+    y--;
+    if (y < 0) {
+        const int n400 = 1 - y/400;
+        y += n400 * 400;
+        d -= n400 * 146097;
+    }
+    return 365 * y + y/4 - y/100 + y/400 + d;
 }
 
 dt_t
