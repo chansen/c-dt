@@ -92,12 +92,6 @@ Returns a date corresponding to the given ordinal date: I<year> and I<day>
 of the year (1-366). The I<day> may be outside usual range and will be normalized 
 during the conversion.
 
-B<Example:>
-
-    dt = dt_from_yd(2012, 1);   /* 2012-001 */
-    dt = dt_from_yd(2012, 0);   /* 2011-365 */
-    dt = dt_from_yd(2012, -1);  /* 2011-364 */
-
 =head2 dt_from_ymd
 
     dt_t dt_from_ymd(int year, int month, int day);
@@ -259,17 +253,6 @@ Returns a date set to the first day of the year for the given date I<dt>.
 The I<offset> parameter specifies the number of years before (negative) or 
 after (positive) the given date.
 
-B<Example:>
-
-    /* First day of the current year */
-    dt = dt_first_day_of_year(dt, 0);
-    
-    /* First day of the next year */
-    dt = dt_first_day_of_year(dt, 1);
-    
-    /* First day of the last year */
-    dt = dt_first_day_of_year(dt, -1);
-
 =head2 dt_first_day_of_quarter
 
     dt_t dt_first_day_of_quarter(dt_t dt, int offset);
@@ -277,17 +260,6 @@ B<Example:>
 Returns a date set to the first day of the quarter for the given date I<dt>. 
 The I<offset> parameter specifies the number of quarters before (negative) or 
 after (positive) the given date.
-
-B<Example:>
-
-    /* First day of the current quarter */
-    dt = dt_first_day_of_quarter(dt, 0);
-    
-    /* First day of the current quarter next year */
-    dt = dt_first_day_of_quarter(dt, 4);
-    
-    /* First day of the current quarter last year */
-    dt = dt_first_day_of_quarter(dt, -4);
 
 =head2 dt_first_day_of_month
 
@@ -297,34 +269,12 @@ Returns a date set to the first day of the month for the given date I<dt>.
 The I<offset> parameter specifies the number of months before (negative) or 
 after (positive) the given date.
 
-B<Example:>
-
-    /* First day of the current month */
-    dt = dt_first_day_of_month(dt, 0);
-    
-    /* First day of the next month */
-    dt = dt_first_day_of_month(dt, 1);
-    
-    /* First day of the current month next year */
-    dt = dt_first_day_of_month(dt, 12);
-
 =head2 dt_first_day_of_week
 
     dt_t dt_first_day_of_week(dt_t dt, int first_dow);
 
 Returns a date set to the first day of the week for the given date I<dt>. The 
 I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
-
-B<Example:>
-
-    /* Monday as the first day of the week */
-    dt = dt_first_day_of_week(dt, DT_MONDAY);
-    
-    /* Sunday as the first day of the week */
-    dt = dt_first_day_of_week(dt, DT_SUNDAY);
-    
-    /* Saturday as the first day of the week */
-    dt = dt_first_day_of_week(dt, DT_SATURDAY);
 
 =head2 dt_last_day_of_year
 
@@ -356,17 +306,6 @@ I<offset> parameter specifies the number of months before (negative) or after
 
 Returns a date set to the last day of the week for the given date I<dt>. The 
 I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
-
-B<Example:>
-
-    /* Monday as the first day of the week implies Sunday as the last */
-    dt = dt_last_day_of_week(dt, DT_MONDAY);
-    
-    /* Sunday as first day of the week implies Saturday as the last */
-    dt = dt_last_day_of_week(dt, DT_SUNDAY);
-    
-    /* Saturday as the first day of the week implies Friday as the last */
-    dt = dt_last_day_of_week(dt, DT_SATURDAY);
 
 =head2 dt_nth_day_of_week
 
@@ -407,14 +346,6 @@ The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday). The
 parameter I<current> specifies whether or not the returned date must succeed
 the given date.
 
-B<Example:>
-
-    dt1 = dt_from_ymd(2013, 2, 10);                   /* a Sunday       */
-    dt2 = dt_next_day_of_week(dt1, DT_SUNDAY, true);  /* 2013-02-10     */
-    dt3 = dt_next_day_of_week(dt1, DT_SUNDAY, false); /* 2013-02-17     */
-    dt4 = dt_next_day_of_week(dt1, DT_MONDAY, true);  /* 2013-02-11     */
-    dt5 = dt_next_day_of_week(dt1, DT_MONDAY, false); /* 2013-02-11     */
-
 =head2 dt_prev_day_of_week
 
     dt_t dt_prev_day_of_week(dt_t dt, int dow, bool current);
@@ -424,14 +355,6 @@ I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
 The parameter I<current> specifies whether or not the returned date must precede
 the given date.
 
-B<Example:>
-
-    dt1 = dt_from_ymd(2013, 2, 10);                   /* a Sunday       */
-    dt2 = dt_prev_day_of_week(dt1, DT_SUNDAY, true);  /* 2013-02-10     */
-    dt3 = dt_prev_day_of_week(dt1, DT_SUNDAY, false); /* 2013-02-03     */
-    dt4 = dt_prev_day_of_week(dt1, DT_MONDAY, true);  /* 2013-02-04     */
-    dt5 = dt_prev_day_of_week(dt1, DT_MONDAY, false); /* 2013-02-04     */
-
 =head2 dt_next_weekday
 
     dt_t dt_next_weekday(dt_t dt, bool current);
@@ -439,17 +362,7 @@ B<Example:>
 Returns a date set to the next or current weekday (Monday through Friday) for
 the given date I<dt>. The parameter I<current> specifies whether or not the 
 returned date must succeed the given date.
-
-B<Example:>
-
-    dt1 = dt_from_ymd(2013, 2, 10);     /* a Sunday                     */
-    dt2 = dt_next_weekday(dt1, true);   /* 2013-02-11                   */
-    dt3 = dt_next_weekday(dt1, false);  /* 2013-02-11                   */
-    
-    dt1 = dt_from_ymd(2013, 2, 15);     /* a Friday                     */
-    dt2 = dt_next_weekday(dt1, true);   /* 2013-02-15 (same as input)   */
-    dt3 = dt_next_weekday(dt1, false);  /* 2013-02-18                   */
-    
+   
 =head2 dt_prev_weekday
 
     dt_t dt_prev_weekday(dt_t dt, bool current);
@@ -457,16 +370,6 @@ B<Example:>
 Returns a date set to the previous or current weekday (Monday through Friday) 
 for the given date I<dt>. The parameter I<current> specifies whether or not the 
 returned date must precede the given date.
-
-B<Example:>
-
-    dt1 = dt_from_ymd(2013, 2, 10);     /* a Sunday                     */
-    dt2 = dt_prev_weekday(dt1, true);   /* 2013-02-08                   */
-    dt3 = dt_prev_weekday(dt1, false);  /* 2013-02-08                   */
-    
-    dt1 = dt_from_ymd(2013, 2, 15);     /* a Friday                     */
-    dt2 = dt_prev_weekday(dt1, true);   /* 2013-02-15 (same as input)   */
-    dt3 = dt_prev_weekday(dt1, false);  /* 2013-02-14                   */
 
 =head2 dt_add_years
 
@@ -681,10 +584,10 @@ is later than I<end>, then the result is negative.
     int dt_delta_weekdays(dt_t start, dt_t end, bool inclusive);
 
 Returns the number of weekdays (Monday through Friday) between the given 
-dates I<start> and I<end>. The parameter I<inclusive> specifies whether or 
-not the the I<end> date should be inclusive. If I<start> is earlier than 
-I<end>, then the result is positive. If I<start> is later than I<end>, 
-then the result is negative.
+dates I<start> and I<end>. The parameter I<inclusive> specifies whether the 
+I<end> date should be inclusive. If I<start> is earlier than I<end>, then 
+the result is positive. If I<start> is later than I<end>, then the result 
+is negative.
 
 =head2 dt_parse_string
 
