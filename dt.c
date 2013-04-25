@@ -499,7 +499,7 @@ dt_add_weekdays(dt_t dt, int delta) {
             /* S */ -1,2,3,4,5,
             /* S */ -2,1,2,3,4,
         };
-        return dt + 7 * w + T[5 * (dt_day_of_week(dt) - 1) + d];
+        return dt + 7 * w + T[5 * dt_day_of_week(dt) - 5 + d];
     }
     else {
         static const int T[35] = {
@@ -511,7 +511,7 @@ dt_add_weekdays(dt_t dt, int delta) {
             /* S */ -2,1,2,3,4,
             /* S */ -1,2,3,4,5,
         };
-        return dt + 7 * w - T[5 * (dt_day_of_week(dt) - 1) - d];
+        return dt + 7 * w - T[5 * dt_day_of_week(dt) - 5 - d];
     }
 }
 
@@ -597,20 +597,22 @@ dt_delta_yd(dt_t dt1, dt_t dt2, int *yp, int *dp) {
 
 void
 dt_delta_ymd(dt_t dt1, dt_t dt2, int *yp, int *mp, int *dp) {
-    int months;
+    int years, months;
 
     dt_delta_md(dt1, dt2, &months, dp);
-    if (yp) *yp = months / 12;
-    if (mp) *mp = months % 12;
+    years = months / 12;
+    if (yp) *yp = years;
+    if (mp) *mp = months - years * 12;
 }
 
 void
 dt_delta_yqd(dt_t dt1, dt_t dt2, int *yp, int *qp, int *dp) {
-    int quarters;
+    int years, quarters;
 
     dt_delta_qd(dt1, dt2, &quarters, dp);
-    if (yp) *yp = quarters / 4;
-    if (qp) *qp = quarters % 4;
+    years = quarters / 4;
+    if (yp) *yp = years;
+    if (qp) *qp = quarters - years * 4;
 }
 
 void
@@ -620,7 +622,7 @@ dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
     dt_to_ymd(dt1, &y1, &m1, &d1);
     dt_to_ymd(dt2, &y2, &m2, &d2);
 
-    months = 12 * (y2 - y1) + (m2 - m1);
+    months = 12 * (y2 - y1) + m2 - m1;
     days = d2 - d1;
 
     if (months > 0 && days < 0) {
@@ -642,7 +644,7 @@ dt_delta_qd(dt_t dt1, dt_t dt2, int *qp, int *dp) {
     dt_to_yqd(dt1, &y1, &q1, &d1);
     dt_to_yqd(dt2, &y2, &q2, &d2);
 
-    quarters = 4 * (y2 - y1) + (q2 - q1);
+    quarters = 4 * (y2 - y1) + q2 - q1;
     days = d2 - d1;
 
     if (quarters > 0 && days < 0) {
@@ -710,7 +712,7 @@ dt_delta_months(dt_t dt1, dt_t dt2, bool complete) {
 
 int
 dt_delta_weeks(dt_t dt1, dt_t dt2) {
-    return dt2/7 - dt1/7;
+    return (dt2 - dt1) / 7;
 }
 
 int
