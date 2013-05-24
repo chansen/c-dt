@@ -461,29 +461,29 @@ dt_prev_day_of_week(dt_t dt, int dow, bool current) {
 
 dt_t
 dt_next_weekday(dt_t dt, bool current) {
-    static const int next_weekday[2][8] = {
+    static const int T[2][8] = {
         /*   M  T  W  T  F  S  S */
+        { 0, 1, 1, 1, 1, 3, 2, 1 },
         { 0, 0, 0, 0, 0, 0, 2, 1 },
-        { 0, 1, 1, 1, 1, 3, 2, 1 }
     };
-    return dt + next_weekday[!current][dt_day_of_week(dt)];
+    return dt + T[!!current][dt_day_of_week(dt)];
 }
 
 dt_t
 dt_prev_weekday(dt_t dt, bool current) {
-    static const int prev_weekday[2][8] = {
+    static const int T[2][8] = {
         /*   M  T  W  T  F  S  S */
+        { 0, 3, 1, 1, 1, 1, 1, 2 },
         { 0, 0, 0, 0, 0, 0, 1, 2 },
-        { 0, 3, 1, 1, 1, 1, 1, 2 }
     };
-    return dt - prev_weekday[!current][dt_day_of_week(dt)];
+    return dt - T[!!current][dt_day_of_week(dt)];
 }
 
 dt_t
 dt_add_weekdays(dt_t dt, int delta) {
     int w, d;
 
-    if (delta == 0)
+    if (!delta)
         return dt;
 
     w = delta / 5;
