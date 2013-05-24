@@ -26,6 +26,10 @@
 #ifndef __DT_H__
 #define __DT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dtconfig.h"
 
 typedef enum {
@@ -48,10 +52,6 @@ typedef enum {
     DT_LIMIT,
     DT_SNAP
 } dt_adjust_t;
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 dt_t    dt_from_cjdn            (int n);
 dt_t    dt_from_rdn             (int n);
