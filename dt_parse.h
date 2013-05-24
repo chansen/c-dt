@@ -23,29 +23,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#ifndef __DT_PARSE_H__
+#define __DT_PARSE_H__
 
-#include <stddef.h>
-#include <assert.h>
-#include <time.h>
+#include "dt.h"
 
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
+size_t  dt_parse_string    (const char *str, size_t len, dt_t *dtp);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
-#define DT_WEEKDAY
-#define DT_PARSE
-
-typedef int dt_t;
-
-#endif

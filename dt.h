@@ -25,12 +25,19 @@
  */
 #ifndef __DT_H__
 #define __DT_H__
+#include "dt_config.h"
+
+#ifdef DT_WEEKDAY
+# include "dt_weekday.h"
+#endif
+
+#ifdef DT_PARSE
+# include "dt_parse.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "dt_config.h"
 
 typedef enum {
     DT_MONDAY=1,
@@ -52,10 +59,6 @@ typedef enum {
     DT_LIMIT,
     DT_SNAP
 } dt_adjust_t;
-
-#ifdef DT_WEEKDAY
-# include "dt_weekday.h"
-#endif
 
 dt_t    dt_from_cjdn            (int n);
 dt_t    dt_from_rdn             (int n);
@@ -124,8 +127,6 @@ int     dt_days_in_year         (int y);
 int     dt_days_in_quarter      (int y, int q);
 int     dt_days_in_month        (int y, int m);
 int     dt_weeks_in_year        (int y);
-
-size_t  dt_parse_string         (const char *str, size_t len, dt_t *dtp);
 
 #ifdef __cplusplus
 }
