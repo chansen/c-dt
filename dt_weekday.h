@@ -23,28 +23,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#ifndef __DT_WEEKDAY_H__
+#define __DT_WEEKDAY_H__
 
-#include <stddef.h>
-#include <assert.h>
-#include <time.h>
+#include "dt.h"
 
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
+bool    dt_is_weekday      (dt_t dt);
+
+dt_t    dt_next_weekday    (dt_t dt, bool current);
+dt_t    dt_prev_weekday    (dt_t dt, bool current);
+
+dt_t    dt_add_weekdays    (dt_t dt, int delta);
+
+int     dt_delta_weekdays  (dt_t start, dt_t end, bool inclusive);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
-#define DT_WEEKDAY
-
-typedef int dt_t;
-
-#endif
