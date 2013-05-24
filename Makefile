@@ -75,6 +75,8 @@ HARNESS_EXES = \
 
 HARNESS_DEPS = \
 	dt.o \
+	dt_weekday.o \
+	dt_parse.o \
 	t/tap.o
 
 .SUFFIXES:
@@ -83,10 +85,17 @@ HARNESS_DEPS = \
 .PHONY: all compile harness test gcov cover clean
 
 .o.t:
-	$(CC) $(LDFLAGS) $< dt.o t/tap.o -o $@
+	$(CC) $(LDFLAGS) $< dt.o dt_weekday.o dt_parse.o t/tap.o -o $@
 
 dt.o: \
-	dtconfig.h dt.h dt.c
+	dt_config.h dt.h dt.c
+
+dt_weekday.o: \
+    dt_weekday.h dt_weekday.c
+
+dt_parse.o: \
+    dt_parse.h dt_parse.c
+
 t/tap.o: \
 	t/tap.h t/tap.c
 
