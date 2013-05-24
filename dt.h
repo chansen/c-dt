@@ -30,7 +30,7 @@
 extern "C" {
 #endif
 
-#include "dtconfig.h"
+#include "dt_config.h"
 
 typedef enum {
     DT_MONDAY=1,

@@ -23,8 +23,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DTCONFIG_H__
-#define __DTCONFIG_H__
+#ifndef __DT_CONFIG_H__
+#define __DT_CONFIG_H__
 
 #include <stddef.h>
 #include <assert.h>
