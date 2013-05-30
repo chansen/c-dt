@@ -23,26 +23,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#include "dt.h"
 
-#include <stddef.h>
-#include <assert.h>
-#include <time.h>
+const dt_t *
+dt_lower_bound(dt_t dt, const dt_t *lo, const dt_t *hi) {
+    const dt_t *mid;
 
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
-#endif
+    while (lo < hi) {
+        mid = lo + (hi - lo) / 2;
+        if (*mid < dt)
+            lo = mid + 1;
+        else
+            hi = mid;
+    }
+    return lo;
+}
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
-#endif
+const dt_t *
+dt_upper_bound(dt_t dt, const dt_t *lo, const dt_t *hi) {
+    const dt_t *mid;
 
-typedef int dt_t;
+    while (lo < hi) {
+        mid = lo + (hi - lo) / 2;
+        if (*mid <= dt)
+            lo = mid + 1;
+        else
+            hi = mid;
+    }
+    return lo;
+}
 
-#endif
+bool
+dt_binary_search(dt_t dt, const dt_t *lo, const dt_t *hi) {
+    lo = dt_lower_bound(dt, lo, hi);
+    return (lo != hi && !(dt < *lo));
+}
+

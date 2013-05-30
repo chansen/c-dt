@@ -26,14 +26,10 @@
 #ifndef __DT_H__
 #define __DT_H__
 #include "dt_config.h"
-
-#ifdef DT_WEEKDAY
-# include "dt_weekday.h"
-#endif
-
-#ifdef DT_PARSE
-# include "dt_parse.h"
-#endif
+#include "dt_parse.h"
+#include "dt_search.h"
+#include "dt_weekday.h"
+#include "dt_workday.h"
 
 #ifdef __cplusplus
 extern "C" {

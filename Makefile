@@ -8,10 +8,12 @@ HARNESS_OBJS = \
 	t/add_quarters.o \
 	t/add_months.o \
 	t/add_weekdays.o \
+	t/add_workdays.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
 	t/days_in_year.o \
 	t/delta_weekdays.o \
+	t/delta_workdays.o \
 	t/delta_yd.o \
 	t/delta_ymd.o \
 	t/delta_yqd.o \
@@ -21,6 +23,8 @@ HARNESS_OBJS = \
 	t/first_day_of_quarter.o \
 	t/first_day_of_week.o \
 	t/first_day_of_year.o \
+	t/is_holiday.o \
+	t/is_workday.o \
 	t/last_day_of_month.o \
 	t/last_day_of_quarter.o \
 	t/last_day_of_week.o \
@@ -71,30 +75,42 @@ HARNESS_EXES = \
 	t/delta_ymd.t \
 	t/delta_yqd.t \
 	t/delta_weekdays.t \
-	t/parse_string.t
+	t/parse_string.t \
+	t/add_workdays.t \
+	t/delta_workdays.t \
+	t/is_holiday.t \
+	t/is_workday.t
 
 HARNESS_DEPS = \
 	dt.o \
-	dt_weekday.o \
 	dt_parse.o \
+	dt_search.o \
+	dt_weekday.o \
+	dt_workday.o \
 	t/tap.o
 
 .SUFFIXES:
 .SUFFIXES: .o .c .t
 
-.PHONY: all compile harness test gcov cover clean
+.PHONY: all check-asan harness test gcov cover clean
 
 .o.t:
-	$(CC) $(LDFLAGS) $< dt.o dt_weekday.o dt_parse.o t/tap.o -o $@
+	$(CC) $(LDFLAGS) $< dt.o dt_parse.o dt_search.o dt_weekday.o dt_workday.o t/tap.o -o $@
 
 dt.o: \
 	dt_config.h dt.h dt.c
 
-dt_weekday.o: \
-    dt_weekday.h dt_weekday.c
-
 dt_parse.o: \
-    dt_parse.h dt_parse.c
+	dt_parse.h dt_parse.c
+
+dt_search.o: \
+	dt_search.h dt_search.c
+
+dt_weekday.o: \
+	dt_weekday.h dt_weekday.c
+
+dt_workday.o: \
+	dt_workday.h dt_workday.c
 
 t/tap.o: \
 	t/tap.h t/tap.c
@@ -107,6 +123,8 @@ t/add_months.o: \
 	$(HARNESS_DEPS) t/add_months.c t/add_months.h
 t/add_weekdays.o: \
 	$(HARNESS_DEPS) t/add_weekdays.c
+t/add_workdays.o: \
+	$(HARNESS_DEPS) t/add_workdays.c
 t/days_in_month.o: \
 	$(HARNESS_DEPS) t/days_in_month.c
 t/days_in_quarter.o: \
@@ -115,6 +133,8 @@ t/days_in_year.o: \
 	$(HARNESS_DEPS) t/days_in_year.c
 t/delta_weekdays.o: \
 	$(HARNESS_DEPS) t/delta_weekdays.c
+t/delta_workdays.o: \
+	$(HARNESS_DEPS) t/delta_workdays.c
 t/delta_yd.o: \
 	$(HARNESS_DEPS) t/delta_yd.c
 t/delta_ymd.o: \
@@ -133,6 +153,10 @@ t/first_day_of_week.o: \
 	$(HARNESS_DEPS) t/first_day_of_week.c
 t/first_day_of_year.o: \
 	$(HARNESS_DEPS) t/first_day_of_year.c
+t/is_holiday.o: \
+	$(HARNESS_DEPS) t/is_holiday.c
+t/is_workday.o: \
+	$(HARNESS_DEPS) t/is_workday.c
 t/last_day_of_month.o: \
 	$(HARNESS_DEPS) t/last_day_of_month.c t/last_day_of_month.h
 t/last_day_of_quarter.o: \
@@ -168,10 +192,7 @@ t/ywd.o: \
 
 
 all: \
-	compile
-
-compile: \
-	dt.o
+	test
 
 harness: \
 	$(HARNESS_EXES)
@@ -179,14 +200,18 @@ harness: \
 test: harness 
 	@prove $(HARNESS_EXES)
 
+check-asan:
+	@$(MAKE) DCFLAGS="-O1 -g -faddress-sanitizer -fno-omit-frame-pointer" \
+			 DLDFLAGS="-g -faddress-sanitizer" test
+
 gcov:
 	@$(MAKE) DCFLAGS="-O0 -g -coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) dt.c
+	@$(GCOV) dt.c dt_parse.c dt_search.c dt_weekday.c dt_workday.c 
 
 cover:
 	@$(MAKE) DCFLAGS="-O0 -g --coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) -abc dt.c
-	@gcov2perl dt.c.gcov
+	@$(GCOV) -abc dt_parse.c dt_search.c dt_weekday.c dt_workday.c 
+	@gcov2perl *.gcov
 	@cover --no-gcov
 
 clean:

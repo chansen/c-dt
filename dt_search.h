@@ -23,26 +23,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#ifndef __DT_SEARCH_H__
+#define __DT_SEARCH_H__
 
-#include <stddef.h>
-#include <assert.h>
-#include <time.h>
+#include "dt.h"
 
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
+dt_t *  dt_lower_bound     (dt_t dt, const dt_t *first, const dt_t *last);
+dt_t *  dt_upper_bound     (dt_t dt, const dt_t *first, const dt_t *last);
+bool    dt_binary_search   (dt_t dt, const dt_t *first, const dt_t *last);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
-typedef int dt_t;
-
-#endif
