@@ -32,9 +32,9 @@
 extern "C" {
 #endif
 
-dt_t *  dt_lower_bound     (dt_t dt, const dt_t *first, const dt_t *last);
-dt_t *  dt_upper_bound     (dt_t dt, const dt_t *first, const dt_t *last);
-bool    dt_binary_search   (dt_t dt, const dt_t *first, const dt_t *last);
+const dt_t *  dt_lower_bound    (dt_t dt, const dt_t *first, const dt_t *last);
+const dt_t *  dt_upper_bound    (dt_t dt, const dt_t *first, const dt_t *last);
+bool          dt_binary_search  (dt_t dt, const dt_t *first, const dt_t *last);
 
 #ifdef __cplusplus
 }
