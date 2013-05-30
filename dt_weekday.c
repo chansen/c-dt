@@ -33,9 +33,9 @@ dt_is_weekday(dt_t dt) {
 dt_t
 dt_next_weekday(dt_t dt, bool current) {
     static const int T[2][8] = {
-        /*   M  T  W  T  F  S  S */
-        { 0, 1, 1, 1, 1, 3, 2, 1 },
-        { 0, 0, 0, 0, 0, 0, 2, 1 },
+        /*  M T W T F S S */
+        { 0,1,1,1,1,3,2,1 },
+        { 0,0,0,0,0,0,2,1 },
     };
     return dt + T[!!current][dt_day_of_week(dt)];
 }
@@ -43,9 +43,9 @@ dt_next_weekday(dt_t dt, bool current) {
 dt_t
 dt_prev_weekday(dt_t dt, bool current) {
     static const int T[2][8] = {
-        /*   M  T  W  T  F  S  S */
-        { 0, 3, 1, 1, 1, 1, 1, 2 },
-        { 0, 0, 0, 0, 0, 0, 1, 2 },
+        /*  M T W T F S S */
+        { 0,3,1,1,1,1,1,2 },
+        { 0,0,0,0,0,0,1,2 },
     };
     return dt - T[!!current][dt_day_of_week(dt)];
 }
