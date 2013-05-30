@@ -25,7 +25,6 @@
  */
 #ifndef __DT_WEEKDAY_H__
 #define __DT_WEEKDAY_H__
-
 #include "dt.h"
 
 #ifdef __cplusplus

@@ -26,6 +26,7 @@
 #ifndef __DT_H__
 #define __DT_H__
 #include "dt_config.h"
+#include "dt_easter.h"
 #include "dt_parse.h"
 #include "dt_search.h"
 #include "dt_weekday.h"
@@ -46,11 +47,6 @@ typedef enum {
 } dt_day_of_week_t;
 
 typedef enum {
-    DT_ORTHODOX,
-    DT_WESTERN
-} dt_computus_t;
-
-typedef enum {
     DT_EXCESS,
     DT_LIMIT,
     DT_SNAP
@@ -58,7 +54,6 @@ typedef enum {
 
 dt_t    dt_from_cjdn            (int n);
 dt_t    dt_from_rdn             (int n);
-dt_t    dt_from_easter          (int y, dt_computus_t computus);
 dt_t    dt_from_struct_tm       (const struct tm *tm);
 dt_t    dt_from_yd              (int y, int d);
 dt_t    dt_from_ymd             (int y, int m, int d);

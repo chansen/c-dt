@@ -23,20 +23,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_SEARCH_H__
-#define __DT_SEARCH_H__
 #include "dt.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-const dt_t *  dt_lower_bound    (dt_t dt, const dt_t *first, const dt_t *last);
-const dt_t *  dt_upper_bound    (dt_t dt, const dt_t *first, const dt_t *last);
-bool          dt_binary_search  (dt_t dt, const dt_t *first, const dt_t *last);
-
-#ifdef __cplusplus
+/* 
+ * Easter algorithms by Al Petrofsky, San Mateo County, California, U.S.A. 
+ * <http://petrofsky.org/>
+ */
+static int
+easter_gregorian(int year) {
+    unsigned int y, a, b;
+    y = year % 5700000;
+    a = y/100 * 1483 - y/400 * 2225 + 2613;
+    b = ((y % 19 * 3510 + a/25 * 319) / 330) % 29;
+    return 56 - b - ((y * 5/4) + a - b) % 7;
 }
-#endif
-#endif
+
+static int
+easter_julian(int year) {
+    unsigned int y, a;
+    y = year % 532;
+    a = (y % 19 * 19 + 15) % 30;
+    return 28 + a - ((y * 5/4) + a) % 7;
+}
+
+dt_t
+dt_from_easter(int y, dt_computus_t computus) {
+    if (y < 1)
+        return 0;
+    if (computus == DT_WESTERN)
+        return dt_from_ymd(y, 3, easter_gregorian(y));
+    else
+        return dt_from_ymd(y, 3, easter_julian(y) + y/100 - y/400 - 2);
+}
 

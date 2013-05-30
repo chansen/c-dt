@@ -23,17 +23,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_SEARCH_H__
-#define __DT_SEARCH_H__
+#ifndef __DT_EASTER_H__
+#define __DT_EASTER_H__
 #include "dt.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-const dt_t *  dt_lower_bound    (dt_t dt, const dt_t *first, const dt_t *last);
-const dt_t *  dt_upper_bound    (dt_t dt, const dt_t *first, const dt_t *last);
-bool          dt_binary_search  (dt_t dt, const dt_t *first, const dt_t *last);
+typedef enum {
+    DT_ORTHODOX,
+    DT_WESTERN
+} dt_computus_t;
+
+dt_t    dt_from_easter     (int y, dt_computus_t computus);
 
 #ifdef __cplusplus
 }
