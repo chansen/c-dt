@@ -125,7 +125,7 @@ main() {
             dt_t dt2 = dt_from_ymd(t.y2, t.m2, t.d2);
 
             got = dt_delta_weekdays(dt1, dt2, t.inclusive);
-            cmp_ok(got, "==", t.exp, "dt_delta_months(%.4d-%.2d-%.2d, %.4d-%.2d-%.2d, %s)", 
+            cmp_ok(got, "==", t.exp, "dt_delta_weekdays(%.4d-%.2d-%.2d, %.4d-%.2d-%.2d, %s)", 
               t.y1, t.m1, t.d1, t.y2, t.m2, t.d2, (t.inclusive ? "true" : "false"));
         }
     }
