@@ -24,6 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "dt.h"
+#include "dt_easter.h"
 
 /* 
  * Easter algorithms by Al Petrofsky, San Mateo County, California, U.S.A. 
