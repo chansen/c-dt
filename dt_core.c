@@ -40,41 +40,6 @@ static const int days_preceding_quarter[2][5] = {
     { 0, 0, 91, 182, 274 }
 };
 
-static int
-days_in_year(int y) {
-    static const int days_in_year[2] = { 365, 366 };
-    return days_in_year[LEAP_YEAR(y)];
-}
-
-static int
-days_in_quarter(int y, int q) {
-    static const int days_in_quarter[2][5] = {
-        { 0, 90, 91, 92, 92 },
-        { 0, 91, 91, 92, 92 }
-    };
-    assert(q >= 1);
-    assert(q <= 4);
-    return days_in_quarter[LEAP_YEAR(y)][q];
-}
-
-static int
-days_in_month(int y, int m) {
-    static const int days_in_month[2][13] = {
-        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
-        { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
-    };
-    assert(m >=  1);
-    assert(m <= 12);
-    return days_in_month[(m == 2 && LEAP_YEAR(y))][m];
-}
-
-static int
-weeks_in_year(int y) {
-    static const int weeks_in_year[2] = { 52, 53 };
-    const int dow = dt_day_of_week(dt_from_yd(y, 1));
-    return weeks_in_year[(dow == 4 || (dow == 3 && LEAP_YEAR(y)))];
-}
-
 dt_t
 dt_from_rdn(int n) {
     return n + OFFSET_RDN;
@@ -217,10 +182,10 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
     doy = doy + 4 - dow;
     if (doy < 1) {
         y--;
-        doy += days_in_year(y);
+        doy += dt_days_in_year(y);
     }
     else if (doy > 365) {
-        const int diy = days_in_year(y);
+        const int diy = dt_days_in_year(y);
         if (doy > diy) {
             doy -= diy;
             y++;
@@ -246,24 +211,24 @@ dt_day_of_week(dt_t dt) {
 
 bool
 dt_valid_yd(int y, int d) {
-    return (d >= 1 && (d <= 365 || d == days_in_year(y)));
+    return (d >= 1 && (d <= 365 || d == dt_days_in_year(y)));
 }
 
 bool
 dt_valid_ymd(int y, int m, int d) {
     return ((m >= 1 && m <= 12) && 
-            (d >= 1 && (d <= 28 || d <= days_in_month(y, m))));
+            (d >= 1 && (d <= 28 || d <= dt_days_in_month(y, m))));
 }
 
 bool
 dt_valid_yqd(int y, int q, int d) {
     return ((q >= 1 && q <= 4) && 
-            (d >= 1 && (d <= 90 || d <= days_in_quarter(y, q))));
+            (d >= 1 && (d <= 90 || d <= dt_days_in_quarter(y, q))));
 }
 
 bool
 dt_valid_ywd(int y, int w, int d) {
-    return ((w >= 1 && (w <= 52 || w == weeks_in_year(y))) &&
+    return ((w >= 1 && (w <= 52 || w == dt_weeks_in_year(y))) &&
             (d >= 1 && d <= 7));
 }
 
@@ -274,25 +239,36 @@ dt_leap_year(int y) {
 
 int
 dt_days_in_year(int y) {
-    return days_in_year(y);
+    static const int days_in_year[2] = { 365, 366 };
+    return days_in_year[LEAP_YEAR(y)];
 }
 
 int
 dt_days_in_quarter(int y, int q) {
-    if (q < 1 || q > 4)
-        return 0;
-    return days_in_quarter(y, q);
+    static const int days_in_quarter[2][5] = {
+        { 0, 90, 91, 92, 92 },
+        { 0, 91, 91, 92, 92 }
+    };
+    assert(q >= 1);
+    assert(q <= 4);
+    return days_in_quarter[LEAP_YEAR(y)][q];
 }
 
 int
 dt_days_in_month(int y, int m) {
-    if (m < 1 || m > 12)
-        return 0;
-    return days_in_month(y, m);
+    static const int days_in_month[2][13] = {
+        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+        { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+    };
+    assert(m >=  1);
+    assert(m <= 12);
+    return days_in_month[(m == 2 && LEAP_YEAR(y))][m];
 }
 
 int
 dt_weeks_in_year(int y) {
-    return weeks_in_year(y);
+    static const int weeks_in_year[2] = { 52, 53 };
+    const int dow = dt_day_of_week(dt_from_yd(y, 1));
+    return weeks_in_year[(dow == 4 || (dow == 3 && LEAP_YEAR(y)))];
 }
 
