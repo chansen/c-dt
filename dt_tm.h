@@ -26,7 +26,7 @@
 #ifndef __DT_STRUCT_TM_H__
 #define __DT_STRUCT_TM_H__
 #include <time.h>
-#include "dt.h"
+#include "dt_core.h"
 
 #ifdef __cplusplus
 extern "C" {

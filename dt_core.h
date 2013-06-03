@@ -23,20 +23,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_EASTER_H__
-#define __DT_EASTER_H__
-#include "dt_core.h"
+#ifndef __DT_CORE_H__
+#define __DT_CORE_H__
+#include "dt_config.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef enum {
-    DT_ORTHODOX,
-    DT_WESTERN
-} dt_computus_t;
+    DT_MONDAY=1,
+    DT_TUESDAY,
+    DT_WEDNESDAY,
+    DT_THURSDAY,
+    DT_FRIDAY,
+    DT_SATURDAY,
+    DT_SUNDAY
+} dt_day_of_week_t;
 
-dt_t    dt_from_easter     (int y, dt_computus_t computus);
+
+dt_t    dt_from_rdn             (int n);
+dt_t    dt_from_yd              (int y, int d);
+dt_t    dt_from_ymd             (int y, int m, int d);
+dt_t    dt_from_yqd             (int y, int q, int d);
+dt_t    dt_from_ywd             (int y, int w, int d);
+
+void    dt_to_yd                (dt_t dt, int *y, int *d);
+void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
+void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
+void    dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
+
+int     dt_rdn                  (dt_t dt);
+int     dt_day_of_week          (dt_t dt);
+
+bool    dt_valid_yd             (int y, int d);
+bool    dt_valid_ymd            (int y, int m, int d);
+bool    dt_valid_yqd            (int y, int q, int d);
+bool    dt_valid_ywd            (int y, int w, int d);
+
+bool    dt_leap_year            (int y);
+int     dt_days_in_year         (int y);
+int     dt_days_in_quarter      (int y, int q);
+int     dt_days_in_month        (int y, int m);
+int     dt_weeks_in_year        (int y);
 
 #ifdef __cplusplus
 }

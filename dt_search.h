@@ -25,7 +25,7 @@
  */
 #ifndef __DT_SEARCH_H__
 #define __DT_SEARCH_H__
-#include "dt.h"
+#include "dt_core.h"
 
 #ifdef __cplusplus
 extern "C" {

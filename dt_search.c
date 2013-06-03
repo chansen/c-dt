@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "dt.h"
+#include "dt_core.h"
 
 const dt_t *
 dt_lower_bound(dt_t dt, const dt_t *lo, const dt_t *hi) {

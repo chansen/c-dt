@@ -26,9 +26,6 @@
 #ifndef __DT_CONFIG_H__
 #define __DT_CONFIG_H__
 
-#include <stddef.h>
-#include <assert.h>
-
 #ifndef _MSC_VER
 #  include <stdbool.h>
 #else

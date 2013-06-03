@@ -83,6 +83,7 @@ HARNESS_EXES = \
 
 HARNESS_DEPS = \
 	dt.o \
+	dt_core.o \
 	dt_easter.o \
 	dt_parse.o \
 	dt_search.o \
@@ -97,10 +98,13 @@ HARNESS_DEPS = \
 .PHONY: all check-asan harness test gcov cover clean
 
 .o.t:
-	$(CC) $(LDFLAGS) $< dt.o dt_easter.o dt_parse.o dt_search.o dt_tm.o dt_weekday.o dt_workday.o t/tap.o -o $@
+	$(CC) $(LDFLAGS) $< dt.o dt_core.o dt_easter.o dt_parse.o dt_search.o dt_tm.o dt_weekday.o dt_workday.o t/tap.o -o $@
 
 dt.o: \
-	dt_config.h dt.h dt.c
+	dt.h dt.c
+
+dt_core.o: \
+	dt_config.h dt_core.h dt_core.c
 
 dt_easter.o: \
 	dt_easter.h dt_easter.c
@@ -214,11 +218,11 @@ check-asan:
 
 gcov:
 	@$(MAKE) DCFLAGS="-O0 -g -coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) dt.c dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
+	@$(GCOV) dt.c dt_core.o dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
 
 cover:
 	@$(MAKE) DCFLAGS="-O0 -g --coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) -abc dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
+	@$(GCOV) -abc dt_core.o dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
 	@gcov2perl *.gcov
 	@cover --no-gcov
 

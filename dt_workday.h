@@ -25,7 +25,8 @@
  */
 #ifndef __DT_WORKDAY_H__
 #define __DT_WORKDAY_H__
-#include "dt.h"
+#include <stddef.h>
+#include "dt_core.h"
 
 #ifdef __cplusplus
 extern "C" {

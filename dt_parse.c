@@ -23,7 +23,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "dt.h"
+#include <stddef.h>
+#include "dt_core.h"
 
 static size_t
 count_digits(const unsigned char * const p, size_t i, const size_t len) {

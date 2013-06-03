@@ -23,270 +23,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#define DT_INTERNAL
+#include <stddef.h>
 #include "dt.h"
-
-#define LEAP_YEAR(y) \
-    ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
-
-static const int days_preceding_month_[2][13] = {
-    { 0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
-    { 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 }
-};
-
-static int
-days_preceding_month(int y, int m) {
-    assert(m >=  1);
-    assert(m <= 12);
-    return days_preceding_month_[LEAP_YEAR(y)][m];
-}
-
-static const int days_preceding_quarter_[2][5] = {
-    { 0, 0, 90, 181, 273 },
-    { 0, 0, 91, 182, 274 }
-};
-
-static int
-days_preceding_quarter(int y, int q) {
-    assert(q >= 1);
-    assert(q <= 4);
-    return days_preceding_quarter_[LEAP_YEAR(y)][q];
-}
-
-static int
-days_in_year(int y) {
-    static const int days_in_year[2] = { 365, 366 };
-    return days_in_year[LEAP_YEAR(y)];
-}
-
-static int
-days_in_quarter(int y, int q) {
-    static const int days_in_quarter[2][5] = {
-        { 0, 90, 91, 92, 92 },
-        { 0, 91, 91, 92, 92 }
-    };
-    assert(q >= 1);
-    assert(q <= 4);
-    return days_in_quarter[LEAP_YEAR(y)][q];
-}
-
-static int
-days_in_month(int y, int m) {
-    static const int days_in_month[2][13] = {
-        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
-        { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
-    };
-    assert(m >=  1);
-    assert(m <= 12);
-    return days_in_month[(m == 2 && LEAP_YEAR(y))][m];
-}
-
-static int
-weeks_in_year(int y) {
-    static const int weeks_in_year[2] = { 52, 53 };
-    const int dow = dt_day_of_week(dt_from_yd(y, 1));
-    return weeks_in_year[(dow == 4 || (dow == 3 && LEAP_YEAR(y)))];
-}
-
-static void
-normalize_ym(int *y, int *m) {
-    if (*m < 1 || *m > 12) {
-        *y += *m / 12;
-        *m %= 12;
-        if (*m < 1) {
-            --*y;
-            *m += 12;
-        }
-    }
-}
-
-static void
-normalize_yq(int *y, int *q) {
-    if (*q < 1 || *q > 4) {
-        *y += *q / 4;
-        *q %= 4;
-        if (*q < 1) {
-            --*y;
-            *q += 4;
-        }
-    }
-}
 
 dt_t
 dt_from_cjdn(int n) {
     return dt_from_rdn(n - 1721425);
 }
 
-dt_t
-dt_from_rdn(int n) {
-    return n + OFFSET_RDN;
-}
-
-dt_t
-dt_from_yd(int y, int d) {
-    y--;
-    if (y < 0) {
-        const int n400 = 1 - y/400;
-        y += n400 * 400;
-        d -= n400 * 146097;
-    }
-    return 365 * y + y/4 - y/100 + y/400 + d;
-}
-
-dt_t
-dt_from_ymd(int y, int m, int d) {
-    normalize_ym(&y, &m);
-    return dt_from_yd(y, days_preceding_month(y, m) + d);
-}
-
-dt_t
-dt_from_yqd(int y, int q, int d) {
-    normalize_yq(&y, &q);
-    return dt_from_yd(y, days_preceding_quarter(y, q) + d);
-}
-
-dt_t
-dt_from_ywd(int y, int w, int d) {
-    dt_t dt;
-
-    dt  = dt_from_yd(y, 4);
-    dt -= dt_day_of_week(dt);
-    dt += w * 7 + d - 7;
-    return dt;
-}
-
-bool
-dt_valid_yd(int y, int d) {
-    return (d >= 1 && (d <= 365 || d == days_in_year(y)));
-}
-
-bool
-dt_valid_ymd(int y, int m, int d) {
-    return ((m >= 1 && m <= 12) && 
-            (d >= 1 && (d <= 28 || d <= days_in_month(y, m))));
-}
-
-bool
-dt_valid_yqd(int y, int q, int d) {
-    return ((q >= 1 && q <= 4) && 
-            (d >= 1 && (d <= 90 || d <= days_in_quarter(y, q))));
-}
-
-bool
-dt_valid_ywd(int y, int w, int d) {
-    return ((w >= 1 && (w <= 52 || w == weeks_in_year(y))) &&
-            (d >= 1 && d <= 7));
-}
-
-
-
-#ifndef DT_NO_SHORTCUTS
-static const dt_t OFF1901 = OFFSET_RDN + 693961; /* 1901-01-01 */
-static const dt_t OFF2099 = OFFSET_RDN + 766644; /* 2099-12-31 */
-#endif
-
-void
-dt_to_yd(dt_t d, int *yp, int *dp) {
-    int y, n100, n1;
-
-    y = 0;
-#ifndef DT_NO_SHORTCUTS
-    /* Shortcut dates between the years 1901-2099 inclusive */
-    if (d >= OFF1901 && d <= OFF2099) {
-        d -= OFF1901 - 1;
-        y += (4 * d - 1) / 1461;
-        d -= (1461 * y) / 4;
-        y += 1901;
-    }
-    else
-#endif
-    {
-        if (d < 1) {
-            const int n400 = 1 - (d / 146097);
-            y -= 400 * n400;
-            d += 146097 * n400;
-        }
-        d--;
-        y += 400 * (d / 146097);
-        d %= 146097;
-
-        n100 = d / 36524;
-        y += 100 * n100;
-        d %= 36524;
-
-        y += 4 * (d / 1461);
-        d %= 1461;
-
-        n1 = d / 365;
-        y += n1;
-        d %= 365;
-
-        if (n100 == 4 || n1 == 4)
-            d = 366;
-        else
-            y++, d++;
-    }
-    if (yp) *yp = y;
-    if (dp) *dp = (int)d;
-}
-
-void
-dt_to_ymd(dt_t dt, int *yp, int *mp, int *dp) {
-    int y, doy, m, l;
-
-    dt_to_yd(dt, &y, &doy);
-    l = LEAP_YEAR(y);
-    m = doy < 32 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 153;
-
-    if (yp) *yp = y;
-    if (mp) *mp = m;
-    if (dp) *dp = doy - days_preceding_month_[l][m];
-}
-
-void
-dt_to_yqd(dt_t dt, int *yp, int *qp, int *dp) {
-    int y, doy, q, l;
-
-    dt_to_yd(dt, &y, &doy);
-    l = LEAP_YEAR(y);
-    q = doy < 91 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 459;
-
-    if (yp) *yp = y;
-    if (qp) *qp = q;
-    if (dp) *dp = doy - days_preceding_quarter_[l][q];
-}
-
-void
-dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
-    int y, doy, dow;
-
-    dt_to_yd(dt, &y, &doy);
-    dow = dt_day_of_week(dt);
-    doy = doy + 4 - dow;
-    if (doy < 1) {
-        y--;
-        doy += days_in_year(y);
-    }
-    else if (doy > 365) {
-        const int diy = days_in_year(y);
-        if (doy > diy) {
-            doy -= diy;
-            y++;
-        }
-    }
-    if (yp) *yp = y;
-    if (wp) *wp = (doy + 6) / 7;
-    if (dp) *dp = dow;
-}
-
 int
 dt_cjdn(dt_t dt) {
     return dt_rdn(dt) + 1721425;
-}
-
-int
-dt_rdn(dt_t dt) {
-    return dt - OFFSET_RDN;
 }
 
 int
@@ -336,14 +83,6 @@ dt_day_of_quarter(dt_t dt) {
     int d;
     dt_to_yqd(dt, NULL, NULL, &d);
     return d;
-}
-
-int
-dt_day_of_week(dt_t dt) {
-    int dow = dt % 7;
-    if (dow < 1)
-        dow += 7;
-    return dow;
 }
 
 dt_t
@@ -424,8 +163,8 @@ dt_add_years(dt_t dt, int delta, dt_adjust_t adjust) {
         int ry = y + delta;
         int diy;
 
-        diy = days_in_year(ry);
-        if (d > diy || (adjust == DT_SNAP && d == days_in_year(y)))
+        diy = dt_days_in_year(ry);
+        if (d > diy || (adjust == DT_SNAP && d == dt_days_in_year(y)))
             d = diy;
         return dt_from_yd(ry, d);
     }
@@ -443,9 +182,13 @@ dt_add_quarters(dt_t dt, int delta, dt_adjust_t adjust) {
         int rq = q + delta;
         int diq;
 
-        normalize_yq(&ry, &rq);
-        diq = days_in_quarter(ry, rq);
-        if (d > diq || (adjust == DT_SNAP && d == days_in_quarter(y, q)))
+        ry += rq / 4;
+        rq %= 4;
+        if (rq < 1)
+            ry--, rq += 4;
+
+        diq = dt_days_in_quarter(ry, rq);
+        if (d > diq || (adjust == DT_SNAP && d == dt_days_in_quarter(y, q)))
             d = diq;
         return dt_from_yqd(ry, rq, d);
     }
@@ -463,9 +206,13 @@ dt_add_months(dt_t dt, int delta, dt_adjust_t adjust) {
         int rm = m + delta;
         int dim;
 
-        normalize_ym(&ry, &rm);
-        dim = days_in_month(ry, rm);
-        if (d > dim || (adjust == DT_SNAP && d == days_in_month(y, m)))
+        ry += rm / 12;
+        rm %= 12;
+        if (rm < 1)
+            ry--, rm += 12;
+
+        dim = dt_days_in_month(ry, rm);
+        if (d > dim || (adjust == DT_SNAP && d == dt_days_in_month(y, m)))
             d = dim;
         return dt_from_ymd(ry, rm, d);
     }
@@ -487,7 +234,7 @@ dt_delta_yd(dt_t dt1, dt_t dt2, int *yp, int *dp) {
     }
     else if (years < 0 && days > 0) {
         years++;
-        days -= days_in_year(y2);
+        days -= dt_days_in_year(y2);
     }
     if (yp) *yp = years;
     if (dp) *dp = days;
@@ -529,7 +276,7 @@ dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
     }
     else if (months < 0 && days > 0) {
         months++;
-        days -= days_in_month(y2, m2);
+        days -= dt_days_in_month(y2, m2);
     }
     if (mp) *mp = months;
     if (dp) *dp = days;
@@ -551,7 +298,7 @@ dt_delta_qd(dt_t dt1, dt_t dt2, int *qp, int *dp) {
     }
     else if (quarters < 0 && days > 0) {
         quarters++;
-        days -= days_in_quarter(y2, q2);
+        days -= dt_days_in_quarter(y2, q2);
     }
     if (qp) *qp = quarters;
     if (dp) *dp = days;
@@ -611,34 +358,5 @@ dt_delta_months(dt_t dt1, dt_t dt2, bool complete) {
 int
 dt_delta_weeks(dt_t dt1, dt_t dt2) {
     return (dt2 - dt1) / 7;
-}
-
-bool
-dt_leap_year(int y) {
-    return LEAP_YEAR(y);
-}
-
-int
-dt_days_in_year(int y) {
-    return days_in_year(y);
-}
-
-int
-dt_days_in_quarter(int y, int q) {
-    if (q < 1 || q > 4)
-        return 0;
-    return days_in_quarter(y, q);
-}
-
-int
-dt_days_in_month(int y, int m) {
-    if (m < 1 || m > 12)
-        return 0;
-    return days_in_month(y, m);
-}
-
-int
-dt_weeks_in_year(int y) {
-    return weeks_in_year(y);
 }
 

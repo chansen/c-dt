@@ -25,7 +25,7 @@
  */
 #ifndef __DT_H__
 #define __DT_H__
-#include "dt_config.h"
+#include "dt_core.h"
 #include "dt_easter.h"
 #include "dt_parse.h"
 #include "dt_search.h"
@@ -38,40 +38,14 @@ extern "C" {
 #endif
 
 typedef enum {
-    DT_MONDAY=1,
-    DT_TUESDAY,
-    DT_WEDNESDAY,
-    DT_THURSDAY,
-    DT_FRIDAY,
-    DT_SATURDAY,
-    DT_SUNDAY
-} dt_day_of_week_t;
-
-typedef enum {
     DT_EXCESS,
     DT_LIMIT,
     DT_SNAP
 } dt_adjust_t;
 
 dt_t    dt_from_cjdn            (int n);
-dt_t    dt_from_rdn             (int n);
-dt_t    dt_from_yd              (int y, int d);
-dt_t    dt_from_ymd             (int y, int m, int d);
-dt_t    dt_from_yqd             (int y, int q, int d);
-dt_t    dt_from_ywd             (int y, int w, int d);
-
-bool    dt_valid_yd             (int y, int d);
-bool    dt_valid_ymd            (int y, int m, int d);
-bool    dt_valid_yqd            (int y, int q, int d);
-bool    dt_valid_ywd            (int y, int w, int d);
-
-void    dt_to_yd                (dt_t dt, int *y, int *d);
-void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
-void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
-void    dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
 
 int     dt_cjdn                 (dt_t dt);
-int     dt_rdn                  (dt_t dt);
 int     dt_year                 (dt_t dt);
 int     dt_quarter              (dt_t dt);
 int     dt_month                (dt_t dt);
@@ -79,7 +53,6 @@ int     dt_week                 (dt_t dt);
 int     dt_day                  (dt_t dt);
 int     dt_day_of_year          (dt_t dt);
 int     dt_day_of_quarter       (dt_t dt);
-int     dt_day_of_week          (dt_t dt);
 
 dt_t    dt_first_day_of_year    (dt_t dt, int offset);
 dt_t    dt_first_day_of_quarter (dt_t dt, int offset);
@@ -111,12 +84,6 @@ int     dt_delta_years          (dt_t start, dt_t end, bool complete);
 int     dt_delta_quarters       (dt_t start, dt_t end, bool complete);
 int     dt_delta_months         (dt_t start, dt_t end, bool complete);
 int     dt_delta_weeks          (dt_t start, dt_t end);
-
-bool    dt_leap_year            (int y);
-int     dt_days_in_year         (int y);
-int     dt_days_in_quarter      (int y, int q);
-int     dt_days_in_month        (int y, int m);
-int     dt_weeks_in_year        (int y);
 
 #ifdef __cplusplus
 }
