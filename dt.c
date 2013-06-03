@@ -123,11 +123,6 @@ dt_from_rdn(int n) {
 }
 
 dt_t
-dt_from_struct_tm(const struct tm *tm) {
-    return dt_from_ymd(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday);
-}
-
-dt_t
 dt_from_yd(int y, int d) {
     y--;
     if (y < 0) {
@@ -183,17 +178,7 @@ dt_valid_ywd(int y, int w, int d) {
             (d >= 1 && d <= 7));
 }
 
-void
-dt_to_struct_tm(dt_t dt, struct tm *tm) {
-    int y, m, d;
 
-    dt_to_ymd(dt, &y, &m, &d);
-    tm->tm_year = y - 1900;
-    tm->tm_mon  = m - 1;
-    tm->tm_mday = d;
-    tm->tm_wday = dt_day_of_week(dt) % 7;
-    tm->tm_yday = days_preceding_month(y, m) + d - 1;
-}
 
 #ifndef DT_NO_SHORTCUTS
 static const dt_t OFF1901 = OFFSET_RDN + 693961; /* 1901-01-01 */

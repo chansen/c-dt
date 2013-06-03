@@ -29,6 +29,7 @@
 #include "dt_easter.h"
 #include "dt_parse.h"
 #include "dt_search.h"
+#include "dt_tm.h"
 #include "dt_weekday.h"
 #include "dt_workday.h"
 
@@ -54,7 +55,6 @@ typedef enum {
 
 dt_t    dt_from_cjdn            (int n);
 dt_t    dt_from_rdn             (int n);
-dt_t    dt_from_struct_tm       (const struct tm *tm);
 dt_t    dt_from_yd              (int y, int d);
 dt_t    dt_from_ymd             (int y, int m, int d);
 dt_t    dt_from_yqd             (int y, int q, int d);
@@ -65,7 +65,6 @@ bool    dt_valid_ymd            (int y, int m, int d);
 bool    dt_valid_yqd            (int y, int q, int d);
 bool    dt_valid_ywd            (int y, int w, int d);
 
-void    dt_to_struct_tm         (dt_t dt, struct tm *tm);
 void    dt_to_yd                (dt_t dt, int *y, int *d);
 void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
 void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);

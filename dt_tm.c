@@ -23,25 +23,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#include "dt.h"
+#include "dt_tm.h"
 
-#include <stddef.h>
-#include <assert.h>
+dt_t
+dt_from_struct_tm(const struct tm *tm) {
+    return dt_from_ymd(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday);
+}
 
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
-#endif
+void
+dt_to_struct_tm(dt_t dt, struct tm *tm) {
+    int y, m, d;
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
-#endif
+    dt_to_ymd(dt, &y, &m, &d);
+    tm->tm_year = y - 1900;
+    tm->tm_mon  = m - 1;
+    tm->tm_mday = d;
+    tm->tm_wday = dt_day_of_week(dt) % 7;
+    tm->tm_yday = dt - dt_from_yd(y, 1);
+}
 
-typedef int dt_t;
-
-#endif

@@ -23,25 +23,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CONFIG_H__
-#define __DT_CONFIG_H__
+#ifndef __DT_STRUCT_TM_H__
+#define __DT_STRUCT_TM_H__
+#include <time.h>
+#include "dt.h"
 
-#include <stddef.h>
-#include <assert.h>
-
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
+dt_t    dt_from_struct_tm  (const struct tm *tm);
+
+void    dt_to_struct_tm    (dt_t dt, struct tm *tm);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
-typedef int dt_t;
-
-#endif
