@@ -54,15 +54,15 @@ int     dt_day                  (dt_t dt);
 int     dt_day_of_year          (dt_t dt);
 int     dt_day_of_quarter       (dt_t dt);
 
-dt_t    dt_first_day_of_year    (dt_t dt, int offset);
-dt_t    dt_first_day_of_quarter (dt_t dt, int offset);
-dt_t    dt_first_day_of_month   (dt_t dt, int offset);
-dt_t    dt_first_day_of_week    (dt_t dt, int first_dow);
+dt_t    dt_start_of_year        (dt_t dt, int offset);
+dt_t    dt_start_of_quarter     (dt_t dt, int offset);
+dt_t    dt_start_of_month       (dt_t dt, int offset);
+dt_t    dt_start_of_week        (dt_t dt, int first_dow);
 
-dt_t    dt_last_day_of_year     (dt_t dt, int offset);
-dt_t    dt_last_day_of_quarter  (dt_t dt, int offset);
-dt_t    dt_last_day_of_month    (dt_t dt, int offset);
-dt_t    dt_last_day_of_week     (dt_t dt, int first_dow);
+dt_t    dt_end_of_year          (dt_t dt, int offset);
+dt_t    dt_end_of_quarter       (dt_t dt, int offset);
+dt_t    dt_end_of_month         (dt_t dt, int offset);
+dt_t    dt_end_of_week          (dt_t dt, int first_dow);
 
 dt_t    dt_nth_day_of_week      (dt_t dt, int nth, int dow);
 

@@ -36,16 +36,16 @@ main() {
 
         {
             dt_t src = dt_from_ywd(t.y, t.w, t.d);
-            dt_t got = dt_last_day_of_week(src, t.dow);
+            dt_t got = dt_end_of_week(src, t.dow);
             dt_t exp = dt_from_ywd(t.ey, t.ew, t.ed);
-            cmp_ok(got, "==", exp, "dt_last_day_of_week(%d, %d)", src, t.dow);
+            cmp_ok(got, "==", exp, "dt_end_of_week(%d, %d)", src, t.dow);
         }
 
         {
             dt_t src = dt_from_ywd(t.y, t.w, t.d);
-            dt_t dt1 = dt_last_day_of_week(src, t.dow);
-            dt_t dt2 = dt_first_day_of_week(src, t.dow) + 6;
-            cmp_ok(dt1, "==", dt2, "dt_last_day_of_week(%d, %d) == dt_first_day_of_week(%d, %d) + 6", 
+            dt_t dt1 = dt_end_of_week(src, t.dow);
+            dt_t dt2 = dt_start_of_week(src, t.dow) + 6;
+            cmp_ok(dt1, "==", dt2, "dt_end_of_week(%d, %d) == dt_start_of_week(%d, %d) + 6", 
               src, t.dow, src, t.dow);
         }
 

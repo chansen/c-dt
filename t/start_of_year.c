@@ -1,8 +1,6 @@
 #include "dt.h"
 #include "tap.h"
 
-#include "dt.h"
-
 const struct test {
     int y;
     int m;
@@ -45,22 +43,22 @@ main() {
 
         {
             dt_t src = dt_from_ymd(t.y, t.m, t.d);
-            dt_t got = dt_first_day_of_year(src, t.delta);
+            dt_t got = dt_start_of_year(src, t.delta);
             dt_t exp = dt_from_ymd(t.ey, t.em, t.ed);
-            cmp_ok(got, "==", exp, "dt_first_day_of_year(%d, %d)", src, t.delta);
+            cmp_ok(got, "==", exp, "dt_start_of_year(%d, %d)", src, t.delta);
         }
 
         {
             dt_t src = dt_from_ymd(t.y, t.m, t.d);
-            dt_t dt1 = dt_first_day_of_year(src, t.delta);
-            dt_t dt2 = dt_last_day_of_year(src, t.delta - 1) + 1;
-            cmp_ok(dt1, "==", dt2, "dt_first_day_of_year(%d, %d) == dt_last_day_of_year(%d, %d - 1) + 1",
+            dt_t dt1 = dt_start_of_year(src, t.delta);
+            dt_t dt2 = dt_end_of_year(src, t.delta - 1) + 1;
+            cmp_ok(dt1, "==", dt2, "dt_start_of_year(%d, %d) == dt_end_of_year(%d, %d - 1) + 1",
               src, t.y, src, t.y);
         }
 
         {
             dt_t dt1 = dt_from_ymd(t.y, t.m, t.d);
-            dt_t dt2 = dt_first_day_of_year(dt1, t.delta);
+            dt_t dt2 = dt_start_of_year(dt1, t.delta);
             int got = dt_delta_years(dt1, dt2, 0);
             cmp_ok(got, "==", t.delta, "dt_delta_years(%d, %d, false)", dt1, dt2);
         }

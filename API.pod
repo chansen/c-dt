@@ -245,64 +245,64 @@ Returns the day of the quarter (1-92) for the given date I<dt>.
 
 Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
 
-=head2 dt_first_day_of_year
+=head2 dt_start_of_year
 
-    dt_t dt_first_day_of_year(dt_t dt, int offset);
+    dt_t dt_start_of_year(dt_t dt, int offset);
 
 Returns a date set to the first day of the year for the given date I<dt>. 
 The I<offset> parameter specifies the number of years before (negative) or 
 after (positive) the given date.
 
-=head2 dt_first_day_of_quarter
+=head2 dt_start_of_quarter
 
-    dt_t dt_first_day_of_quarter(dt_t dt, int offset);
+    dt_t dt_start_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the first day of the quarter for the given date I<dt>. 
 The I<offset> parameter specifies the number of quarters before (negative) or 
 after (positive) the given date.
 
-=head2 dt_first_day_of_month
+=head2 dt_start_of_month
 
-    dt_t dt_first_day_of_month(dt_t dt, int offset);
+    dt_t dt_start_of_month(dt_t dt, int offset);
 
 Returns a date set to the first day of the month for the given date I<dt>. 
 The I<offset> parameter specifies the number of months before (negative) or 
 after (positive) the given date.
 
-=head2 dt_first_day_of_week
+=head2 dt_start_of_week
 
-    dt_t dt_first_day_of_week(dt_t dt, int first_dow);
+    dt_t dt_start_of_week(dt_t dt, int first_dow);
 
 Returns a date set to the first day of the week for the given date I<dt>. The 
 I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
 
-=head2 dt_last_day_of_year
+=head2 dt_end_of_year
 
-    dt_t dt_last_day_of_year(dt_t dt, int offset);
+    dt_t dt_end_of_year(dt_t dt, int offset);
 
 Returns a date set to the last day of the year for the given date I<dt>. The 
 I<offset> parameter specifies the number of years before (negative) or after 
 (positive) the given date.
 
-=head2 dt_last_day_of_quarter
+=head2 dt_end_of_quarter
 
-    dt_t dt_last_day_of_quarter(dt_t dt, int offset);
+    dt_t dt_end_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the last day of the quarter for the given date I<dt>. The 
 I<offset> parameter specifies the number of quarters before (negative) or after 
 (positive) the given date.
 
-=head2 dt_last_day_of_month
+=head2 dt_end_of_month
 
-    dt_t dt_last_day_of_month(dt_t dt, int offset);
+    dt_t dt_end_of_month(dt_t dt, int offset);
 
 Returns a date set to the last day of the month for the given date I<dt>. The 
 I<offset> parameter specifies the number of months before (negative) or after 
 (positive) the given date.
 
-=head2 dt_last_day_of_week
+=head2 dt_end_of_week
 
-    dt_t dt_last_day_of_week(dt_t dt, int first_dow);
+    dt_t dt_end_of_week(dt_t dt, int first_dow);
 
 Returns a date set to the last day of the week for the given date I<dt>. The 
 I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).

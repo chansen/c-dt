@@ -19,22 +19,22 @@ HARNESS_OBJS = \
 	t/delta_yqd.o \
 	t/easter_orthodox.o \
 	t/easter_western.o \
-	t/first_day_of_month.o \
-	t/first_day_of_quarter.o \
-	t/first_day_of_week.o \
-	t/first_day_of_year.o \
+	t/end_of_month.o \
+	t/end_of_quarter.o \
+	t/end_of_week.o \
+	t/end_of_year.o \
 	t/is_holiday.o \
 	t/is_workday.o \
-	t/last_day_of_month.o \
-	t/last_day_of_quarter.o \
-	t/last_day_of_week.o \
-	t/last_day_of_year.o \
 	t/next_day_of_week.o \
 	t/next_weekday.o \
 	t/nth_day_of_week.o \
 	t/parse_string.o \
 	t/prev_day_of_week.o \
 	t/prev_weekday.o \
+	t/start_of_month.o \
+	t/start_of_quarter.o \
+	t/start_of_week.o \
+	t/start_of_year.o \
 	t/tm.o \
 	t/yd.o \
 	t/ymd.o \
@@ -54,14 +54,14 @@ HARNESS_EXES = \
 	t/days_in_year.t \
 	t/days_in_month.t \
 	t/days_in_quarter.t \
-	t/first_day_of_year.t \
-	t/first_day_of_quarter.t \
-	t/first_day_of_month.t \
-	t/first_day_of_week.t \
-	t/last_day_of_year.t \
-	t/last_day_of_quarter.t \
-	t/last_day_of_month.t \
-	t/last_day_of_week.t \
+	t/start_of_year.t \
+	t/start_of_quarter.t \
+	t/start_of_month.t \
+	t/start_of_week.t \
+	t/end_of_year.t \
+	t/end_of_quarter.t \
+	t/end_of_month.t \
+	t/end_of_week.t \
 	t/next_day_of_week.t \
 	t/prev_day_of_week.t \
 	t/next_weekday.t \
@@ -157,26 +157,18 @@ t/easter_orthodox.o: \
 	$(HARNESS_DEPS) t/easter_orthodox.c t/easter_orthodox.h
 t/easter_western.o: \
 	$(HARNESS_DEPS) t/easter_western.c t/easter_western.h
-t/first_day_of_month.o: \
-	$(HARNESS_DEPS) t/first_day_of_month.c t/first_day_of_month.h
-t/first_day_of_quarter.o: \
-	$(HARNESS_DEPS) t/first_day_of_quarter.c t/first_day_of_quarter.h
-t/first_day_of_week.o: \
-	$(HARNESS_DEPS) t/first_day_of_week.c
-t/first_day_of_year.o: \
-	$(HARNESS_DEPS) t/first_day_of_year.c
+t/end_of_month.o: \
+	$(HARNESS_DEPS) t/end_of_month.c t/end_of_month.h
+t/end_of_quarter.o: \
+	$(HARNESS_DEPS) t/end_of_quarter.c t/end_of_quarter.h
+t/end_of_week.o: \
+	$(HARNESS_DEPS) t/end_of_week.c
+t/end_of_year.o: \
+	$(HARNESS_DEPS) t/end_of_year.c
 t/is_holiday.o: \
 	$(HARNESS_DEPS) t/is_holiday.c
 t/is_workday.o: \
 	$(HARNESS_DEPS) t/is_workday.c
-t/last_day_of_month.o: \
-	$(HARNESS_DEPS) t/last_day_of_month.c t/last_day_of_month.h
-t/last_day_of_quarter.o: \
-	$(HARNESS_DEPS) t/last_day_of_quarter.c t/last_day_of_quarter.h
-t/last_day_of_week.o: \
-	$(HARNESS_DEPS) t/last_day_of_week.c
-t/last_day_of_year.o: \
-	$(HARNESS_DEPS) t/last_day_of_year.c
 t/next_day_of_week.o: \
 	$(HARNESS_DEPS) t/next_day_of_week.c
 t/next_weekday.o: \
@@ -189,6 +181,14 @@ t/prev_day_of_week.o: \
 	$(HARNESS_DEPS) t/prev_day_of_week.c
 t/prev_weekday.o: \
 	$(HARNESS_DEPS) t/prev_weekday.c
+t/start_of_month.o: \
+	$(HARNESS_DEPS) t/start_of_month.c t/start_of_month.h
+t/start_of_quarter.o: \
+	$(HARNESS_DEPS) t/start_of_quarter.c t/start_of_quarter.h
+t/start_of_week.o: \
+	$(HARNESS_DEPS) t/start_of_week.c
+t/start_of_year.o: \
+	$(HARNESS_DEPS) t/start_of_year.c
 t/tm.o: \
 	$(HARNESS_DEPS) t/tm.c
 t/yd.o: \
