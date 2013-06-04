@@ -210,29 +210,6 @@ dt_day_of_week(dt_t dt) {
 }
 
 bool
-dt_valid_yd(int y, int d) {
-    return (d >= 1 && (d <= 365 || d == dt_days_in_year(y)));
-}
-
-bool
-dt_valid_ymd(int y, int m, int d) {
-    return ((m >= 1 && m <= 12) && 
-            (d >= 1 && (d <= 28 || d <= dt_days_in_month(y, m))));
-}
-
-bool
-dt_valid_yqd(int y, int q, int d) {
-    return ((q >= 1 && q <= 4) && 
-            (d >= 1 && (d <= 90 || d <= dt_days_in_quarter(y, q))));
-}
-
-bool
-dt_valid_ywd(int y, int w, int d) {
-    return ((w >= 1 && (w <= 52 || w == dt_weeks_in_year(y))) &&
-            (d >= 1 && d <= 7));
-}
-
-bool
 dt_leap_year(int y) {
     return LEAP_YEAR(y);
 }

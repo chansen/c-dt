@@ -30,6 +30,7 @@
 #include "dt_parse.h"
 #include "dt_search.h"
 #include "dt_tm.h"
+#include "dt_valid.h"
 #include "dt_weekday.h"
 #include "dt_workday.h"
 

@@ -25,6 +25,7 @@
  */
 #include <stddef.h>
 #include "dt_core.h"
+#include "dt_valid.h"
 
 static size_t
 count_digits(const unsigned char * const p, size_t i, const size_t len) {

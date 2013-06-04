@@ -23,46 +23,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CORE_H__
-#define __DT_CORE_H__
-#include "dt_config.h"
+#include "dt_core.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    DT_MONDAY=1,
-    DT_TUESDAY,
-    DT_WEDNESDAY,
-    DT_THURSDAY,
-    DT_FRIDAY,
-    DT_SATURDAY,
-    DT_SUNDAY
-} dt_day_of_week_t;
-
-dt_t    dt_from_rdn             (int n);
-dt_t    dt_from_yd              (int y, int d);
-dt_t    dt_from_ymd             (int y, int m, int d);
-dt_t    dt_from_yqd             (int y, int q, int d);
-dt_t    dt_from_ywd             (int y, int w, int d);
-
-void    dt_to_yd                (dt_t dt, int *y, int *d);
-void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
-void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
-void    dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
-
-int     dt_rdn                  (dt_t dt);
-int     dt_day_of_week          (dt_t dt);
-
-bool    dt_leap_year            (int y);
-int     dt_days_in_year         (int y);
-int     dt_days_in_quarter      (int y, int q);
-int     dt_days_in_month        (int y, int m);
-int     dt_weeks_in_year        (int y);
-
-#ifdef __cplusplus
+bool
+dt_valid_yd(int y, int d) {
+    return (d >= 1 && (d <= 365 || d == dt_days_in_year(y)));
 }
-#endif
-#endif
+
+bool
+dt_valid_ymd(int y, int m, int d) {
+    return ((m >= 1 && m <= 12) && 
+            (d >= 1 && (d <= 28 || d <= dt_days_in_month(y, m))));
+}
+
+bool
+dt_valid_yqd(int y, int q, int d) {
+    return ((q >= 1 && q <= 4) && 
+            (d >= 1 && (d <= 90 || d <= dt_days_in_quarter(y, q))));
+}
+
+bool
+dt_valid_ywd(int y, int w, int d) {
+    return ((w >= 1 && (w <= 52 || w == dt_weeks_in_year(y))) &&
+            (d >= 1 && d <= 7));
+}
 
