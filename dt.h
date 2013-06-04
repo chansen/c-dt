@@ -52,7 +52,7 @@ int     dt_year                 (dt_t dt);
 int     dt_quarter              (dt_t dt);
 int     dt_month                (dt_t dt);
 int     dt_week                 (dt_t dt);
-int     dt_day                  (dt_t dt);
+int     dt_day_of_month         (dt_t dt);
 int     dt_day_of_year          (dt_t dt);
 int     dt_day_of_quarter       (dt_t dt);
 

@@ -221,12 +221,6 @@ Returns the month of the year (1-12) for the given date I<dt>.
 
 Returns the week of the year (1-53) for the given date I<dt>.
 
-=head2 dt_day
-
-    int dt_day(dt_t dt);
-
-Returns the day of the month (1-31) for the given date I<dt>.
-
 =head2 dt_day_of_year
 
     int dt_day_of_year(dt_t dt);
@@ -238,6 +232,12 @@ Returns the day of the year (1-366) for the given date I<dt>.
     int dt_day_of_quarter(dt_t dt);
 
 Returns the day of the quarter (1-92) for the given date I<dt>.
+
+=head2 dt_day_of_month
+
+    int dt_day(dt_t dt);
+
+Returns the day of the month (1-31) for the given date I<dt>.
 
 =head2 dt_day_of_week
 

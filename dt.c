@@ -65,7 +65,7 @@ dt_week(dt_t dt) {
 }
 
 int
-dt_day(dt_t dt) {
+dt_day_of_month(dt_t dt) {
     int d;
     dt_to_ymd(dt, NULL, NULL, &d);
     return d;
