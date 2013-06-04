@@ -31,18 +31,16 @@
  * <http://petrofsky.org/>
  */
 static int
-easter_gregorian(int year) {
-    unsigned int y, a, b;
-    y = year % 5700000;
+easter_gregorian(unsigned int y) {
+    unsigned int a, b;
     a = y/100 * 1483 - y/400 * 2225 + 2613;
     b = ((y % 19 * 3510 + a/25 * 319) / 330) % 29;
     return 56 - b - ((y * 5/4) + a - b) % 7;
 }
 
 static int
-easter_julian(int year) {
-    unsigned int y, a;
-    y = year % 532;
+easter_julian(unsigned int y) {
+    unsigned int a;
     a = (y % 19 * 19 + 15) % 30;
     return 28 + a - ((y * 5/4) + a) % 7;
 }
