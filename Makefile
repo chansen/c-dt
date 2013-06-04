@@ -10,6 +10,7 @@ SOURCES = \
 	dt_parse.c  \
 	dt_search.c \
 	dt_tm.c \
+	dt_util.c \
 	dt_valid.c \
 	dt_weekday.c \
 	dt_workday.c
@@ -21,6 +22,7 @@ OBJECTS = \
 	dt_parse.o \
 	dt_search.o \
 	dt_tm.o \
+	dt_util.o \
 	dt_valid.o \
 	dt_weekday.o \
 	dt_workday.o

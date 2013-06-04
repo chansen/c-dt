@@ -23,40 +23,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_CORE_H__
-#define __DT_CORE_H__
-#include "dt_config.h"
+#include "dt_core.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    DT_MONDAY=1,
-    DT_TUESDAY,
-    DT_WEDNESDAY,
-    DT_THURSDAY,
-    DT_FRIDAY,
-    DT_SATURDAY,
-    DT_SUNDAY
-} dt_day_of_week_t;
-
-dt_t    dt_from_rdn             (int n);
-dt_t    dt_from_yd              (int y, int d);
-dt_t    dt_from_ymd             (int y, int m, int d);
-dt_t    dt_from_yqd             (int y, int q, int d);
-dt_t    dt_from_ywd             (int y, int w, int d);
-
-void    dt_to_yd                (dt_t dt, int *y, int *d);
-void    dt_to_ymd               (dt_t dt, int *y, int *m, int *d);
-void    dt_to_yqd               (dt_t dt, int *y, int *q, int *d);
-void    dt_to_ywd               (dt_t dt, int *y, int *w, int *d);
-
-int     dt_rdn                  (dt_t dt);
-int     dt_day_of_week          (dt_t dt);
-
-#ifdef __cplusplus
+bool
+dt_leap_year(int y) {
+    return (y % 4 == 0 && (y % 100 != 0 || y % 400 == 0));
 }
-#endif
-#endif
+
+int
+dt_days_in_year(int y) {
+    return dt_leap_year(y) ? 366 : 365;
+}
+
+int
+dt_days_in_quarter(int y, int q) {
+    static const int days_in_quarter[2][5] = {
+        { 0, 90, 91, 92, 92 },
+        { 0, 91, 91, 92, 92 }
+    };
+    if (q < 1 || q > 4)
+        return 0;
+    return days_in_quarter[dt_leap_year(y)][q];
+}
+
+int
+dt_days_in_month(int y, int m) {
+    static const int days_in_month[2][13] = {
+        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+        { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+    };
+    if (m < 1 || m > 12)
+        return 0;
+    return days_in_month[(m == 2 && dt_leap_year(y))][m];
+}
+
+int
+dt_weeks_in_year(int y) {
+    const int dow = dt_day_of_week(dt_from_yd(y, 1));
+    return (dow == 4 || (dow == 3 && dt_leap_year(y))) ? 53 : 52;
+}
 

@@ -24,6 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "dt_core.h"
+#include "dt_util.h"
 
 bool
 dt_valid_yd(int y, int d) {
