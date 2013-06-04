@@ -3,6 +3,26 @@ GCOV    = gcov
 CFLAGS  = $(DCFLAGS) -Wall -I. -I..
 LDFLAGS += -lc $(DLDFLAGS)
 
+SOURCES = \
+	dt.c \
+	dt_core.c \
+	dt_easter.c \
+	dt_parse.c  \
+	dt_search.c \
+	dt_tm.c \
+	dt_weekday.c \
+	dt_workday.c
+
+OBJECTS = \
+	dt.o \
+	dt_core.o \
+	dt_easter.o \
+	dt_parse.o \
+	dt_search.o \
+	dt_tm.o \
+	dt_weekday.o \
+	dt_workday.o
+
 HARNESS_OBJS = \
 	t/add_years.o \
 	t/add_quarters.o \
@@ -82,23 +102,16 @@ HARNESS_EXES = \
 	t/is_workday.t
 
 HARNESS_DEPS = \
-	dt.o \
-	dt_core.o \
-	dt_easter.o \
-	dt_parse.o \
-	dt_search.o \
-	dt_tm.o \
-	dt_weekday.o \
-	dt_workday.o \
+	$(OBJECTS) \
 	t/tap.o
 
 .SUFFIXES:
 .SUFFIXES: .o .c .t
 
-.PHONY: all check-asan harness test gcov cover clean
+.PHONY: check-asan test gcov cover clean
 
 .o.t:
-	$(CC) $(LDFLAGS) $< dt.o dt_core.o dt_easter.o dt_parse.o dt_search.o dt_tm.o dt_weekday.o dt_workday.o t/tap.o -o $@
+	$(CC) $(LDFLAGS) $< $(HARNESS_DEPS) -o $@
 
 dt.o: \
 	dt.h dt.c
@@ -202,27 +215,20 @@ t/yqd.o: \
 t/ywd.o: \
 	$(HARNESS_DEPS) t/ywd.c t/ywd.h
 
-
-all: \
-	test
-
-harness: \
-	$(HARNESS_EXES)
-
-test: harness 
+test: $(HARNESS_EXES) 
 	@prove $(HARNESS_EXES)
 
 check-asan:
 	@$(MAKE) DCFLAGS="-O1 -g -faddress-sanitizer -fno-omit-frame-pointer" \
-			 DLDFLAGS="-g -faddress-sanitizer" test
+	DLDFLAGS="-g -faddress-sanitizer" test
 
 gcov:
 	@$(MAKE) DCFLAGS="-O0 -g -coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) dt.c dt_core.o dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
+	@$(GCOV) $(SOURCES)
 
 cover:
 	@$(MAKE) DCFLAGS="-O0 -g --coverage" DLDFLAGS="-coverage" test
-	@$(GCOV) -abc dt_core.o dt_easter.c dt_parse.c dt_search.c dt_tm.c dt_weekday.c dt_workday.c 
+	@$(GCOV) -abc $(SOURCES) 
 	@gcov2perl *.gcov
 	@cover --no-gcov
 
