@@ -610,16 +610,14 @@ Returns the number of days in the given I<year> (365-366).
     int dt_days_in_quarter(int year, int quarter);
 
 Returns the number of days in the given I<quarter> (90-92) within the given I<year>.
-The function's behavior is undefined if I<quarter> is out of range. Valid values for 
-I<quarter> are 1-4.
+Returns C<0> if the given quarter is out of range (1-4).
 
 =head2 dt_days_in_month
 
     int dt_days_in_month(int year, int month);
 
 Returns the number of days in the given I<month> (28-31) within the given I<year>.
-The function's behavior is undefined if month is out of range. Valid values for 
-month are 1-12.
+Returns C<0> if the given month is out of range (1-12).
 
 =head2 dt_weeks_in_year
 
