@@ -58,17 +58,10 @@ dt_month(dt_t dt) {
 }
 
 int
-dt_week(dt_t dt) {
+dt_week_of_year(dt_t dt) {
     int w;
     dt_to_ywd(dt, NULL, &w, NULL);
     return w;
-}
-
-int
-dt_day_of_month(dt_t dt) {
-    int d;
-    dt_to_ymd(dt, NULL, NULL, &d);
-    return d;
 }
 
 int
@@ -82,6 +75,13 @@ int
 dt_day_of_quarter(dt_t dt) {
     int d;
     dt_to_yqd(dt, NULL, NULL, &d);
+    return d;
+}
+
+int
+dt_day_of_month(dt_t dt) {
+    int d;
+    dt_to_ymd(dt, NULL, NULL, &d);
     return d;
 }
 

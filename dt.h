@@ -48,13 +48,16 @@ typedef enum {
 dt_t    dt_from_cjdn            (int n);
 
 int     dt_cjdn                 (dt_t dt);
+
 int     dt_year                 (dt_t dt);
 int     dt_quarter              (dt_t dt);
 int     dt_month                (dt_t dt);
-int     dt_week                 (dt_t dt);
-int     dt_day_of_month         (dt_t dt);
+
+int     dt_week_of_year         (dt_t dt);
+
 int     dt_day_of_year          (dt_t dt);
 int     dt_day_of_quarter       (dt_t dt);
+int     dt_day_of_month         (dt_t dt);
 
 dt_t    dt_start_of_year        (dt_t dt, int offset);
 dt_t    dt_start_of_quarter     (dt_t dt, int offset);
