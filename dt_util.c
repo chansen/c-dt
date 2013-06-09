@@ -54,12 +54,16 @@ dt_days_in_month(int y, int m) {
     };
     if (m < 1 || m > 12)
         return 0;
-    return days_in_month[(m == 2 && dt_leap_year(y))][m];
+    return days_in_month[dt_leap_year(y)][m];
 }
 
 int
-dt_weeks_in_year(int y) {
-    const int dow = dt_day_of_week(dt_from_yd(y, 1));
-    return (dow == 4 || (dow == 3 && dt_leap_year(y))) ? 53 : 52;
+dt_weeks_in_year(int year) {
+    unsigned int y, dow;
+    if (year < 1)
+        year += 400 * (1 - year/400);
+    y = year - 1;
+    dow = (365 * y + y/4 - y/100 + y/400) % 7; /* Mon = 0, ... Sun = 6 */
+    return (dow == 3 || (dow == 2 && dt_leap_year(year))) ? 53 : 52;
 }
 
