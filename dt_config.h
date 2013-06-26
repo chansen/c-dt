@@ -26,19 +26,29 @@
 #ifndef __DT_CONFIG_H__
 #define __DT_CONFIG_H__
 
-#ifndef _MSC_VER
+#if !defined(_MSC_VER)
 #  include <stdbool.h>
-#else
-#  ifndef __cplusplus
-#    define  bool _Bool
-#    typedef char _Bool;
-#  endif
+#endif
+
+#if !defined(__cplusplus) && !defined(__bool_true_false_are_defined)
+#  typedef char  _Bool;
+#  define  bool  _Bool
+#  define  true  1
+#  define  false 0
+#  define  __bool_true_false_are_defined 1
 #endif
 
 #ifdef DT_INTERNAL
 #define OFFSET_RDN 0
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef int dt_t;
 
+#ifdef __cplusplus
+}
+#endif
 #endif
