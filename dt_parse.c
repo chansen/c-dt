@@ -44,12 +44,11 @@ static int
 parse_number(const unsigned char * const p, size_t i, const size_t len) {
     int v = 0;
 
-    i += len;
     switch (len) {
-        case 4: v += (p[i - 4] - '0') * 1000;
-        case 3: v += (p[i - 3] - '0') * 100;
-        case 2: v += (p[i - 2] - '0') * 10;
-        case 1: v += (p[i - 1] - '0');
+        case 4: v += (p[i++] - '0') * 1000;
+        case 3: v += (p[i++] - '0') * 100;
+        case 2: v += (p[i++] - '0') * 10;
+        case 1: v += (p[i++] - '0');
     }
     return v;
 }
