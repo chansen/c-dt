@@ -157,27 +157,27 @@ dt_parse_string(const char *str, size_t len, dt_t *dtp) {
     }
 
   yd:
-    if (!dt_valid_yd(y, d))
+    if (y < 1 || !dt_valid_yd(y, d))
         return 0;
     dt = dt_from_yd(y, d);
     goto finish;
 
   ymd:
-    if (!dt_valid_ymd(y, x, d))
+    if (y < 1 || !dt_valid_ymd(y, x, d))
         return 0;
     dt = dt_from_ymd(y, x, d);
     goto finish;
 
 #ifndef DT_ONLY_ISO8601
   yqd:
-    if (!dt_valid_yqd(y, x, d))
+    if (y < 1 || !dt_valid_yqd(y, x, d))
         return 0;
     dt = dt_from_yqd(y, x, d);
     goto finish;
 #endif
 
   ywd:
-    if (!dt_valid_ywd(y, x, d))
+    if (y < 1 || !dt_valid_ywd(y, x, d))
         return 0;
     dt = dt_from_ywd(y, x, d);
 
