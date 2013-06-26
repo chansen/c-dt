@@ -27,7 +27,7 @@
 
 bool
 dt_leap_year(int y) {
-    return (y % 4 == 0 && (y % 100 != 0 || y % 400 == 0));
+    return ((y & 3) == 0 && (y % 100 != 0 || y % 400 == 0));
 }
 
 int
@@ -59,11 +59,11 @@ dt_days_in_month(int y, int m) {
 
 int
 dt_weeks_in_year(int year) {
-    unsigned int y, dow;
+    unsigned int y, d;
     if (year < 1)
         year += 400 * (1 - year/400);
     y = year - 1;
-    dow = (365 * y + y/4 - y/100 + y/400) % 7; /* Mon = 0, ... Sun = 6 */
-    return (dow == 3 || (dow == 2 && dt_leap_year(year))) ? 53 : 52;
+    d = (y + y/4 - y/100 + y/400) % 7; /* Mon = 0, ... Sun = 6 */
+    return (d == 3 || (d == 2 && dt_leap_year(year))) ? 53 : 52;
 }
 
