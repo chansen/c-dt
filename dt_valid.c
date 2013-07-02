@@ -45,7 +45,7 @@ dt_valid_yqd(int y, int q, int d) {
 
 bool
 dt_valid_ywd(int y, int w, int d) {
-    return ((w >= 1 && (w <= 52 || w == dt_weeks_in_year(y))) &&
-            (d >= 1 && d <= 7));
+    return ((d >= 1 && d <= 7) &&
+            (w >= 1 && (w <= 52 || w == dt_weeks_in_year(y))));
 }
 
