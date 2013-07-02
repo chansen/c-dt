@@ -27,7 +27,7 @@
 #include "dt_core.h"
 
 #define LEAP_YEAR(y) \
-    ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
+    (((y) & 3) == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
 #define DAYS_IN_YEAR(y) \
     (LEAP_YEAR(y) ? 366 : 365)
@@ -60,11 +60,12 @@ dt_from_yd(int y, int d) {
 
 dt_t
 dt_from_ymd(int y, int m, int d) {
-    y += m / 12;
-    m %= 12;
-    if (m < 1)
-        y--, m += 12;
-
+    if (m < 1 || m > 12) {
+        y += m / 12;
+        m %= 12;
+        if (m < 1)
+            y--, m += 12;
+    }
     assert(m >=  1);
     assert(m <= 12);
     return dt_from_yd(y, days_preceding_month[LEAP_YEAR(y)][m] + d);
@@ -72,11 +73,12 @@ dt_from_ymd(int y, int m, int d) {
 
 dt_t
 dt_from_yqd(int y, int q, int d) {
-    y += q / 4;
-    q %= 4;
-    if (q < 1)
-        y--, q += 4;
-
+    if (q < 1 || q > 4) {
+        y += q / 4;
+        q %= 4;
+        if (q < 1)
+            y--, q += 4;
+    }
     assert(q >= 1);
     assert(q <= 4);
     return dt_from_yd(y, days_preceding_quarter[LEAP_YEAR(y)][q] + d);
@@ -150,7 +152,7 @@ dt_to_ymd(dt_t dt, int *yp, int *mp, int *dp) {
 
     dt_to_yd(dt, &y, &doy);
     l = LEAP_YEAR(y);
-    m = doy < 32 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 153;
+    m = doy < 32 ? 1 : 1 + (5 * (doy - 59 - l) + 303) / 153;
 
     assert(m >=  1);
     assert(m <= 12);
@@ -166,7 +168,7 @@ dt_to_yqd(dt_t dt, int *yp, int *qp, int *dp) {
 
     dt_to_yd(dt, &y, &doy);
     l = LEAP_YEAR(y);
-    q = doy < 91 ? 1 : 1 + (5 * (doy - (59 + l)) + 303) / 459;
+    q = doy < 91 ? 1 : 1 + (5 * (doy - 59 - l) + 303) / 459;
 
     assert(q >= 1);
     assert(q <= 4);
