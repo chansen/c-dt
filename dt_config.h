@@ -38,9 +38,20 @@
 #  define  __bool_true_false_are_defined 1
 #endif
 
-#ifdef DT_INTERNAL
-#define OFFSET_RDN 0
-#endif
+/* Chronological Julian Date, January 1, 4713 BC, Monday
+#define DT_EPOCH_OFFSET 1721425
+*/
+
+/* Network Time Protocol (NTP), January 1, 1900, Monday
+#define DT_EPOCH_OFFSET -693596
+*/
+
+/* Unix, January 1, 1970, Thursday
+#define DT_EPOCH_OFFSET -719163
+*/
+
+/* Rata Die, January 1, 0001, Monday (as Day 1) */
+#define DT_EPOCH_OFFSET 0
 
 #ifdef __cplusplus
 extern "C" {

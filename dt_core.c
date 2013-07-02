@@ -23,7 +23,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#define DT_INTERNAL
 #include <assert.h>
 #include "dt_core.h"
 
@@ -45,7 +44,7 @@ static const int days_preceding_quarter[2][5] = {
 
 dt_t
 dt_from_rdn(int n) {
-    return n + OFFSET_RDN;
+    return n + DT_EPOCH_OFFSET;
 }
 
 dt_t
@@ -56,7 +55,7 @@ dt_from_yd(int y, int d) {
         y += n400 * 400;
         d -= n400 * 146097;
     }
-    return 365 * y + y/4 - y/100 + y/400 + d;
+    return 365 * y + y/4 - y/100 + y/400 + d + DT_EPOCH_OFFSET;
 }
 
 dt_t
@@ -95,8 +94,8 @@ dt_from_ywd(int y, int w, int d) {
 
 
 #ifndef DT_NO_SHORTCUTS
-static const dt_t OFF1901 = OFFSET_RDN + 693961; /* 1901-01-01 */
-static const dt_t OFF2099 = OFFSET_RDN + 766644; /* 2099-12-31 */
+static const dt_t DT1901 = 693961 + DT_EPOCH_OFFSET; /* 1901-01-01 */
+static const dt_t DT2099 = 766644 + DT_EPOCH_OFFSET; /* 2099-12-31 */
 #endif
 
 void
@@ -106,8 +105,8 @@ dt_to_yd(dt_t d, int *yp, int *dp) {
     y = 0;
 #ifndef DT_NO_SHORTCUTS
     /* Shortcut dates between the years 1901-2099 inclusive */
-    if (d >= OFF1901 && d <= OFF2099) {
-        d -= OFF1901 - 1;
+    if (d >= DT1901 && d <= DT2099) {
+        d -= DT1901 - 1;
         y += (4 * d - 1) / 1461;
         d -= (1461 * y) / 4;
         y += 1901;
@@ -115,6 +114,7 @@ dt_to_yd(dt_t d, int *yp, int *dp) {
     else
 #endif
     {
+        d -= DT_EPOCH_OFFSET;
         if (d < 1) {
             const int n400 = 1 - d/146097;
             y -= n400 * 400;
@@ -201,12 +201,12 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
 
 int
 dt_rdn(dt_t dt) {
-    return dt - OFFSET_RDN;
+    return dt - DT_EPOCH_OFFSET;
 }
 
 int
 dt_day_of_week(dt_t dt) {
-    int dow = dt % 7;
+    int dow = (dt - DT_EPOCH_OFFSET) % 7;
     if (dow < 1)
         dow += 7;
     return dow;
