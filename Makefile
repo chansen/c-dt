@@ -8,6 +8,7 @@ SOURCES = \
 	dt_core.c \
 	dt_easter.c \
 	dt_parse.c  \
+	dt_roll.c \
 	dt_search.c \
 	dt_tm.c \
 	dt_util.c \
@@ -20,6 +21,7 @@ OBJECTS = \
 	dt_core.o \
 	dt_easter.o \
 	dt_parse.o \
+	dt_roll.o \
 	dt_search.o \
 	dt_tm.o \
 	dt_util.o \
@@ -55,6 +57,7 @@ HARNESS_OBJS = \
 	t/parse_string.o \
 	t/prev_day_of_week.o \
 	t/prev_weekday.o \
+	t/roll.o \
 	t/start_of_month.o \
 	t/start_of_quarter.o \
 	t/start_of_week.o \
@@ -103,7 +106,8 @@ HARNESS_EXES = \
 	t/add_workdays.t \
 	t/delta_workdays.t \
 	t/is_holiday.t \
-	t/is_workday.t
+	t/is_workday.t \
+	t/roll.t
 
 HARNESS_DEPS = \
 	$(OBJECTS) \
@@ -128,6 +132,9 @@ dt_easter.o: \
 
 dt_parse.o: \
 	dt_parse.h dt_parse.c
+
+dt_roll.o: \
+	dt_roll.h dt_roll.c
 
 dt_search.o: \
 	dt_search.h dt_search.c
@@ -198,6 +205,8 @@ t/prev_day_of_week.o: \
 	$(HARNESS_DEPS) t/prev_day_of_week.c
 t/prev_weekday.o: \
 	$(HARNESS_DEPS) t/prev_weekday.c
+t/roll.o: \
+	$(HARNESS_DEPS) t/roll.c
 t/start_of_month.o: \
 	$(HARNESS_DEPS) t/start_of_month.c t/start_of_month.h
 t/start_of_quarter.o: \
