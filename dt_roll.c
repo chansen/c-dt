@@ -34,6 +34,8 @@ dt_roll(dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n) {
     
     start = dt;
     switch (convention) {
+        case DT_ACTUAL:
+            break;
         case DT_FOLLOWING:
             dt = dt_next_workday(dt, true, holidays, n);
             break;

@@ -33,7 +33,7 @@ extern "C" {
 #endif
 
 typedef enum {
-    DT_UNADJUSTED,
+    DT_ACTUAL,
     DT_FOLLOWING,
     DT_MODIFIED_FOLLOWING,
     DT_PRECEDING,
