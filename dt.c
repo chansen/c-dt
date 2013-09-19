@@ -134,25 +134,6 @@ dt_end_of_week(dt_t dt, int first_dow) {
 }
 
 dt_t
-dt_nth_day_of_week(dt_t dt, int nth, int dow) {
-    if      (nth > 0) nth--, dt += (dow - dt_day_of_week(dt) + 7) % 7;
-    else if (nth < 0) nth++, dt -= (dt_day_of_week(dt) - dow + 7) % 7;
-    return dt + nth * 7;
-}
-
-dt_t
-dt_next_day_of_week(dt_t dt, int dow, bool current) {
-    if (current) return dt + (dow - dt_day_of_week(dt) + 7) % 7;
-    else         return dt + (dow - dt_day_of_week(dt) + 6) % 7 + 1;
-}
-
-dt_t
-dt_prev_day_of_week(dt_t dt, int dow, bool current) {
-    if (current) return dt - (dt_day_of_week(dt) - dow + 7) % 7;
-    else         return dt - (dt_day_of_week(dt) - dow + 6) % 7 - 1;
-}
-
-dt_t
 dt_add_years(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, d;
 

@@ -6,6 +6,7 @@ LDFLAGS += -lc $(DLDFLAGS)
 SOURCES = \
 	dt.c \
 	dt_core.c \
+	dt_dow.c \
 	dt_easter.c \
 	dt_parse.c  \
 	dt_roll.c \
@@ -19,6 +20,7 @@ SOURCES = \
 OBJECTS = \
 	dt.o \
 	dt_core.o \
+	dt_dow.o \
 	dt_easter.o \
 	dt_parse.o \
 	dt_roll.o \
@@ -126,6 +128,9 @@ dt.o: \
 
 dt_core.o: \
 	dt_config.h dt_core.h dt_core.c
+
+dt_dow.o: \
+	dt_dow.h dt_dow.c
 
 dt_easter.o: \
 	dt_easter.h dt_easter.c
