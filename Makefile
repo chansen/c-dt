@@ -5,11 +5,11 @@ LDFLAGS += -lc $(DLDFLAGS)
 
 SOURCES = \
 	dt.c \
+	dt_adjust.c \
 	dt_core.c \
 	dt_dow.c \
 	dt_easter.c \
 	dt_parse.c  \
-	dt_roll.c \
 	dt_search.c \
 	dt_tm.c \
 	dt_util.c \
@@ -19,11 +19,11 @@ SOURCES = \
 
 OBJECTS = \
 	dt.o \
+	dt_adjust.o \
 	dt_core.o \
 	dt_dow.o \
 	dt_easter.o \
 	dt_parse.o \
-	dt_roll.o \
 	dt_search.o \
 	dt_tm.o \
 	dt_util.o \
@@ -37,6 +37,7 @@ HARNESS_OBJS = \
 	t/add_months.o \
 	t/add_weekdays.o \
 	t/add_workdays.o \
+	t/adjust.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
 	t/days_in_year.o \
@@ -59,7 +60,6 @@ HARNESS_OBJS = \
 	t/parse_string.o \
 	t/prev_day_of_week.o \
 	t/prev_weekday.o \
-	t/roll.o \
 	t/start_of_month.o \
 	t/start_of_quarter.o \
 	t/start_of_week.o \
@@ -109,7 +109,7 @@ HARNESS_EXES = \
 	t/delta_workdays.t \
 	t/is_holiday.t \
 	t/is_workday.t \
-	t/roll.t
+	t/adjust.t
 
 HARNESS_DEPS = \
 	$(OBJECTS) \
@@ -126,6 +126,9 @@ HARNESS_DEPS = \
 dt.o: \
 	dt.h dt.c
 
+dt_adjust.o: \
+	dt_adjust.h dt_adjust.c
+
 dt_core.o: \
 	dt_config.h dt_core.h dt_core.c
 
@@ -137,9 +140,6 @@ dt_easter.o: \
 
 dt_parse.o: \
 	dt_parse.h dt_parse.c
-
-dt_roll.o: \
-	dt_roll.h dt_roll.c
 
 dt_search.o: \
 	dt_search.h dt_search.c
@@ -166,6 +166,8 @@ t/add_weekdays.o: \
 	$(HARNESS_DEPS) t/add_weekdays.c
 t/add_workdays.o: \
 	$(HARNESS_DEPS) t/add_workdays.c
+t/adjust.o: \
+	$(HARNESS_DEPS) t/adjust.c
 t/days_in_month.o: \
 	$(HARNESS_DEPS) t/days_in_month.c
 t/days_in_quarter.o: \
@@ -210,8 +212,6 @@ t/prev_day_of_week.o: \
 	$(HARNESS_DEPS) t/prev_day_of_week.c
 t/prev_weekday.o: \
 	$(HARNESS_DEPS) t/prev_weekday.c
-t/roll.o: \
-	$(HARNESS_DEPS) t/roll.c
 t/start_of_month.o: \
 	$(HARNESS_DEPS) t/start_of_month.c t/start_of_month.h
 t/start_of_quarter.o: \

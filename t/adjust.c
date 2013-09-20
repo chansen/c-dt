@@ -32,7 +32,7 @@ const struct test {
     {2013, 12, 23, DT_MODIFIED_FOLLOWING,   2013, 12, 23},
     {2013, 12, 24, DT_FOLLOWING,            2013, 12, 27},
     {2013, 12, 24, DT_MODIFIED_FOLLOWING,   2013, 12, 27},
-    {2013, 12, 30, DT_ACTUAL,               2013, 12, 30},
+    {2013, 12, 30, DT_UNADJUSTED,           2013, 12, 30},
     {2013, 12, 30, DT_FOLLOWING,            2013, 12, 30},
     {2013, 12, 30, DT_MODIFIED_FOLLOWING,   2013, 12, 30},
     {2013, 12, 31, DT_FOLLOWING,            2014,  1,  1},
@@ -41,17 +41,17 @@ const struct test {
     {2013,  1,  1, DT_MODIFIED_PRECEDING,   2013,  1,  2},
     {2013,  1,  2, DT_PRECEDING,            2013,  1,  2},
     {2013,  1,  2, DT_MODIFIED_PRECEDING,   2013,  1,  2},
-    {2013,  4,  1, DT_ACTUAL,               2013,  4,  1},
+    {2013,  4,  1, DT_UNADJUSTED,           2013,  4,  1},
     {2013,  4,  1, DT_PRECEDING,            2013,  3, 28},
     {2013,  4,  1, DT_MODIFIED_PRECEDING,   2013,  4,  2},
-    {2013,  4,  1, DT_ACTUAL,               2013,  4,  1},
+    {2013,  4,  1, DT_UNADJUSTED,           2013,  4,  1},
 };
 
 static const char *
 convention_name(dt_bdc_t convention) {
     switch (convention) {
-        case DT_ACTUAL:
-            return "DT_ACTUAL";
+        case DT_UNADJUSTED:
+            return "DT_UNADJUSTED";
         case DT_FOLLOWING:
             return "DT_FOLLOWING";
         case DT_MODIFIED_FOLLOWING:
@@ -82,7 +82,7 @@ main() {
 
         {
             dt_t src = dt_from_ymd(t.y, t.m, t.d);
-            dt_t got = dt_roll(src, t.convention, holidays, nholidays);
+            dt_t got = dt_adjust(src, t.convention, holidays, nholidays);
             dt_t exp = dt_from_ymd(t.ey, t.em, t.ed);
             cmp_ok(got, "==", exp, "dt_roll(%.4d-%.2d-%.2d, %s)", 
               t.y, t.m, t.d, convention_name(t.convention));

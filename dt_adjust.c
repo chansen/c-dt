@@ -24,17 +24,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "dt_core.h"
-#include "dt_roll.h"
+#include "dt_adjust.h"
 #include "dt_workday.h"
 
 dt_t
-dt_roll(dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n) {
+dt_adjust(dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n) {
     dt_t start;
     int y, m;
     
     start = dt;
     switch (convention) {
-        case DT_ACTUAL:
+        case DT_UNADJUSTED:
             break;
         case DT_FOLLOWING:
             dt = dt_next_workday(dt, true, holidays, n);

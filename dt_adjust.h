@@ -33,14 +33,14 @@ extern "C" {
 #endif
 
 typedef enum {
-    DT_ACTUAL,
+    DT_UNADJUSTED,
     DT_FOLLOWING,
     DT_MODIFIED_FOLLOWING,
     DT_PRECEDING,
     DT_MODIFIED_PRECEDING,
 } dt_bdc_t;
 
-dt_t    dt_roll     (dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n);
+dt_t    dt_adjust    (dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n);
 
 #ifdef __cplusplus
 }
