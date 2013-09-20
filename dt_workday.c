@@ -27,6 +27,79 @@
 #include "dt_core.h"
 #include "dt_search.h"
 #include "dt_weekday.h"
+#include "dt_workday.h"
+
+dt_t
+dt_from_nth_workday_in_year(int y, int nth, const dt_t *holidays, size_t n) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_workdays(dt_from_yd(y, 0), nth, holidays, n);
+        if (dt <= dt_from_yd(y + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_workdays(dt_from_yd(y + 1, 1), nth, holidays, n);
+        if (dt >= dt_from_yd(y, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_from_nth_workday_in_quarter(int y, int q, int nth, const dt_t *holidays, size_t n) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_workdays(dt_from_yqd(y, q, 0), nth, holidays, n);
+        if (dt <= dt_from_yqd(y, q + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_workdays(dt_from_yqd(y, q + 1, 1), nth, holidays, n);
+        if (dt >= dt_from_yqd(y, q, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_from_nth_workday_in_month(int y, int m, int nth, const dt_t *holidays, size_t n) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_workdays(dt_from_ymd(y, m, 0), nth, holidays, n);
+        if (dt <= dt_from_ymd(y, m + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_workdays(dt_from_ymd(y, m + 1, 1), nth, holidays, n);
+        if (dt >= dt_from_ymd(y, m, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_nth_workday_in_year(dt_t dt, int nth, const dt_t *holidays, size_t n) {
+    int y;
+    dt_to_yd(dt, &y, NULL);
+    return dt_from_nth_workday_in_year(y, nth, holidays, n);
+}
+
+dt_t
+dt_nth_workday_in_quarter(dt_t dt, int nth, const dt_t *holidays, size_t n) {
+    int y, q;
+    dt_to_yqd(dt, &y, &q, NULL);
+    return dt_from_nth_workday_in_quarter(y, q, nth, holidays, n);
+}
+
+dt_t
+dt_nth_workday_in_month(dt_t dt, int nth, const dt_t *holidays, size_t n) {
+    int y, m;
+    dt_to_ymd(dt, &y, &m, NULL);
+    return dt_from_nth_workday_in_month(y, m, nth, holidays, n);
+}
 
 bool
 dt_is_holiday(dt_t dt, const dt_t *holidays, size_t n) {
