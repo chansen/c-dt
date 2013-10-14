@@ -29,15 +29,14 @@
 
 static size_t
 count_digits(const unsigned char * const p, size_t i, const size_t len) {
-    size_t n = 0;
+    size_t n = i;
 
     for(; i < len; i++) {
         const unsigned char c = p[i];
         if (c < '0' || c > '9')
             break;
-        n++;
     }
-    return n;
+    return i - n;
 }
 
 static int
@@ -93,7 +92,7 @@ dt_parse_string(const char *str, size_t len, dt_t *dtp) {
     switch (p[4]) {
         case '-': /* 2012-359 | 2012-12-24 | 2012-W52-1 | 2012-Q4-85 */
             break;
-#ifndef DT_ONLY_ISO8601
+#ifndef DT_STRICT_ISO8601
         case 'Q': /* 2012Q485 */
             if (n != 3)
                 return 0;
@@ -136,7 +135,7 @@ dt_parse_string(const char *str, size_t len, dt_t *dtp) {
 
     n = count_digits(p, 6, len);
     switch (p[5]) {
-#ifndef DT_ONLY_ISO8601
+#ifndef DT_STRICT_ISO8601
         case 'Q': /* 2012-Q4-85 */
             if (n != 1 || p[7] != '-' || count_digits(p, 8, len) != 2)
                 return 0;
@@ -157,31 +156,35 @@ dt_parse_string(const char *str, size_t len, dt_t *dtp) {
     }
 
   yd:
-    if (y < 1 || !dt_valid_yd(y, d))
+    if (!dt_valid_yd(y, d))
         return 0;
     dt = dt_from_yd(y, d);
     goto finish;
 
   ymd:
-    if (y < 1 || !dt_valid_ymd(y, x, d))
+    if (!dt_valid_ymd(y, x, d))
         return 0;
     dt = dt_from_ymd(y, x, d);
     goto finish;
 
-#ifndef DT_ONLY_ISO8601
+#ifndef DT_STRICT_ISO8601
   yqd:
-    if (y < 1 || !dt_valid_yqd(y, x, d))
+    if (!dt_valid_yqd(y, x, d))
         return 0;
     dt = dt_from_yqd(y, x, d);
     goto finish;
 #endif
 
   ywd:
-    if (y < 1 || !dt_valid_ywd(y, x, d))
+    if (!dt_valid_ywd(y, x, d))
         return 0;
     dt = dt_from_ywd(y, x, d);
 
   finish:
+#ifndef DT_PARSE_YEAR0
+    if (y < 1)
+        return 0;
+#endif
     if (dtp)
         *dtp = dt;
     return n;
