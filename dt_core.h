@@ -33,12 +33,19 @@ extern "C" {
 
 typedef enum {
     DT_MONDAY=1,
-    DT_TUESDAY,
-    DT_WEDNESDAY,
-    DT_THURSDAY,
-    DT_FRIDAY,
-    DT_SATURDAY,
-    DT_SUNDAY
+    DT_MON=1,
+    DT_TUESDAY=2,
+    DT_TUE=2,
+    DT_WEDNESDAY=3,
+    DT_WED=3,
+    DT_THURSDAY=4,
+    DT_THU=4,
+    DT_FRIDAY=5,
+    DT_FRI=5,
+    DT_SATURDAY=6,
+    DT_SAT=6,
+    DT_SUNDAY=7,
+    DT_SUN=7
 } dt_dow_t;
 
 dt_t    dt_from_rdn     (int n);
