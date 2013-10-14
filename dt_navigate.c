@@ -49,7 +49,7 @@ dt_start_of_month(dt_t dt, int offset) {
 
 dt_t
 dt_start_of_week(dt_t dt, int first_dow) {
-    return dt - (dt_day_of_week(dt) - first_dow + 7) % 7;
+    return dt - (dt_dow(dt) - first_dow + 7) % 7;
 }
 
 dt_t
@@ -75,6 +75,6 @@ dt_end_of_month(dt_t dt, int offset) {
 
 dt_t
 dt_end_of_week(dt_t dt, int first_dow) {
-    return dt + (first_dow - dt_day_of_week(dt) + 6) % 7;
+    return dt + (first_dow - dt_dow(dt) + 6) % 7;
 }
 

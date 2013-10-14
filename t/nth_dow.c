@@ -1,6 +1,6 @@
 #include "dt.h"
 #include "tap.h"
-#include "nth_day_of_week.h"
+#include "nth_dow.h"
 
 int 
 main() {
@@ -12,9 +12,9 @@ main() {
 
         {
             dt_t src = dt_from_ymd(t.y, t.m, t.d);
-            dt_t got = dt_nth_day_of_week(src, t.nth, t.dow);
+            dt_t got = dt_nth_dow(src, t.nth, t.dow);
             dt_t exp = dt_from_ymd(t.ey, t.em, t.ed);
-            cmp_ok(got, "==", exp, "dt_nth_day_of_week(%d (%.4d-%.2d-%.2d), %d, %d)", 
+            cmp_ok(got, "==", exp, "dt_nth_dow(%d (%.4d-%.2d-%.2d), %d, %d)", 
               src, t.y, t.m, t.d, t.nth, t.dow);
         }
 

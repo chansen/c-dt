@@ -51,9 +51,9 @@ main() {
 
         {
             dt_t src = dt_from_ywd(t.y, t.w, t.d);
-            dt_t got = dt_prev_day_of_week(src, t.dow, t.current);
+            dt_t got = dt_prev_dow(src, t.dow, t.current);
             dt_t exp = dt_from_ywd(t.ey, t.ew, t.ed);
-            cmp_ok(got, "==", exp, "dt_prev_day_of_week(%d, %d, %d)", src, t.dow, t.current);
+            cmp_ok(got, "==", exp, "dt_prev_dow(%d, %d, %d)", src, t.dow, t.current);
         }
 
     }

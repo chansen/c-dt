@@ -56,11 +56,11 @@ HARNESS_OBJS = \
 	t/end_of_year.o \
 	t/is_holiday.o \
 	t/is_workday.o \
-	t/next_day_of_week.o \
+	t/next_dow.o \
 	t/next_weekday.o \
-	t/nth_day_of_week.o \
+	t/nth_dow.o \
 	t/parse_string.o \
-	t/prev_day_of_week.o \
+	t/prev_dow.o \
 	t/prev_weekday.o \
 	t/start_of_month.o \
 	t/start_of_quarter.o \
@@ -93,11 +93,11 @@ HARNESS_EXES = \
 	t/end_of_quarter.t \
 	t/end_of_month.t \
 	t/end_of_week.t \
-	t/next_day_of_week.t \
-	t/prev_day_of_week.t \
+	t/next_dow.t \
+	t/prev_dow.t \
 	t/next_weekday.t \
 	t/prev_weekday.t \
-	t/nth_day_of_week.t \
+	t/nth_dow.t \
 	t/add_years.t \
 	t/add_quarters.t \
 	t/add_months.t \
@@ -205,16 +205,16 @@ t/is_holiday.o: \
 	$(HARNESS_DEPS) t/is_holiday.c
 t/is_workday.o: \
 	$(HARNESS_DEPS) t/is_workday.c
-t/next_day_of_week.o: \
-	$(HARNESS_DEPS) t/next_day_of_week.c
+t/next_dow.o: \
+	$(HARNESS_DEPS) t/next_dow.c
 t/next_weekday.o: \
 	$(HARNESS_DEPS) t/next_weekday.c
-t/nth_day_of_week.o: \
-	$(HARNESS_DEPS) t/nth_day_of_week.c t/nth_day_of_week.h
+t/nth_dow.o: \
+	$(HARNESS_DEPS) t/nth_dow.c t/nth_dow.h
 t/parse_string.o: \
 	$(HARNESS_DEPS) t/parse_string.c
-t/prev_day_of_week.o: \
-	$(HARNESS_DEPS) t/prev_day_of_week.c
+t/prev_dow.o: \
+	$(HARNESS_DEPS) t/prev_dow.c
 t/prev_weekday.o: \
 	$(HARNESS_DEPS) t/prev_weekday.c
 t/start_of_month.o: \

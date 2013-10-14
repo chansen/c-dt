@@ -239,9 +239,9 @@ Returns the day of the quarter (1-92) for the given date I<dt>.
 
 Returns the day of the month (1-31) for the given date I<dt>.
 
-=head2 dt_day_of_week
+=head2 dt_dow
 
-    int dt_day_of_week(dt_t dt);
+    int dt_dow(dt_t dt);
 
 Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
 
@@ -307,9 +307,9 @@ I<offset> parameter specifies the number of months before (negative) or after
 Returns a date set to the last day of the week for the given date I<dt>. The 
 I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
 
-=head2 dt_nth_day_of_week
+=head2 dt_nth_dow
 
-    dt_t dt_nth_day_of_week(dt_t dt, int nth, int day);
+    dt_t dt_nth_dow(dt_t dt, int nth, int day);
 
 Returns a date set to the I<nth> occurrence of the given I<day> of week for 
 given date I<dt>. The parameter I<day> specifies the day of week 
@@ -319,36 +319,36 @@ B<Example:>
 
     /* Birthday of Martin Luther King, Jr., the third Monday in January */
     dt = dt_from_ymd(2012, 1, 1);
-    dt = dt_nth_day_of_week(dt, 3, DT_MONDAY);
+    dt = dt_nth_dow(dt, 3, DT_MONDAY);
     
     /* Memorial Day, the last Monday in May */
     dt = dt_from_ymd(2012, 5, 31);
-    dt = dt_nth_day_of_week(dt, -1, DT_MONDAY);
+    dt = dt_nth_dow(dt, -1, DT_MONDAY);
     
     /* Thanksgiving Day, the fourth Thursday in November */
     dt = dt_from_ymd(2012, 11, 1);
-    dt = dt_nth_day_of_week(dt, 4, DT_THURSDAY);
+    dt = dt_nth_dow(dt, 4, DT_THURSDAY);
     
     /* Penultimate Monday in the second quarter */
     dt = dt_from_yqd(2012, 2, 91);
-    dt = dt_nth_day_of_week(dt, -2, DT_MONDAY);
+    dt = dt_nth_dow(dt, -2, DT_MONDAY);
     
     /* 50th Wednesday of the year */
     dt = dt_from_ymd(2012, 1, 1);
-    dt = dt_nth_day_of_week(dt, 50, DT_WEDNESDAY);
+    dt = dt_nth_dow(dt, 50, DT_WEDNESDAY);
 
-=head2 dt_next_day_of_week
+=head2 dt_next_dow
 
-    dt_t dt_next_day_of_week(dt_t dt, int dow, bool current);
+    dt_t dt_next_dow(dt_t dt, int dow, bool current);
 
 Returns a date set to the next or current day of week for the given date I<dt>. 
 The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday). The 
 parameter I<current> specifies whether or not the returned date must succeed
 the given date.
 
-=head2 dt_prev_day_of_week
+=head2 dt_prev_dow
 
-    dt_t dt_prev_day_of_week(dt_t dt, int dow, bool current);
+    dt_t dt_prev_dow(dt_t dt, int dow, bool current);
 
 Returns a date set to the previous or current day of week for the given date 
 I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
@@ -656,33 +656,46 @@ Install using the source package (L<http://search.cpan.org/dist/Test-Harness/>):
 
 output:
 
-    t/yd.t .................... ok
-    t/ymd.t ................... ok
-    t/ymd_epochs.t ............ ok
-    t/yqd.t ................... ok
-    t/ywd.t ................... ok
-    t/tm.t .................... ok
-    t/easter_western.t ........ ok
-    t/easter_orthodox.t ....... ok
-    t/days_in_year.t .......... ok
-    t/days_in_month.t ......... ok
-    t/days_in_quarter.t ....... ok
-    t/first_day_of_year.t ..... ok
-    t/first_day_of_quarter.t .. ok
-    t/first_day_of_month.t .... ok
-    t/first_day_of_week.t ..... ok
-    t/last_day_of_year.t ...... ok
-    t/last_day_of_quarter.t ... ok
-    t/last_day_of_month.t ..... ok
-    t/last_day_of_week.t ...... ok
-    t/next_day_of_week.t ...... ok
-    t/prev_day_of_week.t ...... ok
-    t/next_weekday.t .......... ok
-    t/prev_weekday.t .......... ok
-    t/nth_day_of_week.t ....... ok
-    t/add_months.t ............ ok
+    t/yd.t ................ ok
+    t/ymd.t ............... ok
+    t/ymd_epochs.t ........ ok
+    t/yqd.t ............... ok
+    t/ywd.t ............... ok
+    t/tm.t ................ ok
+    t/easter_western.t .... ok
+    t/easter_orthodox.t ... ok
+    t/days_in_year.t ...... ok
+    t/days_in_month.t ..... ok
+    t/days_in_quarter.t ... ok
+    t/start_of_year.t ..... ok
+    t/start_of_quarter.t .. ok
+    t/start_of_month.t .... ok
+    t/start_of_week.t ..... ok
+    t/end_of_year.t ....... ok
+    t/end_of_quarter.t .... ok
+    t/end_of_month.t ...... ok
+    t/end_of_week.t ....... ok
+    t/next_dow.t .......... ok
+    t/prev_dow.t .......... ok
+    t/next_weekday.t ...... ok
+    t/prev_weekday.t ...... ok
+    t/nth_dow.t ........... ok
+    t/add_years.t ......... ok
+    t/add_quarters.t ...... ok
+    t/add_months.t ........ ok
+    t/add_weekdays.t ...... ok
+    t/delta_yd.t .......... ok
+    t/delta_ymd.t ......... ok
+    t/delta_yqd.t ......... ok
+    t/delta_weekdays.t .... ok
+    t/parse_string.t ...... ok
+    t/add_workdays.t ...... ok
+    t/delta_workdays.t .... ok
+    t/is_holiday.t ........ ok
+    t/is_workday.t ........ ok
+    t/adjust.t ............ ok
     All tests successful.
-    Files=25, Tests=12017,  1 wallclock secs ( 1.01 usr  0.06 sys +  0.03 cusr  0.03 csys =  1.13 CPU)
+    Files=38, Tests=13181,  2 wallclock secs ( 1.14 usr  0.09 sys +  0.04 cusr  0.06 csys =  1.33 CPU)
     Result: PASS
 
 =head1 SUPPORT

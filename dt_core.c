@@ -89,7 +89,7 @@ dt_from_ywd(int y, int w, int d) {
     dt_t dt;
 
     dt  = dt_from_yd(y, 4);
-    dt -= dt_day_of_week(dt);
+    dt -= dt_dow(dt);
     dt += w * 7 + d - 7;
     return dt;
 }
@@ -183,7 +183,7 @@ dt_to_ywd(dt_t dt, int *yp, int *wp, int *dp) {
     int y, doy, dow;
 
     dt_to_yd(dt, &y, &doy);
-    dow = dt_day_of_week(dt);
+    dow = dt_dow(dt);
     doy = doy + 4 - dow;
     if (doy < 1) {
         y--;
@@ -207,7 +207,7 @@ dt_rdn(dt_t dt) {
 }
 
 int
-dt_day_of_week(dt_t dt) {
+dt_dow(dt_t dt) {
     int dow = (dt - DT_EPOCH_OFFSET) % 7;
     if (dow < 1)
         dow += 7;

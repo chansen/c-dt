@@ -31,25 +31,25 @@
 extern "C" {
 #endif
 
-dt_t    dt_from_nth_day_of_week_in_year     (int y, int nth, int dow);
-dt_t    dt_from_nth_day_of_week_in_quarter  (int y, int q, int nth, int dow);
-dt_t    dt_from_nth_day_of_week_in_month    (int y, int m, int nth, int dow);
+dt_t    dt_from_nth_dow_in_year     (int y, int nth, int dow);
+dt_t    dt_from_nth_dow_in_quarter  (int y, int q, int nth, int dow);
+dt_t    dt_from_nth_dow_in_month    (int y, int m, int nth, int dow);
 
-dt_t    dt_nth_day_of_week                  (dt_t dt, int nth, int dow);
-dt_t    dt_nth_day_of_week_in_year          (dt_t dt, int nth, int dow);
-dt_t    dt_nth_day_of_week_in_quarter       (dt_t dt, int nth, int dow);
-dt_t    dt_nth_day_of_week_in_month         (dt_t dt, int nth, int dow);
+dt_t    dt_nth_dow                  (dt_t dt, int nth, int dow);
+dt_t    dt_nth_dow_in_year          (dt_t dt, int nth, int dow);
+dt_t    dt_nth_dow_in_quarter       (dt_t dt, int nth, int dow);
+dt_t    dt_nth_dow_in_month         (dt_t dt, int nth, int dow);
 
-dt_t    dt_next_day_of_week                 (dt_t dt, int dow, bool current);
-dt_t    dt_prev_day_of_week                 (dt_t dt, int dow, bool current);
+dt_t    dt_next_dow                 (dt_t dt, int dow, bool current);
+dt_t    dt_prev_dow                 (dt_t dt, int dow, bool current);
 
-int     dt_day_of_week_in_year              (dt_t dt, bool end);
-int     dt_day_of_week_in_quarter           (dt_t dt, bool end);
-int     dt_day_of_week_in_month             (dt_t dt, bool end);
+int     dt_dow_in_year              (dt_t dt, bool end);
+int     dt_dow_in_quarter           (dt_t dt, bool end);
+int     dt_dow_in_month             (dt_t dt, bool end);
 
-bool    dt_is_nth_day_of_week_in_year       (dt_t dt, int nth, int dow);
-bool    dt_is_nth_day_of_week_in_quarter    (dt_t dt, int nth, int dow);
-bool    dt_is_nth_day_of_week_in_month      (dt_t dt, int nth, int dow);
+bool    dt_is_nth_dow_in_year       (dt_t dt, int nth, int dow);
+bool    dt_is_nth_dow_in_quarter    (dt_t dt, int nth, int dow);
+bool    dt_is_nth_dow_in_month      (dt_t dt, int nth, int dow);
 
 #ifdef __cplusplus
 }

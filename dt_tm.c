@@ -39,7 +39,7 @@ dt_to_struct_tm(dt_t dt, struct tm *tm) {
     tm->tm_year = y - 1900;
     tm->tm_mon  = m - 1;                    /* Jan = 0, ... Dec = 11 */
     tm->tm_mday = d;
-    tm->tm_wday = dt_day_of_week(dt) % 7;   /* Sun = 0, ... Sat = 6 */
+    tm->tm_wday = dt_dow(dt) % 7;           /* Sun = 0, ... Sat = 6 */
     tm->tm_yday = dt - dt_from_yd(y, 1);    /* 0 - 365 */
 }
 

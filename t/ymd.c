@@ -117,8 +117,8 @@ main() {
         }
 
         {
-            int got = dt_day_of_week(dt_from_rdn(t.rdn));
-            cmp_ok(got, "==", t.dow, "dt_day_of_week(dt_from_rdn(%d))", t.rdn);
+            int got = dt_dow(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.dow, "dt_dow(dt_from_rdn(%d))", t.rdn);
         }
 
         {
