@@ -29,6 +29,7 @@
 #include "dt_core.h"
 #include "dt_dow.h"
 #include "dt_easter.h"
+#include "dt_navigate.h"
 #include "dt_parse.h"
 #include "dt_search.h"
 #include "dt_tm.h"
@@ -60,16 +61,6 @@ int     dt_week_of_year         (dt_t dt);
 int     dt_day_of_year          (dt_t dt);
 int     dt_day_of_quarter       (dt_t dt);
 int     dt_day_of_month         (dt_t dt);
-
-dt_t    dt_start_of_year        (dt_t dt, int offset);
-dt_t    dt_start_of_quarter     (dt_t dt, int offset);
-dt_t    dt_start_of_month       (dt_t dt, int offset);
-dt_t    dt_start_of_week        (dt_t dt, int first_dow);
-
-dt_t    dt_end_of_year          (dt_t dt, int offset);
-dt_t    dt_end_of_quarter       (dt_t dt, int offset);
-dt_t    dt_end_of_month         (dt_t dt, int offset);
-dt_t    dt_end_of_week          (dt_t dt, int first_dow);
 
 dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
 dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
