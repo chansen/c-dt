@@ -2,7 +2,12 @@ language: perl
 install: "perl -V"
 before_script:
     - "cpanm -n Test::Harness"
+    - "cpanm -n Devel::Cover::Report::Coveralls"
 script: "make test"
+after_success:
+    - "make clean"
+    - "make cover"
+    - "cover --no-gcov -report coveralls"
 notifications:
   recipients:
     - chansen@cpan.org
