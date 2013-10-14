@@ -206,11 +206,13 @@ dt_rdn(dt_t dt) {
     return dt - DT_EPOCH_OFFSET;
 }
 
-int
+dt_dow_t
 dt_dow(dt_t dt) {
     int dow = (dt - DT_EPOCH_OFFSET) % 7;
     if (dow < 1)
         dow += 7;
+    assert(dow >= 1);
+    assert(dow <= 7);
     return dow;
 }
 

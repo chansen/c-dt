@@ -34,12 +34,12 @@ extern "C" {
 dt_t    dt_start_of_year        (dt_t dt, int offset);
 dt_t    dt_start_of_quarter     (dt_t dt, int offset);
 dt_t    dt_start_of_month       (dt_t dt, int offset);
-dt_t    dt_start_of_week        (dt_t dt, int first_dow);
+dt_t    dt_start_of_week        (dt_t dt, dt_dow_t first);
 
 dt_t    dt_end_of_year          (dt_t dt, int offset);
 dt_t    dt_end_of_quarter       (dt_t dt, int offset);
 dt_t    dt_end_of_month         (dt_t dt, int offset);
-dt_t    dt_end_of_week          (dt_t dt, int first_dow);
+dt_t    dt_end_of_week          (dt_t dt, dt_dow_t first);
 
 #ifdef __cplusplus
 }

@@ -29,16 +29,16 @@
 #include "dt_dow.h"
 
 dt_t
-dt_from_nth_dow_in_year(int y, int nth, int dow) {
+dt_from_nth_dow_in_year(int y, int nth, dt_dow_t day) {
     dt_t dt;
 
     if (nth > 0) {
-        dt = dt_nth_dow(dt_from_yd(y, 1), nth, dow);
+        dt = dt_nth_dow(dt_from_yd(y, 1), nth, day);
         if (nth <= 52 || dt <= dt_from_yd(y + 1, 0))
             return dt;
     }
     else if (nth < 0) {
-        dt = dt_nth_dow(dt_from_yd(y + 1, 0), nth, dow);
+        dt = dt_nth_dow(dt_from_yd(y + 1, 0), nth, day);
         if (nth >= -52 || dt >= dt_from_yd(y, 1))
             return dt;
     }
@@ -46,16 +46,16 @@ dt_from_nth_dow_in_year(int y, int nth, int dow) {
 }
 
 dt_t
-dt_from_nth_dow_in_quarter(int y, int q, int nth, int dow) {
+dt_from_nth_dow_in_quarter(int y, int q, int nth, dt_dow_t day) {
     dt_t dt;
 
     if (nth > 0) {
-        dt = dt_nth_dow(dt_from_yqd(y, q, 1), nth, dow);
+        dt = dt_nth_dow(dt_from_yqd(y, q, 1), nth, day);
         if (nth <= 12 || dt <= dt_from_yqd(y, q + 1, 0))
             return dt;
     }
     else if (nth < 0) {
-        dt = dt_nth_dow(dt_from_yqd(y, q + 1, 0), nth, dow);
+        dt = dt_nth_dow(dt_from_yqd(y, q + 1, 0), nth, day);
         if (nth >= -12 || dt >= dt_from_yqd(y, q, 1))
             return dt;
     }
@@ -63,16 +63,16 @@ dt_from_nth_dow_in_quarter(int y, int q, int nth, int dow) {
 }
 
 dt_t
-dt_from_nth_dow_in_month(int y, int m, int nth, int dow) {
+dt_from_nth_dow_in_month(int y, int m, int nth, dt_dow_t day) {
     dt_t dt;
 
     if (nth > 0) {
-        dt = dt_nth_dow(dt_from_ymd(y, m, 1), nth, dow);
+        dt = dt_nth_dow(dt_from_ymd(y, m, 1), nth, day);
         if (nth <= 4 || dt <= dt_from_ymd(y, m + 1, 0))
             return dt;
     }
     else if (nth < 0) {
-        dt = dt_nth_dow(dt_from_ymd(y, m + 1, 0), nth, dow);
+        dt = dt_nth_dow(dt_from_ymd(y, m + 1, 0), nth, day);
         if (nth >= -4 || dt >= dt_from_ymd(y, m, 1))
             return dt;
     }
@@ -80,43 +80,43 @@ dt_from_nth_dow_in_month(int y, int m, int nth, int dow) {
 }
 
 dt_t
-dt_nth_dow(dt_t dt, int nth, int dow) {
-    if      (nth > 0) nth--, dt += (dow - dt_dow(dt) + 7) % 7;
-    else if (nth < 0) nth++, dt -= (dt_dow(dt) - dow + 7) % 7;
+dt_nth_dow(dt_t dt, int nth, dt_dow_t day) {
+    if      (nth > 0) nth--, dt += (day - dt_dow(dt) + 7) % 7;
+    else if (nth < 0) nth++, dt -= (dt_dow(dt) - day + 7) % 7;
     return dt + nth * 7;
 }
 
 dt_t
-dt_nth_dow_in_year(dt_t dt, int nth, int dow) {
+dt_nth_dow_in_year(dt_t dt, int nth, dt_dow_t day) {
     int y;
     dt_to_yd(dt, &y, NULL);
-    return dt_from_nth_dow_in_year(y, nth, dow);
+    return dt_from_nth_dow_in_year(y, nth, day);
 }
 
 dt_t
-dt_nth_dow_in_quarter(dt_t dt, int nth, int dow) {
+dt_nth_dow_in_quarter(dt_t dt, int nth, dt_dow_t day) {
     int y, q;
     dt_to_yqd(dt, &y, &q, NULL);
-    return dt_from_nth_dow_in_quarter(y, q, nth, dow);
+    return dt_from_nth_dow_in_quarter(y, q, nth, day);
 }
 
 dt_t
-dt_nth_dow_in_month(dt_t dt, int nth, int dow) {
+dt_nth_dow_in_month(dt_t dt, int nth, dt_dow_t day) {
     int y, m;
     dt_to_ymd(dt, &y, &m, NULL);
-    return dt_from_nth_dow_in_month(y, m, nth, dow);
+    return dt_from_nth_dow_in_month(y, m, nth, day);
 }
 
 dt_t
-dt_next_dow(dt_t dt, int dow, bool current) {
-    if (current) return dt + (dow - dt_dow(dt) + 7) % 7;
-    else         return dt + (dow - dt_dow(dt) + 6) % 7 + 1;
+dt_next_dow(dt_t dt, dt_dow_t day, bool current) {
+    if (current) return dt + (day - dt_dow(dt) + 7) % 7;
+    else         return dt + (day - dt_dow(dt) + 6) % 7 + 1;
 }
 
 dt_t
-dt_prev_dow(dt_t dt, int dow, bool current) {
-    if (current) return dt - (dt_dow(dt) - dow + 7) % 7;
-    else         return dt - (dt_dow(dt) - dow + 6) % 7 - 1;
+dt_prev_dow(dt_t dt, dt_dow_t day, bool current) {
+    if (current) return dt - (dt_dow(dt) - day + 7) % 7;
+    else         return dt - (dt_dow(dt) - day + 6) % 7 - 1;
 }
 
 int
@@ -147,23 +147,23 @@ dt_dow_in_month(dt_t dt, bool end) {
 }
 
 bool
-dt_is_nth_dow_in_year(dt_t dt, int nth, int dow) {
+dt_is_nth_dow_in_year(dt_t dt, int nth, dt_dow_t day) {
     const bool end = (nth < 0);
-    return (dt_dow(dt) == dow &&
+    return (dt_dow(dt) == day &&
             dt_dow_in_year(dt, end) == nth);
 }
 
 bool
-dt_is_nth_dow_in_quarter(dt_t dt, int nth, int dow) {
+dt_is_nth_dow_in_quarter(dt_t dt, int nth, dt_dow_t day) {
     const bool end = (nth < 0);
-    return (dt_dow(dt) == dow &&
+    return (dt_dow(dt) == day &&
             dt_dow_in_quarter(dt, end) == nth);
 }
 
 bool
-dt_is_nth_dow_in_month(dt_t dt, int nth, int dow) {
+dt_is_nth_dow_in_month(dt_t dt, int nth, dt_dow_t day) {
     const bool end = (nth < 0);
-    return (dt_dow(dt) == dow &&
+    return (dt_dow(dt) == day &&
             dt_dow_in_month(dt, end) == nth);
 }
 

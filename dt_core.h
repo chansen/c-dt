@@ -48,19 +48,19 @@ typedef enum {
     DT_SUN=7
 } dt_dow_t;
 
-dt_t    dt_from_rdn     (int n);
-dt_t    dt_from_yd      (int y, int d);
-dt_t    dt_from_ymd     (int y, int m, int d);
-dt_t    dt_from_yqd     (int y, int q, int d);
-dt_t    dt_from_ywd     (int y, int w, int d);
+dt_t     dt_from_rdn     (int n);
+dt_t     dt_from_yd      (int y, int d);
+dt_t     dt_from_ymd     (int y, int m, int d);
+dt_t     dt_from_yqd     (int y, int q, int d);
+dt_t     dt_from_ywd     (int y, int w, int d);
 
-void    dt_to_yd        (dt_t dt, int *y, int *d);
-void    dt_to_ymd       (dt_t dt, int *y, int *m, int *d);
-void    dt_to_yqd       (dt_t dt, int *y, int *q, int *d);
-void    dt_to_ywd       (dt_t dt, int *y, int *w, int *d);
+void     dt_to_yd        (dt_t dt, int *y, int *d);
+void     dt_to_ymd       (dt_t dt, int *y, int *m, int *d);
+void     dt_to_yqd       (dt_t dt, int *y, int *q, int *d);
+void     dt_to_ywd       (dt_t dt, int *y, int *w, int *d);
 
-int     dt_rdn          (dt_t dt);
-int     dt_dow          (dt_t dt);
+int      dt_rdn          (dt_t dt);
+dt_dow_t dt_dow          (dt_t dt);
 
 #ifdef __cplusplus
 }
