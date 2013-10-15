@@ -31,19 +31,20 @@
 extern "C" {
 #endif
 
-dt_t    dt_from_cjdn        (int n);
+dt_t    dt_from_cjdn    (int n);
 
-int     dt_cjdn             (dt_t dt);
+int     dt_cjdn         (dt_t dt);
 
-int     dt_year             (dt_t dt);
-int     dt_quarter          (dt_t dt);
-int     dt_month            (dt_t dt);
+int     dt_year         (dt_t dt);
+int     dt_quarter      (dt_t dt);
+int     dt_month        (dt_t dt);
 
-int     dt_week_of_year     (dt_t dt);
+int     dt_doy          (dt_t dt);
+int     dt_doq          (dt_t dt);
+int     dt_dom          (dt_t dt);
 
-int     dt_day_of_year      (dt_t dt);
-int     dt_day_of_quarter   (dt_t dt);
-int     dt_day_of_month     (dt_t dt);
+int     dt_woy          (dt_t dt);
+int     dt_yow          (dt_t dt);
 
 #ifdef __cplusplus
 }

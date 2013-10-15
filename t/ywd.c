@@ -30,6 +30,11 @@ main() {
         }
 
         {
+            int got = dt_yow(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.y, "dt_yow(dt_from_rdn(%d))", t.rdn);
+        }
+
+        {
             int got = dt_dow(dt_from_rdn(t.rdn));
             cmp_ok(got, "==", t.d, "dt_dow(dt_from_rdn(%d))", t.rdn);
         }

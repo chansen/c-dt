@@ -58,13 +58,6 @@ dt_month(dt_t dt) {
 }
 
 int
-dt_woy(dt_t dt) {
-    int w;
-    dt_to_ywd(dt, NULL, &w, NULL);
-    return w;
-}
-
-int
 dt_doy(dt_t dt) {
     int d;
     dt_to_yd(dt, NULL, &d);
@@ -83,5 +76,19 @@ dt_dom(dt_t dt) {
     int d;
     dt_to_ymd(dt, NULL, NULL, &d);
     return d;
+}
+
+int
+dt_woy(dt_t dt) {
+    int w;
+    dt_to_ywd(dt, NULL, &w, NULL);
+    return w;
+}
+
+int
+dt_yow(dt_t dt) {
+    int y;
+    dt_to_ywd(dt, &y, NULL, NULL);
+    return y;
 }
 
