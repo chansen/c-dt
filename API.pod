@@ -271,10 +271,10 @@ after (positive) the given date.
 
 =head2 dt_start_of_week
 
-    dt_t dt_start_of_week(dt_t dt, int first_dow);
+    dt_t dt_start_of_week(dt_t dt, dt_dow_t first);
 
 Returns a date set to the first day of the week for the given date I<dt>. The 
-I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
+I<first> parameter specifies the first day of the week.
 
 =head2 dt_end_of_year
 
@@ -302,18 +302,17 @@ I<offset> parameter specifies the number of months before (negative) or after
 
 =head2 dt_end_of_week
 
-    dt_t dt_end_of_week(dt_t dt, int first_dow);
+    dt_t dt_end_of_week(dt_t dt, dt_dow_t first);
 
 Returns a date set to the last day of the week for the given date I<dt>. The 
-I<first_dow> parameter specifies the first day of the week (1=Monday to 7=Sunday).
+I<first> parameter specifies the first day of the week.
 
 =head2 dt_nth_dow
 
-    dt_t dt_nth_dow(dt_t dt, int nth, int day);
+    dt_t dt_nth_dow(dt_t dt, int nth, dt_dow_t day);
 
 Returns a date set to the I<nth> occurrence of the given I<day> of week for 
-given date I<dt>. The parameter I<day> specifies the day of week 
-(1=Monday to 7=Sunday).
+given date I<dt>. The parameter I<day> specifies the day of week.
 
 B<Example:>
 
@@ -339,21 +338,19 @@ B<Example:>
 
 =head2 dt_next_dow
 
-    dt_t dt_next_dow(dt_t dt, int dow, bool current);
+    dt_t dt_next_dow(dt_t dt, dt_dow_t day, bool current);
 
 Returns a date set to the next or current day of week for the given date I<dt>. 
-The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday). The 
-parameter I<current> specifies whether or not the returned date must succeed
-the given date.
+The parameter I<day> specifies the day of week. The parameter I<current> 
+specifies whether or not the returned date must succeed the given date.
 
 =head2 dt_prev_dow
 
-    dt_t dt_prev_dow(dt_t dt, int dow, bool current);
+    dt_t dt_prev_dow(dt_t dt, dt_dow_t day, bool current);
 
 Returns a date set to the previous or current day of week for the given date 
-I<dt>. The parameter I<dow> specifies the day of week (1=Monday to 7=Sunday).
-The parameter I<current> specifies whether or not the returned date must precede
-the given date.
+I<dt>. The parameter I<day> specifies the day of week. The parameter I<current> 
+specifies whether or not the returned date must precede the given date.
 
 =head2 dt_next_weekday
 
