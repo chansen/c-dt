@@ -87,8 +87,8 @@ main() {
         }
 
         {
-            int got = dt_day_of_year(dt_from_rdn(t.rdn));
-            cmp_ok(got, "==", t.d, "dt_day_of_year(dt_from_rdn(%d))", t.rdn);
+            int got = dt_doy(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.d, "dt_doy(dt_from_rdn(%d))", t.rdn);
         }
 
         {

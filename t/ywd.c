@@ -25,8 +25,8 @@ main() {
         }
 
         {
-            int got = dt_week_of_year(dt_from_rdn(t.rdn));
-            cmp_ok(got, "==", t.w, "dt_week_of_year(dt_from_rdn(%d))", t.rdn);
+            int got = dt_woy(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.w, "dt_woy(dt_from_rdn(%d))", t.rdn);
         }
 
         {

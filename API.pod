@@ -215,27 +215,27 @@ Returns the quarter of the year (1-4) for the given date I<dt>.
 
 Returns the month of the year (1-12) for the given date I<dt>.
 
-=head2 dt_week_of_year
+=head2 dt_woy
 
-    int dt_week_of_year(dt_t dt);
+    int dt_woy(dt_t dt);
 
 Returns the week of the year (1-53) for the given date I<dt>.
 
-=head2 dt_day_of_year
+=head2 dt_doy
 
-    int dt_day_of_year(dt_t dt);
+    int dt_doy(dt_t dt);
 
 Returns the day of the year (1-366) for the given date I<dt>.
 
-=head2 dt_day_of_quarter
+=head2 dt_doq
 
-    int dt_day_of_quarter(dt_t dt);
+    int dt_doq(dt_t dt);
 
 Returns the day of the quarter (1-92) for the given date I<dt>.
 
-=head2 dt_day_of_month
+=head2 dt_dom
 
-    int dt_day(dt_t dt);
+    int dt_dom(dt_t dt);
 
 Returns the day of the month (1-31) for the given date I<dt>.
 

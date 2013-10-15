@@ -126,8 +126,8 @@ main() {
         }
 
         {
-            int got = dt_day_of_quarter(dt_from_rdn(t.rdn));
-            cmp_ok(got, "==", t.d, "dt_day_of_quarter(dt_from_rdn(%d))", t.rdn);
+            int got = dt_doq(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.d, "dt_doq(dt_from_rdn(%d))", t.rdn);
         }
 
         {

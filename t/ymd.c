@@ -112,8 +112,8 @@ main() {
         }
 
         {
-            int got = dt_day_of_month(dt_from_rdn(t.rdn));
-            cmp_ok(got, "==", t.d, "dt_day_of_month(dt_from_rdn(%d))", t.rdn);
+            int got = dt_dom(dt_from_rdn(t.rdn));
+            cmp_ok(got, "==", t.d, "dt_dom(dt_from_rdn(%d))", t.rdn);
         }
 
         {
