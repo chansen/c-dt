@@ -5,6 +5,7 @@ LDFLAGS += -lc $(DLDFLAGS)
 
 SOURCES = \
 	dt.c \
+	dt_accessor.c \
 	dt_adjust.c \
 	dt_core.c \
 	dt_dow.c \
@@ -20,6 +21,7 @@ SOURCES = \
 
 OBJECTS = \
 	dt.o \
+	dt_accessor.o \
 	dt_adjust.o \
 	dt_core.o \
 	dt_dow.o \
@@ -127,6 +129,9 @@ HARNESS_DEPS = \
 
 dt.o: \
 	dt.h dt.c
+
+dt_accessor.o: \
+	dt_accessor.h dt_accessor.c
 
 dt_adjust.o: \
 	dt_adjust.h dt_adjust.c

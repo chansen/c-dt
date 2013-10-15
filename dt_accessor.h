@@ -23,49 +23,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_H__
-#define __DT_H__
-#include "dt_accessor.h"
-#include "dt_adjust.h"
+#ifndef __DT_ACCESSOR_H__
+#define __DT_ACCESSOR_H__
 #include "dt_core.h"
-#include "dt_dow.h"
-#include "dt_easter.h"
-#include "dt_navigate.h"
-#include "dt_parse.h"
-#include "dt_search.h"
-#include "dt_tm.h"
-#include "dt_util.h"
-#include "dt_valid.h"
-#include "dt_weekday.h"
-#include "dt_workday.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum {
-    DT_EXCESS,
-    DT_LIMIT,
-    DT_SNAP
-} dt_adjust_t;
+dt_t    dt_from_cjdn        (int n);
 
-dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
+int     dt_cjdn             (dt_t dt);
 
-void    dt_delta_yd             (dt_t start, dt_t end, int *y, int *d);
-void    dt_delta_ymd            (dt_t start, dt_t end, int *y, int *m, int *d);
-void    dt_delta_yqd            (dt_t start, dt_t end, int *y, int *q, int *d);
+int     dt_year             (dt_t dt);
+int     dt_quarter          (dt_t dt);
+int     dt_month            (dt_t dt);
 
-void    dt_delta_md             (dt_t start, dt_t end, int *m, int *d);
-void    dt_delta_qd             (dt_t start, dt_t end, int *q, int *d);
+int     dt_week_of_year     (dt_t dt);
 
-int     dt_delta_years          (dt_t start, dt_t end, bool complete);
-int     dt_delta_quarters       (dt_t start, dt_t end, bool complete);
-int     dt_delta_months         (dt_t start, dt_t end, bool complete);
-int     dt_delta_weeks          (dt_t start, dt_t end);
+int     dt_day_of_year      (dt_t dt);
+int     dt_day_of_quarter   (dt_t dt);
+int     dt_day_of_month     (dt_t dt);
 
 #ifdef __cplusplus
 }
 #endif
 #endif
+

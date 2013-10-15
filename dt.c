@@ -27,65 +27,6 @@
 #include "dt.h"
 
 dt_t
-dt_from_cjdn(int n) {
-    return dt_from_rdn(n - 1721425);
-}
-
-int
-dt_cjdn(dt_t dt) {
-    return dt_rdn(dt) + 1721425;
-}
-
-int
-dt_year(dt_t dt) {
-    int y;
-    dt_to_yd(dt, &y, NULL);
-    return y;
-}
-
-int
-dt_quarter(dt_t dt) {
-    int q;
-    dt_to_yqd(dt, NULL, &q, NULL);
-    return q;
-}
-
-int
-dt_month(dt_t dt) {
-    int m;
-    dt_to_ymd(dt, NULL, &m, NULL);
-    return m;
-}
-
-int
-dt_week_of_year(dt_t dt) {
-    int w;
-    dt_to_ywd(dt, NULL, &w, NULL);
-    return w;
-}
-
-int
-dt_day_of_year(dt_t dt) {
-    int d;
-    dt_to_yd(dt, NULL, &d);
-    return d;
-}
-
-int
-dt_day_of_quarter(dt_t dt) {
-    int d;
-    dt_to_yqd(dt, NULL, NULL, &d);
-    return d;
-}
-
-int
-dt_day_of_month(dt_t dt) {
-    int d;
-    dt_to_ymd(dt, NULL, NULL, &d);
-    return d;
-}
-
-dt_t
 dt_add_years(dt_t dt, int delta, dt_adjust_t adjust) {
     int y, d;
 

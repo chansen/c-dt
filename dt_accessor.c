@@ -23,49 +23,65 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_H__
-#define __DT_H__
-#include "dt_accessor.h"
-#include "dt_adjust.h"
+#include <stddef.h>
 #include "dt_core.h"
-#include "dt_dow.h"
-#include "dt_easter.h"
-#include "dt_navigate.h"
-#include "dt_parse.h"
-#include "dt_search.h"
-#include "dt_tm.h"
-#include "dt_util.h"
-#include "dt_valid.h"
-#include "dt_weekday.h"
-#include "dt_workday.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    DT_EXCESS,
-    DT_LIMIT,
-    DT_SNAP
-} dt_adjust_t;
-
-dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
-
-void    dt_delta_yd             (dt_t start, dt_t end, int *y, int *d);
-void    dt_delta_ymd            (dt_t start, dt_t end, int *y, int *m, int *d);
-void    dt_delta_yqd            (dt_t start, dt_t end, int *y, int *q, int *d);
-
-void    dt_delta_md             (dt_t start, dt_t end, int *m, int *d);
-void    dt_delta_qd             (dt_t start, dt_t end, int *q, int *d);
-
-int     dt_delta_years          (dt_t start, dt_t end, bool complete);
-int     dt_delta_quarters       (dt_t start, dt_t end, bool complete);
-int     dt_delta_months         (dt_t start, dt_t end, bool complete);
-int     dt_delta_weeks          (dt_t start, dt_t end);
-
-#ifdef __cplusplus
+dt_t
+dt_from_cjdn(int n) {
+    return dt_from_rdn(n - 1721425);
 }
-#endif
-#endif
+
+int
+dt_cjdn(dt_t dt) {
+    return dt_rdn(dt) + 1721425;
+}
+
+int
+dt_year(dt_t dt) {
+    int y;
+    dt_to_yd(dt, &y, NULL);
+    return y;
+}
+
+int
+dt_quarter(dt_t dt) {
+    int q;
+    dt_to_yqd(dt, NULL, &q, NULL);
+    return q;
+}
+
+int
+dt_month(dt_t dt) {
+    int m;
+    dt_to_ymd(dt, NULL, &m, NULL);
+    return m;
+}
+
+int
+dt_week_of_year(dt_t dt) {
+    int w;
+    dt_to_ywd(dt, NULL, &w, NULL);
+    return w;
+}
+
+int
+dt_day_of_year(dt_t dt) {
+    int d;
+    dt_to_yd(dt, NULL, &d);
+    return d;
+}
+
+int
+dt_day_of_quarter(dt_t dt) {
+    int d;
+    dt_to_yqd(dt, NULL, NULL, &d);
+    return d;
+}
+
+int
+dt_day_of_month(dt_t dt) {
+    int d;
+    dt_to_ymd(dt, NULL, NULL, &d);
+    return d;
+}
+
