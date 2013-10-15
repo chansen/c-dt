@@ -250,7 +250,7 @@ Returns the day of the week (1=Monday to 7=Sunday) for the given date I<dt>.
     dt_t dt_start_of_year(dt_t dt, int offset);
 
 Returns a date set to the first day of the year for the given date I<dt>. 
-The I<offset> parameter specifies the number of years before (negative) or 
+The parameter I<offset> specifies the number of years before (negative) or 
 after (positive) the given date.
 
 =head2 dt_start_of_quarter
@@ -258,7 +258,7 @@ after (positive) the given date.
     dt_t dt_start_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the first day of the quarter for the given date I<dt>. 
-The I<offset> parameter specifies the number of quarters before (negative) or 
+The parameter I<offset> specifies the number of quarters before (negative) or 
 after (positive) the given date.
 
 =head2 dt_start_of_month
@@ -266,7 +266,7 @@ after (positive) the given date.
     dt_t dt_start_of_month(dt_t dt, int offset);
 
 Returns a date set to the first day of the month for the given date I<dt>. 
-The I<offset> parameter specifies the number of months before (negative) or 
+The parameter I<offset> specifies the number of months before (negative) or 
 after (positive) the given date.
 
 =head2 dt_start_of_week
@@ -274,14 +274,14 @@ after (positive) the given date.
     dt_t dt_start_of_week(dt_t dt, dt_dow_t first);
 
 Returns a date set to the first day of the week for the given date I<dt>. The 
-I<first> parameter specifies the first day of the week.
+parameter I<first> specifies the first day of the week.
 
 =head2 dt_end_of_year
 
     dt_t dt_end_of_year(dt_t dt, int offset);
 
 Returns a date set to the last day of the year for the given date I<dt>. The 
-I<offset> parameter specifies the number of years before (negative) or after 
+parameter I<offset> specifies the number of years before (negative) or after 
 (positive) the given date.
 
 =head2 dt_end_of_quarter
@@ -289,7 +289,7 @@ I<offset> parameter specifies the number of years before (negative) or after
     dt_t dt_end_of_quarter(dt_t dt, int offset);
 
 Returns a date set to the last day of the quarter for the given date I<dt>. The 
-I<offset> parameter specifies the number of quarters before (negative) or after 
+parameter I<offset> specifies the number of quarters before (negative) or after 
 (positive) the given date.
 
 =head2 dt_end_of_month
@@ -297,7 +297,7 @@ I<offset> parameter specifies the number of quarters before (negative) or after
     dt_t dt_end_of_month(dt_t dt, int offset);
 
 Returns a date set to the last day of the month for the given date I<dt>. The 
-I<offset> parameter specifies the number of months before (negative) or after 
+parameter I<offset> specifies the number of months before (negative) or after 
 (positive) the given date.
 
 =head2 dt_end_of_week
@@ -305,7 +305,7 @@ I<offset> parameter specifies the number of months before (negative) or after
     dt_t dt_end_of_week(dt_t dt, dt_dow_t first);
 
 Returns a date set to the last day of the week for the given date I<dt>. The 
-I<first> parameter specifies the first day of the week.
+parameter I<first> specifies the first day of the week.
 
 =head2 dt_nth_dow
 
