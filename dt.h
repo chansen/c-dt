@@ -27,6 +27,7 @@
 #define __DT_H__
 #include "dt_accessor.h"
 #include "dt_adjust.h"
+#include "dt_arithmetic.h"
 #include "dt_core.h"
 #include "dt_dow.h"
 #include "dt_easter.h"
@@ -38,31 +39,5 @@
 #include "dt_valid.h"
 #include "dt_weekday.h"
 #include "dt_workday.h"
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
-typedef enum {
-    DT_EXCESS,
-    DT_LIMIT,
-    DT_SNAP
-} dt_adjust_t;
-
-dt_t    dt_add_years            (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_quarters         (dt_t dt, int delta, dt_adjust_t adjust);
-dt_t    dt_add_months           (dt_t dt, int delta, dt_adjust_t adjust);
-
-void    dt_delta_yd             (dt_t start, dt_t end, int *y, int *d);
-void    dt_delta_ymd            (dt_t start, dt_t end, int *y, int *m, int *d);
-void    dt_delta_yqd            (dt_t start, dt_t end, int *y, int *q, int *d);
-
-int     dt_delta_years          (dt_t start, dt_t end, bool complete);
-int     dt_delta_quarters       (dt_t start, dt_t end, bool complete);
-int     dt_delta_months         (dt_t start, dt_t end, bool complete);
-int     dt_delta_weeks          (dt_t start, dt_t end);
-
-#ifdef __cplusplus
-}
-#endif
-#endif
