@@ -116,66 +116,56 @@ dt_delta_yd(dt_t dt1, dt_t dt2, int *yp, int *dp) {
 
 void
 dt_delta_ymd(dt_t dt1, dt_t dt2, int *yp, int *mp, int *dp) {
-    int years, months;
-
-    dt_delta_md(dt1, dt2, &months, dp);
-    years = months / 12;
-    if (yp) *yp = years;
-    if (mp) *mp = months - years * 12;
-}
-
-void
-dt_delta_yqd(dt_t dt1, dt_t dt2, int *yp, int *qp, int *dp) {
-    int years, quarters;
-
-    dt_delta_qd(dt1, dt2, &quarters, dp);
-    years = quarters / 4;
-    if (yp) *yp = years;
-    if (qp) *qp = quarters - years * 4;
-}
-
-void
-dt_delta_md(dt_t dt1, dt_t dt2, int *mp, int *dp) {
-    int y1, y2, m1, m2, d1, d2, months, days;
+    int y1, y2, m1, m2, d1, d2, ny, nm, nd;
 
     dt_to_ymd(dt1, &y1, &m1, &d1);
     dt_to_ymd(dt2, &y2, &m2, &d2);
 
-    months = 12 * (y2 - y1) + m2 - m1;
-    days = d2 - d1;
+    nm = 12 * (y2 - y1) + m2 - m1;
+    nd = d2 - d1;
 
-    if (months > 0 && days < 0) {
-        months--;
-        days = dt2 - dt_add_months(dt1, months, DT_LIMIT);
+    if (nm > 0 && nd < 0) {
+        nm--;
+        nd = dt2 - dt_add_months(dt1, nm, DT_LIMIT);
     }
-    else if (months < 0 && days > 0) {
-        months++;
-        days -= dt_days_in_month(y2, m2);
+    else if (nm < 0 && nd > 0) {
+        nm++;
+        nd -= dt_days_in_month(y2, m2);
     }
-    if (mp) *mp = months;
-    if (dp) *dp = days;
+
+    ny = nm / 12;
+    nm = nm - ny * 12;
+
+    if (yp) *yp = ny;
+    if (mp) *mp = nm;
+    if (dp) *dp = nd;
 }
 
 void
-dt_delta_qd(dt_t dt1, dt_t dt2, int *qp, int *dp) {
-    int y1, y2, q1, q2, d1, d2, quarters, days;
+dt_delta_yqd(dt_t dt1, dt_t dt2, int *yp, int *qp, int *dp) {
+    int y1, y2, q1, q2, d1, d2, ny, nq, nd;
 
     dt_to_yqd(dt1, &y1, &q1, &d1);
     dt_to_yqd(dt2, &y2, &q2, &d2);
 
-    quarters = 4 * (y2 - y1) + q2 - q1;
-    days = d2 - d1;
+    nq = 4 * (y2 - y1) + q2 - q1;
+    nd = d2 - d1;
 
-    if (quarters > 0 && days < 0) {
-        quarters--;
-        days = dt2 - dt_add_quarters(dt1, quarters, DT_LIMIT);
+    if (nq > 0 && nd < 0) {
+        nq--;
+        nd = dt2 - dt_add_quarters(dt1, nq, DT_LIMIT);
     }
-    else if (quarters < 0 && days > 0) {
-        quarters++;
-        days -= dt_days_in_quarter(y2, q2);
+    else if (nq < 0 && nd > 0) {
+        nq++;
+        nd -= dt_days_in_quarter(y2, q2);
     }
-    if (qp) *qp = quarters;
-    if (dp) *dp = days;
+    
+    ny = nq / 4;
+    nq = nq - ny * 4;
+    
+    if (qp) *yp = ny;
+    if (qp) *qp = nq;
+    if (dp) *dp = nd;
 }
 
 int

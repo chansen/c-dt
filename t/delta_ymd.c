@@ -106,21 +106,6 @@ main() {
         }
 
         {
-            int nm, nd, em;
-            dt_t dt1 = dt_from_ymd(t.y1, t.m1, t.d1);
-            dt_t dt2 = dt_from_ymd(t.y2, t.m2, t.d2);
-
-            dt_delta_md(dt1, dt2, &nm, &nd);
-            em = t.nm + (t.ny * 12);
-            if (!ok((nm == em && nd == t.nd),
-                "dt_delta_md(%.4d-%.2d-%.2d, %.4d-%.2d-%.2d)",
-                 t.y1, t.m1, t.d1, t.y2, t.m2, t.d2)) {
-                diag("      got: M:%d, D:%d", nm, nd);
-                diag("      exp: M:%d, D:%d", em, t.nd);
-            }
-        }
-
-        {
             int nm, em;
             dt_t dt1 = dt_from_ymd(t.y1, t.m1, t.d1);
             dt_t dt2 = dt_from_ymd(t.y2, t.m2, t.d2);

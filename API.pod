@@ -513,29 +513,6 @@ parameters may be C<NULL> for any of the results that are not required. For
 example the difference between 2012-Q1-10 and 2013-Q4-20 is 1 year, 3 quarters 
 and 10 days.
 
-=head2 dt_delta_md
-
-    void dt_delta_md(dt_t start, dt_t end, int *months, int *days);
-
-Computes the difference between the given dates I<start> and I<end> in terms of 
-months and days. If I<start> is earlier than I<end>, then the result is positive. 
-If I<start> is later than I<end>, then the result is negative. The sign will be 
-the same in each of I<months> and I<days>. The pointer parameters may be C<NULL> 
-for any of the results that are not required. For example the difference between 
-2012-02-10 and 2013-10-20 is 20 months and 10 days.
-
-=head2 dt_delta_qd
-
-    void dt_delta_qd(dt_t start, dt_t end, int *quarters, int *days);
-
-Computes the difference between the given dates I<start> and I<end> in terms of 
-quarters and days. If I<start> is earlier than I<end>, then the result is 
-positive. If I<start> is later than I<end>, then the result is negative. The 
-sign will be the same in each of I<quarters> and I<days>. The pointer 
-parameters may be C<NULL> for any of the results that are not required. For 
-example the difference between 2012-Q1-10 and 2013-Q4-20 is 7 quarters and 
-10 days.
-
 =head2 dt_delta_years
 
     int dt_delta_years(dt_t start, dt_t end, bool complete);

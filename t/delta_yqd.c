@@ -41,21 +41,6 @@ main() {
         }
 
         {
-            int nq, nd, eq;
-            dt_t dt1 = dt_from_yqd(t.y1, t.q1, t.d1);
-            dt_t dt2 = dt_from_yqd(t.y2, t.q2, t.d2);
-
-            dt_delta_qd(dt1, dt2, &nq, &nd);
-            eq = t.nq + (t.ny * 4);
-            if (!ok((nq == eq && nd == t.nd),
-                "dt_delta_md(%.4d-Q%d-%.2d, %.4d-Q%d-%.2d)",
-                 t.y1, t.q1, t.d1, t.y2, t.q2, t.d2)) {
-                diag("      got: Q:%d, D:%d", nq, nd);
-                diag("      exp: Q:%d, D:%d", eq, t.nd);
-            }
-        }
-
-        {
             int nq, eq;
             dt_t dt1 = dt_from_yqd(t.y1, t.q1, t.d1);
             dt_t dt2 = dt_from_yqd(t.y2, t.q2, t.d2);
