@@ -4,9 +4,9 @@ CFLAGS  = $(DCFLAGS) -Wall -I. -I..
 LDFLAGS += -lc $(DLDFLAGS)
 
 SOURCES = \
-	dt.c \
 	dt_accessor.c \
 	dt_adjust.c \
+	dt_arithmetic.c \
 	dt_core.c \
 	dt_dow.c \
 	dt_easter.c \
@@ -20,9 +20,9 @@ SOURCES = \
 	dt_workday.c
 
 OBJECTS = \
-	dt.o \
 	dt_accessor.o \
 	dt_adjust.o \
+	dt_arithmetic.o \
 	dt_core.o \
 	dt_dow.o \
 	dt_easter.o \
@@ -127,14 +127,14 @@ HARNESS_DEPS = \
 .o.t:
 	$(CC) $(LDFLAGS) $< $(HARNESS_DEPS) -o $@
 
-dt.o: \
-	dt.h dt.c
-
 dt_accessor.o: \
 	dt_accessor.h dt_accessor.c
 
 dt_adjust.o: \
 	dt_adjust.h dt_adjust.c
+
+dt_arithmetic.o: \
+	dt_arithmetic.h dt_arithmetic.c
 
 dt_core.o: \
 	dt_config.h dt_core.h dt_core.c
