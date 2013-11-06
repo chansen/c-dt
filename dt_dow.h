@@ -25,7 +25,7 @@
  */
 #ifndef __DT_DOW_H__
 #define __DT_DOW_H__
-#include "dt_config.h"
+#include "dt_core.h"
 
 #ifdef __cplusplus
 extern "C" {

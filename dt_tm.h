@@ -23,8 +23,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_STRUCT_TM_H__
-#define __DT_STRUCT_TM_H__
+#ifndef __DT_TM_H__
+#define __DT_TM_H__
 #include <time.h>
 #include "dt_core.h"
 
