@@ -92,6 +92,7 @@ parse_fraction_digits(const unsigned char *p, size_t i, size_t len, int *fp) {
  *  hhmm
  *  hhmmss
  *  hhmmss.fffffffff
+ *  hhmmss,fffffffff
  */
 
 size_t
@@ -155,7 +156,7 @@ dt_parse_iso_zone_basic(const char *str, size_t len, int *op) {
 
     p = (const unsigned char *)str;
     switch (*p) {
-#ifndef DT_STRICT_ISO8601
+#ifndef DT_PARSE_ISO_STRICT
         case 'z':
 #endif
         case 'Z':
@@ -194,7 +195,7 @@ dt_parse_iso_zone_basic(const char *str, size_t len, int *op) {
     if (h > 23 || m > 59)
         return 0;
     o = sign * (h * 60 + m);
-#ifdef DT_STRICT_ISO8601
+#ifdef DT_PARSE_ISO_STRICT
     if (o == 0 && sign < 0)
         return 0;
 #endif
@@ -209,6 +210,7 @@ dt_parse_iso_zone_basic(const char *str, size_t len, int *op) {
  *  hh:mm
  *  hh:mm:ss
  *  hh:mm:ss.fffffffff
+ *  hh:mm:ss,fffffffff
  */
 
 size_t
@@ -277,7 +279,7 @@ dt_parse_iso_zone_extended(const char *str, size_t len, int *op) {
 
     p = (const unsigned char *)str;
     switch (*p) {
-#ifndef DT_STRICT_ISO8601
+#ifndef DT_PARSE_ISO_STRICT
         case 'z':
 #endif
         case 'Z':
@@ -314,7 +316,7 @@ dt_parse_iso_zone_extended(const char *str, size_t len, int *op) {
     if (h > 23 || m > 59)
         return 0;
     o = sign * (h * 60 + m);
-#ifdef DT_STRICT_ISO8601
+#ifdef DT_PARSE_ISO_STRICT
     if (o == 0 && sign < 0)
         return 0;
 #endif
@@ -365,7 +367,7 @@ dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
     switch (p[4]) {
         case '-': /* 2012-359 | 2012-12-24 | 2012-W52-1 | 2012-Q4-85 */
             break;
-#ifndef DT_STRICT_ISO8601
+#ifndef DT_PARSE_ISO_STRICT
         case 'Q': /* 2012Q485 */
             if (n != 3)
                 return 0;
@@ -408,7 +410,7 @@ dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
 
     n = count_digits(p, 6, len);
     switch (p[5]) {
-#ifndef DT_STRICT_ISO8601
+#ifndef DT_PARSE_ISO_STRICT
         case 'Q': /* 2012-Q4-85 */
             if (n != 1 || p[7] != '-' || count_digits(p, 8, len) != 2)
                 return 0;
@@ -440,7 +442,7 @@ dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
     dt = dt_from_ymd(y, x, d);
     goto finish;
 
-#ifndef DT_STRICT_ISO8601
+#ifndef DT_PARSE_ISO_STRICT
   yqd:
     if (!dt_valid_yqd(y, x, d))
         return 0;
@@ -454,7 +456,7 @@ dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
     dt = dt_from_ywd(y, x, d);
 
   finish:
-#ifndef DT_PARSE_YEAR0
+#ifndef DT_PARSE_ISO_YEAR0
     if (y < 1)
         return 0;
 #endif
