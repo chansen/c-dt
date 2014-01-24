@@ -11,7 +11,7 @@ SOURCES = \
 	dt_dow.c \
 	dt_easter.c \
 	dt_navigate.c \
-	dt_parse.c  \
+	dt_parse_iso.c  \
 	dt_search.c \
 	dt_tm.c \
 	dt_util.c \
@@ -27,7 +27,7 @@ OBJECTS = \
 	dt_dow.o \
 	dt_easter.o \
 	dt_navigate.o \
-	dt_parse.o \
+	dt_parse_iso.o \
 	dt_search.o \
 	dt_tm.o \
 	dt_util.o \
@@ -61,7 +61,7 @@ HARNESS_OBJS = \
 	t/next_dow.o \
 	t/next_weekday.o \
 	t/nth_dow.o \
-	t/parse_string.o \
+	t/parse_iso_date.o \
 	t/prev_dow.o \
 	t/prev_weekday.o \
 	t/start_of_month.o \
@@ -108,7 +108,7 @@ HARNESS_EXES = \
 	t/delta_ymd.t \
 	t/delta_yqd.t \
 	t/delta_weekdays.t \
-	t/parse_string.t \
+	t/parse_iso_date.t \
 	t/add_workdays.t \
 	t/delta_workdays.t \
 	t/is_holiday.t \
@@ -148,8 +148,8 @@ dt_easter.o: \
 dt_navigate.o: \
 	dt_navigate.h dt_navigate.c
 
-dt_parse.o: \
-	dt_parse.h dt_parse.c
+dt_parse_iso.o: \
+	dt_parse_iso.h dt_parse_iso.c
 
 dt_search.o: \
 	dt_search.h dt_search.c
@@ -216,8 +216,8 @@ t/next_weekday.o: \
 	$(HARNESS_DEPS) t/next_weekday.c
 t/nth_dow.o: \
 	$(HARNESS_DEPS) t/nth_dow.c t/nth_dow.h
-t/parse_string.o: \
-	$(HARNESS_DEPS) t/parse_string.c
+t/parse_iso_date.o: \
+	$(HARNESS_DEPS) t/parse_iso_date.c
 t/prev_dow.o: \
 	$(HARNESS_DEPS) t/prev_dow.c
 t/prev_weekday.o: \

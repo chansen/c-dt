@@ -73,10 +73,10 @@ main() {
             dt_t got = 0, exp = 0;
             size_t glen;
 
-            glen = dt_parse_string(t.str, strlen(t.str), &got);
-            ok(glen == t.elen, "dt_parse_string(%s) size_t: %d", t.str, (int)glen);
+            glen = dt_parse_iso_date(t.str, strlen(t.str), &got);
+            ok(glen == t.elen, "dt_parse_iso_date(%s) size_t: %d", t.str, (int)glen);
             exp = dt_from_ymd(t.ey, t.em, t.ed);
-            cmp_ok(got, "==", exp, "dt_parse_string(%s)", t.str);
+            cmp_ok(got, "==", exp, "dt_parse_iso_date(%s)", t.str);
         }
     }
 
@@ -88,8 +88,8 @@ main() {
             dt_t got = 0;
             size_t glen;
 
-            glen = dt_parse_string(t.str, strlen(t.str), &got);
-            ok(glen == 0, "dt_parse_string(%s) size_t: %d", t.str, (int)glen);
+            glen = dt_parse_iso_date(t.str, strlen(t.str), &got);
+            ok(glen == 0, "dt_parse_iso_date(%s) size_t: %d", t.str, (int)glen);
         }
     }
     done_testing();

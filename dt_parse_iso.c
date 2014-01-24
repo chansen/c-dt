@@ -60,7 +60,7 @@ parse_number(const unsigned char * const p, size_t i, const size_t len) {
  *  2012Q485   2012-Q4-85   Quarter date
  */
 size_t
-dt_parse_string(const char *str, size_t len, dt_t *dtp) {
+dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
     const unsigned char *p;
     int y, x, d;
     size_t n;

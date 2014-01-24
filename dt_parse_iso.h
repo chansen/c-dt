@@ -32,7 +32,7 @@
 extern "C" {
 #endif
 
-size_t  dt_parse_string    (const char *str, size_t len, dt_t *dtp);
+size_t dt_parse_iso_date (const char *str, size_t len, dt_t *dtp);
 
 #ifdef __cplusplus
 }
