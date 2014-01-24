@@ -504,7 +504,7 @@ dt_parse_iso_time(const char *str, size_t len, int *sod, int *nsec) {
 
 size_t
 dt_parse_iso_zone(const char *str, size_t len, int *offset) {
-    if (len > 3 && str[2] == ':')
+    if (len > 3 && str[3] == ':')
         return dt_parse_iso_zone_extended(str, len, offset);
     else
         return dt_parse_iso_zone_basic(str, len, offset);
