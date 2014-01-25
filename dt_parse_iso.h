@@ -41,6 +41,7 @@ size_t dt_parse_iso_time_extended (const char *str, size_t len, int *sod, int *n
 size_t dt_parse_iso_zone          (const char *str, size_t len, int *offset);
 size_t dt_parse_iso_zone_basic    (const char *str, size_t len, int *offset);
 size_t dt_parse_iso_zone_extended (const char *str, size_t len, int *offset);
+size_t dt_parse_iso_zone_lenient  (const char *str, size_t len, int *offset);
 
 #ifdef __cplusplus
 }

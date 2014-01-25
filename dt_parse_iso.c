@@ -156,9 +156,6 @@ dt_parse_iso_zone_basic(const char *str, size_t len, int *op) {
 
     p = (const unsigned char *)str;
     switch (*p) {
-#ifndef DT_PARSE_ISO_STRICT
-        case 'z':
-#endif
         case 'Z':
             o = 0;
             n = 1;
@@ -279,9 +276,6 @@ dt_parse_iso_zone_extended(const char *str, size_t len, int *op) {
 
     p = (const unsigned char *)str;
     switch (*p) {
-#ifndef DT_PARSE_ISO_STRICT
-        case 'z':
-#endif
         case 'Z':
             o = 0;
             n = 1;
@@ -320,6 +314,93 @@ dt_parse_iso_zone_extended(const char *str, size_t len, int *op) {
     if (o == 0 && sign < 0)
         return 0;
 #endif
+
+ zulu:
+    if (op)
+        *op = o;
+    return n;
+}
+
+/*
+ *  z
+ *  Z
+ *  GMT
+ *  UTC
+ *  ±hh
+ *  ±hhmm
+ *  ±hh:mm
+ */
+
+size_t
+dt_parse_iso_zone_lenient(const char *str, size_t len, int *op) {
+    const unsigned char *p;
+    int o, h, m, sign;
+    size_t n;
+
+    if (len < 1)
+        return 0;
+
+    p = (const unsigned char *)str;
+    switch (*p) {
+        case 'z':
+        case 'Z':
+            o = 0;
+            n = 1;
+            goto zulu;
+        case 'G':
+            if (len < 3 || p[1] != 'M' || p[2] != 'T')
+                return 0;
+            o = 0;
+            n = 3;
+            goto zulu;
+        case 'U':
+            if (len < 3 || p[1] != 'T' || p[2] != 'C')
+                return 0;
+            o = 0;
+            n = 3;
+            goto zulu;
+        case '+':
+            sign = 1;
+            break;
+        case '-':
+            sign = -1;
+            break;
+        default:
+            return 0;
+    }
+
+    if (len < 3)
+        return 0;
+
+    n = count_digits(p, 1, len);
+    m = 0;
+    switch (n) {
+        case 2: /* ±hh */
+            h = parse_number(p, 1, 2);
+            n = 3;
+            break;
+        case 4: /* ±hhmm */
+            h = parse_number(p, 1, 2);
+            m = parse_number(p, 3, 2);
+            n = 5;
+            goto hm;
+        default:
+            return 0;
+    }
+    
+    if (len < 4 || p[3] != ':')
+        goto hm;
+
+    if (count_digits(p, 4, len) != 2)
+        return 0;
+
+    m = parse_number(p, 4, 2);
+    n = 6;
+
+ hm:
+    if (h > 23 || m > 59)
+        return 0;
+    o = sign * (h * 60 + m);
 
  zulu:
     if (op)
@@ -482,7 +563,7 @@ dt_parse_iso_time(const char *str, size_t len, int *sod, int *nsec) {
     if (len < 4)
         return 0;
 
-    if (str[0] == 'T' || str[0] == 't')
+    if (str[0] == 'T')
         r = 1, ++str, --len;
     else
         r = 0;
@@ -506,7 +587,7 @@ dt_parse_iso_time(const char *str, size_t len, int *sod, int *nsec) {
 
 size_t
 dt_parse_iso_zone(const char *str, size_t len, int *offset) {
-    if (len > 3 && str[3] == ':')
+    if (len < 3 || str[3] == ':')
         return dt_parse_iso_zone_extended(str, len, offset);
     else
         return dt_parse_iso_zone_basic(str, len, offset);

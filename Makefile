@@ -64,6 +64,7 @@ HARNESS_OBJS = \
 	t/parse_iso_date.o \
 	t/parse_iso_time.o \
 	t/parse_iso_zone.o \
+	t/parse_iso_zone_lenient.o \
 	t/prev_dow.o \
 	t/prev_weekday.o \
 	t/start_of_month.o \
@@ -113,6 +114,7 @@ HARNESS_EXES = \
 	t/parse_iso_date.t \
 	t/parse_iso_time.t \
 	t/parse_iso_zone.t \
+	t/parse_iso_zone_lenient.t \
 	t/add_workdays.t \
 	t/delta_workdays.t \
 	t/is_holiday.t \
@@ -226,6 +228,8 @@ t/parse_iso_time.o: \
 	$(HARNESS_DEPS) t/parse_iso_time.c
 t/parse_iso_zone.o: \
 	$(HARNESS_DEPS) t/parse_iso_zone.c
+t/parse_iso_zone_lenient.o: \
+	$(HARNESS_DEPS) t/parse_iso_zone_lenient.c
 t/prev_dow.o: \
 	$(HARNESS_DEPS) t/prev_dow.c
 t/prev_weekday.o: \
