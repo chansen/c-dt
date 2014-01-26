@@ -361,27 +361,23 @@ dt_parse_iso_zone_lenient(const char *str, size_t len, int *op) {
             if (len < 3 || p[1] != 'M' || p[2] != 'T')
                 return 0;
             if (len > 3 && (p[3] == '+' || p[3] == '-')) {
-                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, &o)))
+                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, op)))
                     return 0;
-                n += 3;
+                return n + 3;
             }
-            else {
-                o = 0;
-                n = 3;
-            }
+            o = 0;
+            n = 3;
             goto zulu;
         case 'U':
             if (len < 3 || p[1] != 'T' || p[2] != 'C')
                 return 0;
             if (len > 3 && (p[3] == '+' || p[3] == '-')) {
-                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, &o)))
+                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, op)))
                     return 0;
-                n += 3;
+                return n + 3;
             }
-            else {
-                o = 0;
-                n = 3;
-            }
+            o = 0;
+            n = 3;
             goto zulu;
         case '+':
             sign = 1;
