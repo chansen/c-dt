@@ -28,6 +28,7 @@ const struct good_t {
 const struct bad_t {
     const char *str;
 } bad[] = {
+    { ""        },
     { "0"       },
     { "+0"      },
     { "-0"      },

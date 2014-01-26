@@ -52,6 +52,8 @@ const struct bad_t {
     {"2012W12"      },  /* Incomplete */
     {"2012W1234"    },  /* Trailing digit */
     {"2012W-123"    },  /* Invalid */
+    {"2012-W12"     },  /* Incomplete */
+    {"2012-W12-12"  },  /* Trailing digit */
     {"2012U1234"    },  /* Invalid */
     {"2012-1234"    },  /* Invalid */
     {"2012-X1234"   },  /* Invalid */
