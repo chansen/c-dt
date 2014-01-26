@@ -325,9 +325,19 @@ dt_parse_iso_zone_extended(const char *str, size_t len, int *op) {
  *  z
  *  Z
  *  GMT
+ *  GMT±h
+ *  GMT±hhmm
+ *  GMT±h:mm
+ *  GMT±hh:mm
  *  UTC
+ *  UTC±h
+ *  UTC±hhmm
+ *  UTC±h:mm
+ *  UTC±hh:mm
+ *  ±h
  *  ±hh
  *  ±hhmm
+ *  ±h:mm
  *  ±hh:mm
  */
 
@@ -350,14 +360,28 @@ dt_parse_iso_zone_lenient(const char *str, size_t len, int *op) {
         case 'G':
             if (len < 3 || p[1] != 'M' || p[2] != 'T')
                 return 0;
-            o = 0;
-            n = 3;
+            if (len > 3 && (p[3] == '+' || p[3] == '-')) {
+                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, &o)))
+                    return 0;
+                n += 3;
+            }
+            else {
+                o = 0;
+                n = 3;
+            }
             goto zulu;
         case 'U':
             if (len < 3 || p[1] != 'T' || p[2] != 'C')
                 return 0;
-            o = 0;
-            n = 3;
+            if (len > 3 && (p[3] == '+' || p[3] == '-')) {
+                if (!(n = dt_parse_iso_zone_lenient(str + 3, len - 3, &o)))
+                    return 0;
+                n += 3;
+            }
+            else {
+                o = 0;
+                n = 3;
+            }
             goto zulu;
         case '+':
             sign = 1;
@@ -369,12 +393,16 @@ dt_parse_iso_zone_lenient(const char *str, size_t len, int *op) {
             return 0;
     }
 
-    if (len < 3)
+    if (len < 2)
         return 0;
 
     n = count_digits(p, 1, len);
     m = 0;
     switch (n) {
+        case 1: /* ±h */
+            h = parse_number(p, 1, 1);
+            n = 2;
+            break;
         case 2: /* ±hh */
             h = parse_number(p, 1, 2);
             n = 3;
@@ -388,14 +416,14 @@ dt_parse_iso_zone_lenient(const char *str, size_t len, int *op) {
             return 0;
     }
     
-    if (len < 4 || p[3] != ':')
+    if (len < n + 1 || p[n] != ':')
         goto hm;
 
-    if (count_digits(p, 4, len) != 2)
+    if (count_digits(p, ++n, len) != 2)
         return 0;
 
-    m = parse_number(p, 4, 2);
-    n = 6;
+    m = parse_number(p, n, 2);
+    n += 2;
 
  hm:
     if (h > 23 || m > 59)
