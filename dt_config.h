@@ -31,7 +31,7 @@
 #endif
 
 #if !defined(__cplusplus) && !defined(__bool_true_false_are_defined)
-#  typedef char  _Bool;
+   typedef char  _Bool;
 #  define  bool  _Bool
 #  define  true  1
 #  define  false 0
