@@ -23,22 +23,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __DT_H__
-#define __DT_H__
-#include "dt_accessor.h"
-#include "dt_adjust.h"
-#include "dt_arithmetic.h"
+#include <stddef.h>
 #include "dt_core.h"
-#include "dt_dow.h"
-#include "dt_easter.h"
-#include "dt_length.h"
-#include "dt_navigate.h"
-#include "dt_parse_iso.h"
-#include "dt_search.h"
-#include "dt_tm.h"
 #include "dt_util.h"
-#include "dt_valid.h"
-#include "dt_weekday.h"
-#include "dt_workday.h"
-#endif
+
+int
+dt_length_of_year(dt_t dt) {
+    int y;
+    dt_to_yd(dt, &y, NULL);
+    return dt_days_in_year(y);
+}
+
+int
+dt_length_of_quarter(dt_t dt) {
+    int y, q;
+    dt_to_yqd(dt, &y, &q, NULL);
+    return dt_days_in_quarter(y, q);
+}
+
+int
+dt_length_of_month(dt_t dt) {
+    int y, m;
+    dt_to_ymd(dt, &y, &m, NULL);
+    return dt_days_in_month(y, m);
+}
 

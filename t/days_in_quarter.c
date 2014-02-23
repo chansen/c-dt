@@ -32,6 +32,11 @@ main() {
             int got = dt_days_in_quarter(t.y, t.q);
             cmp_ok(got, "==", t.d, "dt_days_in_quarter(%d, %d)", t.y, t.q);
         }
+
+        if (t.d != 0) {
+            int got = dt_length_of_quarter(dt_from_yqd(t.y, t.q, 1));
+            cmp_ok(got, "==", t.d, "dt_length_of_quarter(%.4d-Q%d-01)", t.y, t.q);
+        }
     }
     done_testing();
 }

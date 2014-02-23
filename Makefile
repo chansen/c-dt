@@ -10,6 +10,7 @@ SOURCES = \
 	dt_core.c \
 	dt_dow.c \
 	dt_easter.c \
+	dt_length.c \
 	dt_navigate.c \
 	dt_parse_iso.c  \
 	dt_search.c \
@@ -26,6 +27,7 @@ OBJECTS = \
 	dt_core.o \
 	dt_dow.o \
 	dt_easter.o \
+	dt_length.o \
 	dt_navigate.o \
 	dt_parse_iso.o \
 	dt_search.o \
@@ -150,6 +152,9 @@ dt_dow.o: \
 
 dt_easter.o: \
 	dt_easter.h dt_easter.c
+
+dt_length.o: \
+	dt_length.h dt_length.c
 
 dt_navigate.o: \
 	dt_navigate.h dt_navigate.c

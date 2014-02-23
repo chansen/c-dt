@@ -48,6 +48,11 @@ main() {
             int got = dt_days_in_month(t.y, t.m);
             cmp_ok(got, "==", t.d, "dt_days_in_month(%d, %d)", t.y, t.m);
         }
+
+        if (t.d != 0) {
+            int got = dt_length_of_month(dt_from_ymd(t.y, t.m, 1));
+            cmp_ok(got, "==", t.d, "dt_length_of_month(%.4d-%.2d-01)", t.y, t.m);
+        }
     }
     done_testing();
 }

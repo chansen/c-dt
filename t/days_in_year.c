@@ -38,6 +38,11 @@ main() {
             int got = dt_leap_year(t.y);
             cmp_ok(got, "==", (int)t.leap, "dt_leap_year(%d)", t.y);
         }
+
+        {
+            int got = dt_length_of_year(dt_from_yd(t.y, 1));
+            cmp_ok(got, "==", 365 + t.leap, "dt_length_of_year(%.4d-001)", t.y);
+        }
     }
     done_testing();
 }
