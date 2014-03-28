@@ -62,6 +62,7 @@ dt_add_weekdays(dt_t dt, int delta) {
 
     if (delta > 0) {
         static const int T[35] = {
+            /*       0 1 2 3 4  (+n days) */
             /* M */  0,1,2,3,4,
             /* T */  0,1,2,3,6,
             /* W */  0,1,2,5,6,
@@ -74,6 +75,7 @@ dt_add_weekdays(dt_t dt, int delta) {
     }
     else {
         static const int T[35] = {
+            /*       0 1 2 3 4  (-n days) */
             /* M */  0,3,4,5,6,
             /* T */  0,1,4,5,6,
             /* W */  0,1,2,5,6,
@@ -89,7 +91,7 @@ dt_add_weekdays(dt_t dt, int delta) {
 int
 dt_delta_weekdays(dt_t dt1, dt_t dt2, bool inclusive) {
     static const int T[98] = {
-        /*      M T W T F S S  exclusive end */
+        /*      M T W T F S S  (exclusive) */
         /* M */ 0,1,2,3,4,4,4,
         /* T */ 4,0,1,2,3,3,3,
         /* W */ 3,4,0,1,2,2,2,
@@ -97,7 +99,7 @@ dt_delta_weekdays(dt_t dt1, dt_t dt2, bool inclusive) {
         /* F */ 1,2,3,4,0,0,0,
         /* S */ 0,1,2,3,4,0,0,
         /* S */ 0,1,2,3,4,5,0,
-        /*      M T W T F S S  inclusive end */
+        /*      M T W T F S S  (inclusive) */
         /* M */ 1,2,3,4,5,5,5,
         /* T */ 5,1,2,3,4,4,4,
         /* W */ 4,5,1,2,3,3,3,

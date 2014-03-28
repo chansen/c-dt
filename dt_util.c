@@ -63,7 +63,7 @@ dt_weeks_in_year(int year) {
     if (year < 1)
         year += 400 * (1 - year/400);
     y = year - 1;
-    d = (y + y/4 - y/100 + y/400) % 7; /* Mon = 0, ... Sun = 6 */
+    d = (y + y/4 - y/100 + y/400) % 7; /* [0=Mon, 6=Sun]*/
     return (d == 3 || (d == 2 && dt_leap_year(year))) ? 53 : 52;
 }
 
