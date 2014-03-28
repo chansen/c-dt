@@ -189,3 +189,39 @@ dt_delta_workdays(dt_t dt1, dt_t dt2, bool inclusive, const dt_t *holidays, size
     return delta;
 }
 
+dt_t
+dt_roll_workday(dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n) {
+    dt_t start;
+    int y, m;
+    
+    start = dt;
+    switch (convention) {
+        case DT_UNADJUSTED:
+            break;
+        case DT_FOLLOWING:
+            dt = dt_next_workday(dt, true, holidays, n);
+            break;
+        case DT_MODIFIED_FOLLOWING:
+            dt = dt_next_workday(dt, true, holidays, n);
+            if (dt != start) {
+                dt_to_ymd(start, &y, &m, NULL);
+                if (dt > dt_from_ymd(y, m + 1, 0))
+                    dt = dt_prev_workday(start, false, holidays, n);
+            }
+            break;
+        case DT_PRECEDING:
+            dt = dt_prev_workday(dt, true, holidays, n);
+            break;
+        case DT_MODIFIED_PRECEDING:
+            dt = dt_prev_workday(dt, true, holidays, n);
+            if (dt != start) {
+                dt_to_ymd(start, &y, &m, NULL);
+                if (dt < dt_from_ymd(y, m, 1))
+                    dt = dt_next_workday(start, false, holidays, n);
+            }
+            break;
+    }
+    return dt;
+}
+
+

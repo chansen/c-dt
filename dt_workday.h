@@ -32,6 +32,14 @@
 extern "C" {
 #endif
 
+typedef enum {
+    DT_UNADJUSTED,
+    DT_FOLLOWING,
+    DT_MODIFIED_FOLLOWING,
+    DT_PRECEDING,
+    DT_MODIFIED_PRECEDING,
+} dt_bdc_t;
+
 dt_t    dt_from_nth_workday_in_year     (int y, int nth, const dt_t *holidays, size_t n);
 dt_t    dt_from_nth_workday_in_quarter  (int y, int q, int nth, const dt_t *holidays, size_t n);
 dt_t    dt_from_nth_workday_in_month    (int y, int m, int nth, const dt_t *holidays, size_t n);
@@ -49,6 +57,8 @@ dt_t    dt_prev_workday                 (dt_t dt, bool current, const dt_t *holi
 dt_t    dt_add_workdays                 (dt_t dt, int delta, const dt_t *holidays, size_t n);
 
 int     dt_delta_workdays               (dt_t start, dt_t end, bool inclusive, const dt_t *holidays, size_t n);
+
+dt_t    dt_roll_workday                 (dt_t dt, dt_bdc_t convention, const dt_t *holidays, size_t n);
 
 #ifdef __cplusplus
 }

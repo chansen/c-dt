@@ -26,7 +26,6 @@
 #ifndef __DT_H__
 #define __DT_H__
 #include "dt_accessor.h"
-#include "dt_adjust.h"
 #include "dt_arithmetic.h"
 #include "dt_core.h"
 #include "dt_dow.h"
