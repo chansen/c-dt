@@ -26,19 +26,28 @@
 #ifndef __DT_WEEKDAY_H__
 #define __DT_WEEKDAY_H__
 #include "dt_core.h"
+#include "dt_weekday.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-bool    dt_is_weekday      (dt_t dt);
+dt_t    dt_from_nth_weekday_in_year     (int y, int nth);
+dt_t    dt_from_nth_weekday_in_quarter  (int y, int q, int nth);
+dt_t    dt_from_nth_weekday_in_month    (int y, int m, int nth);
 
-dt_t    dt_next_weekday    (dt_t dt, bool current);
-dt_t    dt_prev_weekday    (dt_t dt, bool current);
+dt_t    dt_nth_weekday_in_year          (dt_t dt, int nth);
+dt_t    dt_nth_weekday_in_quarter       (dt_t dt, int nth);
+dt_t    dt_nth_weekday_in_month         (dt_t dt, int nth);
 
-dt_t    dt_add_weekdays    (dt_t dt, int delta);
+bool    dt_is_weekday                   (dt_t dt);
 
-int     dt_delta_weekdays  (dt_t start, dt_t end, bool inclusive);
+dt_t    dt_next_weekday                 (dt_t dt, bool current);
+dt_t    dt_prev_weekday                 (dt_t dt, bool current);
+
+dt_t    dt_add_weekdays                 (dt_t dt, int delta);
+
+int     dt_delta_weekdays               (dt_t start, dt_t end, bool inclusive);
 
 #ifdef __cplusplus
 }

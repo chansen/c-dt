@@ -23,7 +23,81 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <stddef.h>
 #include "dt_core.h"
+#include "dt_weekday.h"
+
+dt_t
+dt_from_nth_weekday_in_year(int y, int nth) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_weekdays(dt_from_yd(y, 0), nth);
+        if (nth <= 52 * 5 || dt <= dt_from_yd(y + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_weekdays(dt_from_yd(y + 1, 1), nth);
+        if (nth >= -52 * 5 || dt >= dt_from_yd(y, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_from_nth_weekday_in_quarter(int y, int q, int nth) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_weekdays(dt_from_yqd(y, q, 0), nth);
+        if (nth <= 12 * 5 || dt <= dt_from_yqd(y, q + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_weekdays(dt_from_yqd(y, q + 1, 1), nth);
+        if (nth >= -12 * 5 || dt >= dt_from_yqd(y, q, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_from_nth_weekday_in_month(int y, int m, int nth) {
+    dt_t dt;
+
+    if (nth > 0) {
+        dt = dt_add_weekdays(dt_from_ymd(y, m, 0), nth);
+        if (nth <= 4 * 5 || dt <= dt_from_ymd(y, m + 1, 0))
+            return dt;
+    }
+    else if (nth < 0) {
+        dt = dt_add_weekdays(dt_from_ymd(y, m + 1, 1), nth);
+        if (nth >= -4 * 5 || dt >= dt_from_ymd(y, m, 1))
+            return dt;
+    }
+    return 0;
+}
+
+dt_t
+dt_nth_weekday_in_year(dt_t dt, int nth) {
+    int y;
+    dt_to_yd(dt, &y, NULL);
+    return dt_from_nth_weekday_in_year(y, nth);
+}
+
+dt_t
+dt_nth_weekday_in_quarter(dt_t dt, int nth) {
+    int y, q;
+    dt_to_yqd(dt, &y, &q, NULL);
+    return dt_from_nth_weekday_in_quarter(y, q, nth);
+}
+
+dt_t
+dt_nth_weekday_in_month(dt_t dt, int nth) {
+    int y, m;
+    dt_to_ymd(dt, &y, &m, NULL);
+    return dt_from_nth_weekday_in_month(y, m, nth);
+}
 
 bool
 dt_is_weekday(dt_t dt) {

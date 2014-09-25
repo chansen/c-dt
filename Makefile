@@ -60,6 +60,7 @@ HARNESS_OBJS = \
 	t/next_dow.o \
 	t/next_weekday.o \
 	t/nth_dow.o \
+	t/nth_weekday_in_month.o \
 	t/parse_iso_date.o \
 	t/parse_iso_time.o \
 	t/parse_iso_zone.o \
@@ -102,6 +103,7 @@ HARNESS_EXES = \
 	t/prev_dow.t \
 	t/next_weekday.t \
 	t/prev_weekday.t \
+	t/nth_weekday_in_month.t \
 	t/nth_dow.t \
 	t/add_years.t \
 	t/add_quarters.t \
@@ -220,6 +222,8 @@ t/next_weekday.o: \
 	$(HARNESS_DEPS) t/next_weekday.c
 t/nth_dow.o: \
 	$(HARNESS_DEPS) t/nth_dow.c t/nth_dow.h
+t/nth_weekday_in_month.o: \
+	$(HARNESS_DEPS) t/nth_weekday_in_month.c
 t/roll_workday.o: \
 	$(HARNESS_DEPS) t/roll_workday.c
 t/parse_iso_date.o: \
