@@ -43,12 +43,18 @@ main() {
             dt_t exp = dt_from_ymd(t.ey, t.em, t.ed);
             cmp_ok(got, "==", exp, "dt_from_nth_weekday_in_month(%d, %d, %d)", t.y, t.m, t.nth);
         }
-        
+
         {
             dt_t src = dt_from_ymd(t.y, t.m, 1);
             dt_t got = dt_nth_weekday_in_month(src, t.nth);
             dt_t exp = dt_from_ymd(t.ey, t.em, t.ed);
             cmp_ok(got, "==", exp, "dt_nth_weekday_in_month(%d, %d)", src, t.nth);
+        }
+
+        {
+            dt_t src = dt_from_nth_weekday_in_month(t.y, t.m, t.nth);
+            int  got = dt_weekday_in_month(src, t.nth < 0);
+            cmp_ok(got, "==", t.nth, "dt_weekday_in_month(%d, %s)", src, (t.nth < 0 ? "true" : "false"));
         }
 
     }

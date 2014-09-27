@@ -36,11 +36,11 @@ OBJECTS = \
 	dt_workday.o
 
 HARNESS_OBJS = \
-	t/add_years.o \
-	t/add_quarters.o \
 	t/add_months.o \
+	t/add_quarters.o \
 	t/add_weekdays.o \
 	t/add_workdays.o \
+	t/add_years.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
 	t/days_in_year.o \
@@ -61,6 +61,8 @@ HARNESS_OBJS = \
 	t/next_weekday.o \
 	t/nth_dow.o \
 	t/nth_weekday_in_month.o \
+	t/nth_weekday_in_quarter.o \
+	t/nth_weekday_in_year.o \
 	t/parse_iso_date.o \
 	t/parse_iso_time.o \
 	t/parse_iso_zone.o \
@@ -78,6 +80,7 @@ HARNESS_OBJS = \
 	t/ymd_epochs.o \
 	t/yqd.o \
 	t/ywd.o \
+
 
 HARNESS_EXES = \
 	t/yd.t \
@@ -103,6 +106,8 @@ HARNESS_EXES = \
 	t/prev_dow.t \
 	t/next_weekday.t \
 	t/prev_weekday.t \
+	t/nth_weekday_in_year.t \
+	t/nth_weekday_in_quarter.t \
 	t/nth_weekday_in_month.t \
 	t/nth_dow.t \
 	t/add_years.t \
@@ -222,6 +227,8 @@ t/next_weekday.o: \
 	$(HARNESS_DEPS) t/next_weekday.c
 t/nth_dow.o: \
 	$(HARNESS_DEPS) t/nth_dow.c t/nth_dow.h
+t/nth_weekday_in_quarter.o: \
+	$(HARNESS_DEPS) t/nth_weekday_in_quarter.c
 t/nth_weekday_in_month.o: \
 	$(HARNESS_DEPS) t/nth_weekday_in_month.c
 t/roll_workday.o: \

@@ -40,6 +40,10 @@ dt_t    dt_nth_weekday_in_year          (dt_t dt, int nth);
 dt_t    dt_nth_weekday_in_quarter       (dt_t dt, int nth);
 dt_t    dt_nth_weekday_in_month         (dt_t dt, int nth);
 
+int     dt_weekday_in_year              (dt_t dt, bool end);
+int     dt_weekday_in_quarter           (dt_t dt, bool end);
+int     dt_weekday_in_month             (dt_t dt, bool end);
+
 bool    dt_is_weekday                   (dt_t dt);
 
 dt_t    dt_next_weekday                 (dt_t dt, bool current);

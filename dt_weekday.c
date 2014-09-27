@@ -99,6 +99,63 @@ dt_nth_weekday_in_month(dt_t dt, int nth) {
     return dt_from_nth_weekday_in_month(y, m, nth);
 }
 
+int
+dt_weekday_in_year(dt_t dt, bool end) {
+    int y;
+    dt_t start;
+
+    if (!dt_is_weekday(dt))
+        return 0;
+
+    dt_to_yd(dt, &y, NULL);
+    if (!end)
+        start = dt_from_yd(y, 1);
+    else {
+        start = dt_from_yd(y + 1, 0);
+        if (start == dt)
+            return -1;
+    }
+    return dt_delta_weekdays(start, dt, true);
+}
+
+int
+dt_weekday_in_quarter(dt_t dt, bool end) {
+    int y, q;
+    dt_t start;
+
+    if (!dt_is_weekday(dt))
+        return 0;
+
+    dt_to_yqd(dt, &y, &q, NULL);
+    if (!end)
+        start = dt_from_yqd(y, q, 1);
+    else {
+        start = dt_from_yqd(y, q + 1, 0);
+        if (start == dt)
+            return -1;
+    }
+    return dt_delta_weekdays(start, dt, true);
+}
+
+int
+dt_weekday_in_month(dt_t dt, bool end) {
+    int y, m;
+    dt_t start;
+
+    if (!dt_is_weekday(dt))
+        return 0;
+
+    dt_to_ymd(dt, &y, &m, NULL);
+    if (!end)
+        start = dt_from_ymd(y, m, 1);
+    else {
+        start = dt_from_ymd(y, m + 1, 0);
+        if (start == dt)
+            return -1;
+    }
+    return dt_delta_weekdays(start, dt, true);
+}
+
 bool
 dt_is_weekday(dt_t dt) {
     return (dt_dow(dt) <= DT_FRIDAY);
