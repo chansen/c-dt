@@ -29,11 +29,11 @@
 
 static size_t
 count_digits(const unsigned char * const p, size_t i, const size_t len) {
-    size_t n = i;
+    const size_t n = i;
 
     for(; i < len; i++) {
-        const unsigned char c = p[i];
-        if (c < '0' || c > '9')
+        const unsigned char c = p[i] - '0';
+        if (c > 9)
             break;
     }
     return i - n;
@@ -57,17 +57,8 @@ parse_number(const unsigned char * const p, size_t i, const size_t len) {
     return v;
 }
 
-static const int pow_10[] = {
-    1,
-    10,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    10000000,
-    100000000,
-    1000000000,
+static const int pow_10[10] = {
+    1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000,
 };
 
 /*
@@ -89,6 +80,7 @@ parse_fraction_digits(const unsigned char *p, size_t i, size_t len, int *fp) {
 }
 
 /*
+ *  hh
  *  hhmm
  *  hhmmss
  *  hhmmss.fffffffff
@@ -103,8 +95,11 @@ dt_parse_iso_time_basic(const char *str, size_t len, int *sp, int *fp) {
 
     p = (const unsigned char *)str;
     n = count_digits(p, 0, len);
-    s = f = 0;
+    m = s = f = 0;
     switch (n) {
+        case 2: /* hh */
+            h = parse_number(p, 0, 2);
+            goto hms;
         case 4: /* hhmm */
             h = parse_number(p, 0, 2);
             m = parse_number(p, 2, 2);
@@ -204,6 +199,7 @@ dt_parse_iso_zone_basic(const char *str, size_t len, int *op) {
 }
 
 /*
+ *  hh
  *  hh:mm
  *  hh:mm:ss
  *  hh:mm:ss.fffffffff
@@ -216,17 +212,21 @@ dt_parse_iso_time_extended(const char *str, size_t len, int *sp, int *fp) {
     int h, m, s, f;
     size_t n;
 
-    if (len < 5)
-        return 0;
-
     p = (const unsigned char *)str;
-    if (count_digits(p, 0, len) != 2 || p[2] != ':' ||
-        count_digits(p, 3, len) != 2)
+    if (count_digits(p, 0, len) != 2)
         return 0;
 
     h = parse_number(p, 0, 2);
+    m = s = f = 0;
+    n = 2;
+    
+    if (len < 3 || p[2] != ':')
+        goto hms;
+
+    if (count_digits(p, 3, len) != 2)
+        return 0;
+
     m = parse_number(p, 3, 2);
-    s = f = 0;
     n = 5;
 
     if (len < 6 || p[5] != ':')
@@ -572,6 +572,7 @@ dt_parse_iso_date(const char *str, size_t len, dt_t *dtp) {
 
 /*
  *  Basic               Extended
+ *  T12                 N/A
  *  T1230               T12:30
  *  T123045             T12:30:45
  *  T123045.123456789   T12:30:45.123456789
@@ -584,7 +585,7 @@ size_t
 dt_parse_iso_time(const char *str, size_t len, int *sod, int *nsec) {
     size_t n, r;
 
-    if (len < 4)
+    if (len < 2)
         return 0;
 
     if (str[0] == 'T')
@@ -592,7 +593,7 @@ dt_parse_iso_time(const char *str, size_t len, int *sod, int *nsec) {
     else
         r = 0;
 
-    if (str[2] == ':')
+    if (len < 2 || str[2] == ':')
         n = dt_parse_iso_time_extended(str, len, sod, nsec);
     else
         n = dt_parse_iso_time_basic(str, len, sod, nsec);
