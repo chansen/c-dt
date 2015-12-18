@@ -707,7 +707,7 @@ Christian Hansen <chansen@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2012-2014 Christian Hansen
+Copyright (c) 2012-2015 Christian Hansen
 
 This is free software; you can redistribute it and/or modify it under the terms 
 of The BSD 2-Clause License.

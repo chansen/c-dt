@@ -6,6 +6,7 @@ LDFLAGS += -lc $(DLDFLAGS)
 SOURCES = \
 	dt_accessor.c \
 	dt_arithmetic.c \
+	dt_char.c \
 	dt_core.c \
 	dt_dow.c \
 	dt_easter.c \
@@ -17,11 +18,13 @@ SOURCES = \
 	dt_util.c \
 	dt_valid.c \
 	dt_weekday.c \
-	dt_workday.c
+	dt_workday.c \
+	dt_zone.c
 
 OBJECTS = \
 	dt_accessor.o \
 	dt_arithmetic.o \
+	dt_char.o \
 	dt_core.o \
 	dt_dow.o \
 	dt_easter.o \
@@ -33,7 +36,8 @@ OBJECTS = \
 	dt_util.o \
 	dt_valid.o \
 	dt_weekday.o \
-	dt_workday.o
+	dt_workday.o \
+	dt_zone.o
 
 HARNESS_OBJS = \
 	t/add_months.o \
@@ -146,6 +150,9 @@ dt_accessor.o: \
 dt_arithmetic.o: \
 	dt_arithmetic.h dt_arithmetic.c
 
+dt_char.o: \
+	dt_char.h dt_char.c
+
 dt_core.o: \
 	dt_config.h dt_core.h dt_core.c
 
@@ -175,6 +182,9 @@ dt_weekday.o: \
 
 dt_workday.o: \
 	dt_workday.h dt_workday.c
+
+dt_zone.o: \
+	dt_zone.h dt_zone.c dt_zone_entries.h
 
 t/tap.o: \
 	t/tap.h t/tap.c
