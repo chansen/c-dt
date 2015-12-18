@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2014 Christian Hansen <chansen@cpan.org>
+ * Copyright (c) 2012-2015 Christian Hansen <chansen@cpan.org>
  * <https://github.com/chansen/c-dt>
  * All rights reserved.
  * 
