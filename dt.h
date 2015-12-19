@@ -27,6 +27,7 @@
 #define __DT_H__
 #include "dt_accessor.h"
 #include "dt_arithmetic.h"
+#include "dt_char.h"
 #include "dt_core.h"
 #include "dt_dow.h"
 #include "dt_easter.h"
@@ -39,5 +40,6 @@
 #include "dt_valid.h"
 #include "dt_weekday.h"
 #include "dt_workday.h"
+#include "dt_zone.h"
 #endif
 
