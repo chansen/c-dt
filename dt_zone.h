@@ -27,6 +27,7 @@
 #define __DT_ZONE_H__
 #include <stddef.h>
 #include "dt_core.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
