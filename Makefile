@@ -45,6 +45,7 @@ HARNESS_OBJS = \
 	t/add_weekdays.o \
 	t/add_workdays.o \
 	t/add_years.o \
+	t/char.o \
 	t/days_in_month.o \
 	t/days_in_quarter.o \
 	t/days_in_year.o \
@@ -84,7 +85,7 @@ HARNESS_OBJS = \
 	t/ymd_epochs.o \
 	t/yqd.o \
 	t/ywd.o \
-
+	t/zone.o
 
 HARNESS_EXES = \
 	t/yd.t \
@@ -130,7 +131,9 @@ HARNESS_EXES = \
 	t/delta_workdays.t \
 	t/is_holiday.t \
 	t/is_workday.t \
-	t/roll_workday.t
+	t/roll_workday.t \
+	t/char.t \
+	t/zone.t
 
 HARNESS_DEPS = \
 	$(OBJECTS) \
@@ -199,6 +202,8 @@ t/add_weekdays.o: \
 	$(HARNESS_DEPS) t/add_weekdays.c
 t/add_workdays.o: \
 	$(HARNESS_DEPS) t/add_workdays.c
+t/char.o: \
+	$(HARNESS_DEPS) t/char.c
 t/days_in_month.o: \
 	$(HARNESS_DEPS) t/days_in_month.c
 t/days_in_quarter.o: \
@@ -275,6 +280,8 @@ t/yqd.o: \
 	$(HARNESS_DEPS) t/yqd.c
 t/ywd.o: \
 	$(HARNESS_DEPS) t/ywd.c t/ywd.h
+t/zone.o: \
+	$(HARNESS_DEPS) t/zone.c
 
 test: $(HARNESS_EXES) 
 	@prove $(HARNESS_EXES)
