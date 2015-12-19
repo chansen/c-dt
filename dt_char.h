@@ -46,7 +46,7 @@ enum {
     DT_CHAR_ALPHA = DT_CHAR_UPPER  | DT_CHAR_LOWER,
     DT_CHAR_ALNUM = DT_CHAR_ALPHA  | DT_CHAR_DIGIT,
     DT_CHAR_SPACE = DT_CHAR_HSPACE | DT_CHAR_VSPACE,
-    DT_CHAR_BLANK = DT_CHAR_VSPACE,
+    DT_CHAR_BLANK = DT_CHAR_HSPACE,
 };
 
 bool            dt_char_is_of       (unsigned char c, unsigned char mask);

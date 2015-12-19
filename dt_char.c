@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <stddef.h>
 #include "dt_char.h"
 
 enum {
@@ -200,7 +201,7 @@ dt_char_span(const unsigned char *src, size_t len, unsigned char mask) {
 
     for (n = 0; n < len; n++) {
         const unsigned char c = src[n];
-        if ((dt_char_table[c] & mask) != 0)
+        if ((dt_char_table[c] & mask) == 0)
             break;
     }
     return n;
@@ -218,7 +219,7 @@ dt_char_span_until(const unsigned char *src, size_t len, unsigned char mask) {
 
     for (n = 0; n < len; n++) {
         const unsigned char c = src[n];
-        if ((dt_char_table[c] & mask) == 0)
+        if ((dt_char_table[c] & mask) != 0)
             break;
     }
     return n;
